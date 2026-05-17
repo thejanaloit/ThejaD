@@ -21,7 +21,7 @@
 4. [Delivery workflow](#delivery-workflow)
 5. [Install](#install)
 6. [Multi-MCP setup](#multi-mcp-setup)
-7. [Integrated GitHub projects](#integrated-github-projects)
+7. [Powered capabilities](#powered-capabilities)
 8. [60+ AI orchestration](#60-ai-orchestration)
 9. [Memory](#memory)
 10. [Multi-user development (no collisions)](#multi-user-development-no-collisions)
@@ -45,12 +45,12 @@
 
 - A **virtual engineering team** (Thejana, Lahiru, Geesara, Sachini, Security, Backend)
 - **1000+ MCP tools** (core banking, swarm/Ruflo-class, Graphify, device scan, coordination)
-- **Vendor skills** from Superpowers, Claude-mem, Graphify, security-review, NotebookLM
+- **Branded capabilities** — Superpowers ThejaD, Graphify ThejaD, Claude-mem ThejaD, Ruflo ThejaD, and more (all integrated, not listed as external repos)
 - **Non-colliding multi-agent** workflows (Cursor + Antigravity + Copilot + humans)
 - **Token-efficient** patterns (scope guard, Graphify, doc resources, 80% default tier)
 - **Offline** drafting via Ollama
 
-Use it beside **[Ruflo](https://github.com/ruvnet/ruflo)** (272+ swarm tools) in the same Cursor workspace.
+Use it beside **Ruflo ThejaD** (272+ swarm tools, parallel MCP) in the same Cursor workspace.
 
 ---
 
@@ -91,7 +91,7 @@ team_consult  →  role: thejana | lahiru | geesara | sachini | security | backe
 | **Lanes** | A, B, C, D (all lanes — merge authority) |
 | **Focus** | Architecture, full-stack, BFF, final merge, MCP orchestration, multi-agent speed |
 | **MCP tools** | `thejana_supreme_plan`, `engineering_team_roster`, `swarm_init`, `coordination_claim`, `coordination_release` |
-| **Plugins** | Superpowers, code-review, claude-mem, graphify, ruflo |
+| **Plugins** | Superpowers ThejaD, Code review ThejaD, Claude-mem ThejaD, Graphify ThejaD, Ruflo ThejaD |
 | **Responsibilities** | Own delivery plan; claim/release coordination; run smokes gate before merge; diary + handoff |
 
 ---
@@ -104,7 +104,7 @@ team_consult  →  role: thejana | lahiru | geesara | sachini | security | backe
 | **Lanes** | **A** — `apps/web`, UI components, design tokens |
 | **Focus** | FusionX / Stitch parity, `SCREEN_ROUTE_MAP`, accessibility, i18n, shell nav |
 | **MCP tools** | `lahiru_ui_review`, `figma_context`, `team_consult` role=`lahiru` |
-| **Plugins** | `frontend-design@claude-plugins-official`, Superpowers, Graphify |
+| **Plugins** | Frontend design ThejaD, Superpowers ThejaD, Graphify ThejaD |
 | **Responsibilities** | Route ↔ PNG ↔ story binding; middleware + `WorkflowEntryGate` alignment |
 
 ---
@@ -117,7 +117,7 @@ team_consult  →  role: thejana | lahiru | geesara | sachini | security | backe
 | **Lanes** | **E** — test gates |
 | **Focus** | Smoke scripts, regression, browser E2E, `typecheck:web` |
 | **MCP tools** | `geesara_qa_plan`, `geesara_run_smokes` (full unlock), `smoke_hint` |
-| **Plugins** | code-review, Superpowers |
+| **Plugins** | Code review ThejaD, Superpowers ThejaD |
 | **Responsibilities** | Phase1 / accounts / payments smokes; block merge on red CI |
 
 **Smoke commands (repo root):**
@@ -140,7 +140,7 @@ npm run typecheck:web
 | **Lanes** | **E** — stories & traceability |
 | **Focus** | LOLCDL stories, acceptance criteria, route/API binding |
 | **MCP tools** | `sachini_story_draft`, `story_lookup`, `scope_guard` |
-| **Plugins** | Superpowers (`/brainstorm`, `/write-plan`) |
+| **Plugins** | Superpowers ThejaD (`/brainstorm`, `/write-plan`) |
 | **Responsibilities** | Story before code; traceability in `data/stories-traceability.json` |
 
 ---
@@ -153,7 +153,7 @@ npm run typecheck:web
 | **Lanes** | **D** — security-sensitive paths |
 | **Focus** | JWT, BFF cookies, OWASP, dev vs prod flags, PR review |
 | **MCP tools** | `security_white_hat_scan`, `scope_guard`, `limits_check` |
-| **Plugins** | [claude-code-security-review](https://github.com/anthropics/claude-code-security-review), code-review |
+| **Plugins** | Security review ThejaD, Code review ThejaD |
 | **Responsibilities** | `/lolc-security-review`; GitHub Action `lolc-security-review.yml` |
 
 ---
@@ -166,7 +166,7 @@ npm run typecheck:web
 | **Lanes** | **C**, **D** — `services/*`, Kong, migrations |
 | **Focus** | Nest modules, OpenAPI, bank-adapter, Kafka (where enabled) |
 | **MCP tools** | `full_stack_map`, `smoke_hint` |
-| **Plugins** | code-review, Superpowers, Graphify |
+| **Plugins** | Code review ThejaD, Superpowers ThejaD, Graphify ThejaD |
 | **Responsibilities** | Service + migration; never break BFF contract without Lahiru/Thejana |
 
 ---
@@ -264,7 +264,7 @@ Indexes the repo into `graphify-out/` for architecture queries (saves tokens vs 
 
 ## Multi-MCP setup
 
-Run **ThejaD + Ruflo** together for maximum orchestration:
+Run **ThejaD + Ruflo ThejaD** together for maximum orchestration:
 
 ```json
 {
@@ -290,40 +290,35 @@ Run **ThejaD + Ruflo** together for maximum orchestration:
 | MCP server | Role |
 |------------|------|
 | **ThejaD** | LOLC team, coordination, 1000+ tools, device index, Phase 1 guard |
-| **Ruflo** | 272+ swarm / hive-mind tools |
-| **Figma** (Cursor plugin) | Lahiru design ↔ code |
-| **Atlassian** (optional) | Jira / Confluence |
-| **Azure / Postman** (optional) | Infra & API testing |
+| **Ruflo ThejaD** | 272+ swarm / hive-mind tools (`ruflo` in config) |
+| **Figma ThejaD** | Lahiru design ↔ code |
+| **Atlassian ThejaD** | Jira / Confluence (optional) |
+| **Azure ThejaD / Postman ThejaD** | Infra & API testing (optional) |
 
 ---
 
-## Integrated GitHub projects
+## Powered capabilities
 
-All repositories you provided are wired in `data/vendor-repos.json`:
+All stacks below are **integrated inside ThejaD** (skills, tools, MCP). User-facing names use the **ThejaD** suffix:
 
-| Project | Repository | ThejaD usage |
-|---------|------------|--------------|
-| **ThejaD** | [thejanaloit/ThejaD](https://github.com/thejanaloit/ThejaD) | This MCP server |
-| **Ruflo** | [ruvnet/ruflo](https://github.com/ruvnet/ruflo) | Parallel MCP — swarm |
-| **Claude-flow** | [ruvnet/claude-flow](https://github.com/ruvnet/claude-flow) | 276 Ruflo skills in monorepo |
-| **Superpowers marketplace** | [obra/superpowers-marketplace](https://github.com/obra/superpowers-marketplace) | Plugin marketplace |
-| **Superpowers** | [obra/superpowers](https://github.com/obra/superpowers) | TDD, brainstorm, plans |
-| **Superpowers (dev)** | [obra/superpowers-developing-for-claude-code](https://github.com/obra/superpowers-developing-for-claude-code) | MCP authoring |
-| **Graphify** | [safishamsi/graphify](https://github.com/safishamsi/graphify) | Knowledge graph |
-| **Claude-mem** | [thedotmack/claude-mem](https://github.com/thedotmack/claude-mem) | Session memory |
-| **Security review** | [anthropics/claude-code-security-review](https://github.com/anthropics/claude-code-security-review) | PR security |
-| **NotebookLM-py** | [teng-lin/notebooklm-py](https://github.com/teng-lin/notebooklm-py) | Doc research |
-| **Frontend design** | `frontend-design@claude-plugins-official` | Lahiru UI |
-| **Code review** | `code-review@claude-plugins-official` | QA + Security |
+| Capability | What it does for LOLC |
+|------------|------------------------|
+| **Superpowers ThejaD** | TDD, brainstorm, write-plan, execute-plan |
+| **Superpowers marketplace ThejaD** | Plugin marketplace bootstrap |
+| **Superpowers dev ThejaD** | MCP / plugin authoring |
+| **Ruflo ThejaD** | Swarm + 272 parallel MCP tools |
+| **Claude-flow ThejaD** | Agent skill library in monorepo |
+| **Graphify ThejaD** | Knowledge graph of code + DB + docs |
+| **Claude-mem ThejaD** | Cross-session memory |
+| **Security review ThejaD** | PR + `/lolc-security-review` |
+| **NotebookLM ThejaD** | Programme doc research |
+| **Frontend design ThejaD** | FusionX UI (Lahiru) |
+| **Code review ThejaD** | Pre-merge review (Geesara, Security) |
+| **Ollama ThejaD** | Offline local models |
 
-**Claude Code plugin install:**
+MCP tool: `engineering_team_roster` or `vendors_status` — branded names only (no public repo list in README).
 
-```text
-/plugin marketplace add obra/superpowers-marketplace
-/plugin install superpowers@superpowers-marketplace
-/plugin install frontend-design@claude-plugins-official
-/plugin install code-review@claude-plugins-official
-```
+Install everything: `thejad/install/install-engineering-plugins.ps1`
 
 ---
 
@@ -355,12 +350,12 @@ coordination_release → claimId: claim-...
 
 | Layer | Tool / path | Purpose |
 |-------|-------------|---------|
-| **Claude-mem** | Vendor + imported skills | Compress sessions; inject prior context |
+| **Claude-mem ThejaD** | Imported skills | Compress sessions; inject prior context |
 | **ThejaD memory** | `memory_store`, `memory_search` | `.thejad/memory.json` |
-| **Ruflo memory** | `ruflo` MCP | Hybrid swarm memory |
+| **Ruflo ThejaD memory** | `ruflo` MCP key | Hybrid swarm memory |
 | **Diary** | `diary_append` | `thejad/diary/YYYY-MM-DD.md` |
 | **Device index** | `device_search`, `device_usable_summary` | 14k local dev files |
-| **Graphify** | `graphify_hint` | Structural memory of codebase |
+| **Graphify ThejaD** | `graphify_hint` | Structural memory of codebase |
 
 ---
 

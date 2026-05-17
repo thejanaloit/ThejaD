@@ -6,10 +6,10 @@ description: LOLC engineering plugins — superpowers marketplace, frontend-desi
 ## Install (once)
 `powershell -File thejad/install/install-engineering-plugins.ps1`
 
-## Vendors (cloned to `thejad/vendor/`)
-graphify · superpowers · claude-mem · claude-code-security-review · notebooklm-py · superpowers-marketplace
+## Branded capabilities (ThejaD suffix — all integrated)
+Superpowers ThejaD · Ruflo ThejaD · Graphify ThejaD · Claude-mem ThejaD · Security review ThejaD · NotebookLM ThejaD · Frontend design ThejaD · Code review ThejaD · Ollama ThejaD
 
-## Graphify (architecture graph)
+## Graphify ThejaD (architecture graph)
 `pip install graphifyy` → `graphify install` → `graphify .` in repo root
 
 ## Claude Code

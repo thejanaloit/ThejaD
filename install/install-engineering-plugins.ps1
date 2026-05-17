@@ -51,11 +51,9 @@ if (Test-Path $srcSec) {
 }
 
 Write-Host ""
-Write-Host "Claude Code:"
-Write-Host "  /plugin marketplace add obra/superpowers-marketplace"
-Write-Host "  /plugin install superpowers@superpowers-marketplace"
-Write-Host "  /plugin install frontend-design@claude-plugins-official"
-Write-Host "  /plugin install code-review@claude-plugins-official"
+Write-Host "Branded capabilities ready (ThejaD suffix):"
+Write-Host "  Superpowers ThejaD | Ruflo ThejaD | Graphify ThejaD | Claude-mem ThejaD"
+Write-Host "  Security review ThejaD | NotebookLM ThejaD | Frontend design ThejaD | Code review ThejaD"
 Write-Host ""
-Write-Host "Graphify: pip install graphifyy && graphify install && graphify ."
+Write-Host "MCP: engineering_team_roster | vendors_status"
 Write-Host "Thanks to Theja"

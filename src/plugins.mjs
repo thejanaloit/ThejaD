@@ -1,5 +1,6 @@
 import fs from 'fs';
 import path from 'path';
+import { brandPlugins, displayName, listBrandedIntegrations } from './brands.mjs';
 import { PACKAGE_ROOT } from './paths.mjs';
 import { loadTeam } from './team.mjs';
 
@@ -23,10 +24,10 @@ export function getPluginsStatus() {
     const p = r.vendorPath ? path.join(PACKAGE_ROOT, r.vendorPath) : null;
     return {
       id: r.id,
+      name: r.displayName || displayName(r.id),
       installed: p ? fs.existsSync(p) : Boolean(r.npm),
       path: p,
       npm: r.npm || null,
-      url: r.url,
       lolcUse: r.lolcUse,
       branch: r.branch || 'main',
     };
@@ -59,7 +60,7 @@ export function installHints() {
       ...(m.claudeCode?.official || []),
       ...(m.claudeOfficialPlugins || []),
     ],
-    vendorRepos: (m.repos || []).map((r) => r.url),
+    brandedCapabilities: listBrandedIntegrations().map((i) => i.name),
     cursor: 'Skills → .cursor/skills/imported-* + team-*',
     graphify: 'Index LOLC monorepo: graphify . → graphify-out/',
     securityWorkflow: '.github/workflows/lolc-security-review.yml (CLAUDE_API_KEY)',
@@ -92,8 +93,9 @@ export function engineeringTeamRoster() {
       lanes: r.lanes,
       focus: r.focus,
       tools: r.tools,
-      plugins: [...(r.plugins || []), ...(bindings[id] || [])],
+      plugins: brandPlugins([...new Set([...(r.plugins || []), ...(bindings[id] || [])])]),
     })),
+    brandedIntegrations: listBrandedIntegrations(),
     workflow: team.deliveryWorkflow || null,
     thanks: team.thanks,
   };

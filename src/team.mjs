@@ -1,5 +1,6 @@
 import fs from 'fs';
 import path from 'path';
+import { brandPlugins } from './brands.mjs';
 import { PACKAGE_ROOT, resolveRepoRoot } from './paths.mjs';
 
 export function loadTeam() {
@@ -11,7 +12,7 @@ export function consultRole(roleId, topic) {
   const role = team.roles[roleId];
   if (!role) return { error: `Unknown role. Use: ${Object.keys(team.roles).join(', ')}` };
   const repo = resolveRepoRoot();
-  const plugins = role.plugins || [];
+  const plugins = brandPlugins(role.plugins || []);
   const guidance = {
     thejana: `Supreme plan for: ${topic}. Claim lanes ${role.lanes.join(',')}. Merge via coordination. Run smokes before handoff.`,
     lahiru: `UI review: ${topic}. Check apps/web + docs/ui-design/SCREEN_ROUTE_MAP.md. Figma stub until R1 in requested.md.`,

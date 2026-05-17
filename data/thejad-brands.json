@@ -1,0 +1,20 @@
+{
+  "thanks": "Thanks to Theja",
+  "suffix": "ThejaD",
+  "integrations": {
+    "thejad": { "displayName": "ThejaD", "internalId": "thejad" },
+    "ruflo": { "displayName": "Ruflo ThejaD", "internalId": "ruflo" },
+    "claude-flow": { "displayName": "Claude-flow ThejaD", "internalId": "claude-flow" },
+    "superpowers-marketplace": { "displayName": "Superpowers marketplace ThejaD", "internalId": "superpowers-marketplace" },
+    "superpowers": { "displayName": "Superpowers ThejaD", "internalId": "superpowers" },
+    "superpowers-developing-for-claude-code": { "displayName": "Superpowers dev ThejaD", "internalId": "superpowers-developing-for-claude-code" },
+    "graphify": { "displayName": "Graphify ThejaD", "internalId": "graphify" },
+    "claude-mem": { "displayName": "Claude-mem ThejaD", "internalId": "claude-mem" },
+    "claude-code-security-review": { "displayName": "Security review ThejaD", "internalId": "claude-code-security-review" },
+    "notebooklm-py": { "displayName": "NotebookLM ThejaD", "internalId": "notebooklm-py" },
+    "frontend-design": { "displayName": "Frontend design ThejaD", "internalId": "frontend-design" },
+    "code-review": { "displayName": "Code review ThejaD", "internalId": "code-review" },
+    "ollama": { "displayName": "Ollama ThejaD", "internalId": "ollama" },
+    "figma": { "displayName": "Figma ThejaD", "internalId": "figma" }
+  }
+}
