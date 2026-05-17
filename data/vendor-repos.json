@@ -1,19 +1,38 @@
 {
   "thanks": "Thanks to Theja",
   "repos": [
-    { "id": "graphify", "url": "https://github.com/safishamsi/graphify.git", "branch": "v8", "vendorPath": "vendor/graphify", "lolcUse": "Knowledge graph of apps/web + services + database/migrations for architecture queries" },
-    { "id": "superpowers-marketplace", "url": "https://github.com/obra/superpowers-marketplace", "vendorPath": "vendor/superpowers-marketplace", "lolcUse": "Plugin marketplace — TDD, brainstorm, execute-plan" },
-    { "id": "superpowers", "url": "https://github.com/obra/superpowers", "vendorPath": "vendor/superpowers", "lolcUse": "Core superpowers skills library" },
-    { "id": "superpowers-developing-for-claude-code", "url": "https://github.com/obra/superpowers-developing-for-claude-code", "vendorPath": "vendor/superpowers-developing-for-claude-code", "lolcUse": "MCP/plugin development reference" },
-    { "id": "claude-code-security-review", "url": "https://github.com/anthropics/claude-code-security-review", "vendorPath": "vendor/claude-code-security-review", "lolcUse": "PR + /lolc-security-review" },
-    { "id": "claude-mem", "url": "https://github.com/thedotmack/claude-mem", "vendorPath": "vendor/claude-mem", "lolcUse": "Cross-session memory" },
-    { "id": "notebooklm-py", "url": "https://github.com/teng-lin/notebooklm-py", "vendorPath": "vendor/notebooklm-py", "lolcUse": "NotebookLM automation for programme docs" }
+    { "id": "graphify", "url": "https://github.com/safishamsi/graphify", "branch": "v8", "vendorPath": "vendor/graphify", "lolcUse": "Knowledge graph — code + SQL + docs in one queryable graph (reduces token grep)" },
+    { "id": "superpowers-marketplace", "url": "https://github.com/obra/superpowers-marketplace", "vendorPath": "vendor/superpowers-marketplace", "lolcUse": "Curated Claude plugin marketplace — TDD, brainstorm, execute-plan" },
+    { "id": "superpowers", "url": "https://github.com/obra/superpowers", "vendorPath": "vendor/superpowers", "lolcUse": "Core superpowers skills (14 skills imported)" },
+    { "id": "superpowers-developing-for-claude-code", "url": "https://github.com/obra/superpowers-developing-for-claude-code", "vendorPath": "vendor/superpowers-developing-for-claude-code", "lolcUse": "MCP / plugin / skills authoring reference" },
+    { "id": "claude-code-security-review", "url": "https://github.com/anthropics/claude-code-security-review", "vendorPath": "vendor/claude-code-security-review", "lolcUse": "AI PR security review + /lolc-security-review command" },
+    { "id": "claude-mem", "url": "https://github.com/thedotmack/claude-mem", "vendorPath": "vendor/claude-mem", "lolcUse": "Persistent memory across sessions (compress + inject context)" },
+    { "id": "notebooklm-py", "url": "https://github.com/teng-lin/notebooklm-py", "vendorPath": "vendor/notebooklm-py", "lolcUse": "NotebookLM automation for programme / FusionX docs" },
+    { "id": "ruflo", "url": "https://github.com/ruvnet/ruflo", "vendorPath": null, "npm": "ruflo@latest", "lolcUse": "272+ swarm MCP tools — run alongside ThejaD in .cursor/mcp.json" },
+    { "id": "claude-flow", "url": "https://github.com/ruvnet/claude-flow", "vendorPath": null, "npm": null, "lolcUse": "Ruflo skill source — 276 skills in monorepo .cursor/skills/ruflo" }
   ],
   "claudeOfficialPlugins": [
-    "frontend-design@claude-plugins-official",
-    "code-review@claude-plugins-official"
+    { "id": "frontend-design", "install": "/plugin install frontend-design@claude-plugins-official", "lolcUse": "Lahiru FusionX UI / Stitch screens" },
+    { "id": "code-review", "install": "/plugin install code-review@claude-plugins-official", "lolcUse": "Geesara + Security pre-merge review" }
   ],
   "pythonTools": [
-    { "id": "graphifyy", "install": "pip install graphifyy", "cli": "graphify", "lolc": "graphify . in repo root → graphify-out/" }
-  ]
+    { "id": "graphifyy", "install": "pip install graphifyy", "cli": "graphify", "lolcUse": "graphify . → graphify-out/ (architecture without reading every file)" }
+  ],
+  "offlineModels": [
+    { "id": "ollama", "install": "https://ollama.com — ollama pull llama3.2", "mcpTool": "ollama_prompt", "lolcUse": "Local inference — no cloud tokens for drafts" }
+  ],
+  "multiMcp": [
+    { "name": "ThejaD", "role": "LOLC orchestration, team, coordination, 1000+ tools" },
+    { "name": "ruflo", "role": "Swarm / hive-mind / 272 tools (monorepo scripts/ruflo-mcp-start.cjs)" },
+    { "name": "plugin-figma", "role": "Design ↔ code (Cursor plugin)" },
+    { "name": "plugin-atlassian", "role": "Jira / Confluence (optional)" }
+  ],
+  "teamBindings": {
+    "thejana": ["superpowers", "code-review", "claude-mem", "graphify", "ruflo"],
+    "lahiru": ["frontend-design", "superpowers", "graphify"],
+    "geesara": ["code-review", "superpowers"],
+    "sachini": ["superpowers"],
+    "security": ["claude-code-security-review", "code-review"],
+    "backend": ["code-review", "superpowers", "graphify"]
+  }
 }

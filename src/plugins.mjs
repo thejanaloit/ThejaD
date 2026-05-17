@@ -20,11 +20,13 @@ export function getPluginsManifest() {
 export function getPluginsStatus() {
   const manifest = getPluginsManifest();
   const repos = (manifest.repos || []).map((r) => {
-    const p = path.join(PACKAGE_ROOT, r.vendorPath);
+    const p = r.vendorPath ? path.join(PACKAGE_ROOT, r.vendorPath) : null;
     return {
       id: r.id,
-      installed: fs.existsSync(p),
+      installed: p ? fs.existsSync(p) : Boolean(r.npm),
       path: p,
+      npm: r.npm || null,
+      url: r.url,
       lolcUse: r.lolcUse,
       branch: r.branch || 'main',
     };
@@ -61,6 +63,9 @@ export function installHints() {
     cursor: 'Skills → .cursor/skills/imported-* + team-*',
     graphify: 'Index LOLC monorepo: graphify . → graphify-out/',
     securityWorkflow: '.github/workflows/lolc-security-review.yml (CLAUDE_API_KEY)',
+    offlineModels: m.offlineModels,
+    multiMcp: m.multiMcp,
+    ruflo: 'npm install / npx ruflo@latest — parallel MCP in monorepo .cursor/mcp.json',
     thanks: m.thanks || 'Thanks to Theja',
   };
 }

@@ -7,6 +7,7 @@
     { "id": "3", "name": "Import vendor skills → thejad/skills/imported + Cursor sync", "weight": 20, "done": true },
     { "id": "4", "name": "80+ prompts (team + workflows + imported skills)", "weight": 15, "done": true },
     { "id": "5", "name": "Engineering team bindings (Thejana/Lahiru/Geesara/Sachini)", "weight": 10, "done": true },
-    { "id": "6", "name": "Install script + MCP tools (vendors_status, graphify_hint)", "weight": 10, "done": true }
+    { "id": "6", "name": "Install script + MCP tools (vendors_status, graphify_hint)", "weight": 10, "done": true },
+    { "id": "7", "name": "GitHub README — all repos, 60+ orchestra, memory, multi-user, tokens, offline, multi-MCP", "weight": 0, "done": true }
   ]
 }
