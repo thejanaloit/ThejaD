@@ -25,7 +25,7 @@
       "focus": ["apps/web", "Figma", "SCREEN_ROUTE_MAP", "accessibility", "design tokens", "Stitch parity"],
       "lanes": ["A"],
       "tools": ["lahiru_ui_review", "figma_context"],
-      "plugins": ["frontend-design", "superpowers"]
+      "plugins": ["frontend-design", "superpowers", "graphify"]
     },
     "geesara": {
       "title": "QA Engineer",

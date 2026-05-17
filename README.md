@@ -1,38 +1,242 @@
-# ThejaD MCP — LOLC Internet Banking AI Engineering Platform
+<p align="center">
+  <strong>ThejaD MCP</strong><br/>
+  <em>LOLC Internet Banking — AI engineering platform for Cursor, Claude Code, Antigravity & Copilot</em>
+</p>
 
-**ThejaD** is the unified MCP server for the [LOLC Internet Banking](https://github.com/thejanaloit/LOLCDevelopmentAi50ThejaD) programme: **60+ AI orchestrator patterns**, **1000+ tools**, **85+ prompts**, **persistent memory**, **multi-user coordination without collisions**, **token-efficient workflows**, **offline models**, and **multi-MCP** operation beside Ruflo, Figma, and Claude plugins.
-
-> Example headline: *“60+ AI orchestra agents, shared memory, five engineers one codebase — no stepping on each other.”*
+<p align="center">
+  <a href="https://github.com/thejanaloit/ThejaD">GitHub</a> ·
+  <code>1000+ tools</code> ·
+  <code>85+ prompts</code> ·
+  <code>60+ agent patterns</code> ·
+  <code>14k device index</code>
+</p>
 
 ---
 
-## Quick stats (v4.0)
+## Table of contents
 
-| Capability | Example scale |
-|------------|----------------|
-| MCP tools | **1000+** (274 core + 731 LOLC/vendor bulk + named tools) |
-| AI orchestrator / agent patterns | **60+** (`agent_spawn_*`, swarm, ruflo_compat, mesh, consensus, workers) |
-| Prompts | **85+** (team, FusionX, security, imported vendor skills) |
-| Resources | **219+** programme docs (`thejad://doc/...`) |
-| Imported vendor skills | **30** (Superpowers, Graphify, Claude-mem, …) |
-| Engineering team personas | **6** (50+ years collective framing) |
+1. [What is ThejaD?](#what-is-thejad)
+2. [At a glance](#at-a-glance)
+3. [Engineering team](#engineering-team)
+4. [Delivery workflow](#delivery-workflow)
+5. [Install](#install)
+6. [Multi-MCP setup](#multi-mcp-setup)
+7. [Integrated GitHub projects](#integrated-github-projects)
+8. [60+ AI orchestration](#60-ai-orchestration)
+9. [Memory](#memory)
+10. [Multi-user development (no collisions)](#multi-user-development-no-collisions)
+11. [Token usage reduction](#token-usage-reduction)
+12. [Offline models (Ollama)](#offline-models-ollama)
+13. [Full device index](#full-device-index)
+14. [Capability modes](#capability-modes)
+15. [MCP tools reference](#mcp-tools-reference)
+16. [Prompts & resources](#prompts--resources)
+17. [FusionX & Phase 1 scope](#fusionx--phase-1-scope)
+18. [Security](#security)
+19. [Repository layout](#repository-layout)
+20. [CLI commands](#cli-commands)
+21. [Owner inputs](#owner-inputs)
 
-Run `node bin/thejad.js stats` after install.
+---
+
+## What is ThejaD?
+
+**ThejaD** is a Model Context Protocol (MCP) server built for the **LOLC Internet Banking / FusionX** programme. It unifies:
+
+- A **virtual engineering team** (Thejana, Lahiru, Geesara, Sachini, Security, Backend)
+- **1000+ MCP tools** (core banking, swarm/Ruflo-class, Graphify, device scan, coordination)
+- **Vendor skills** from Superpowers, Claude-mem, Graphify, security-review, NotebookLM
+- **Non-colliding multi-agent** workflows (Cursor + Antigravity + Copilot + humans)
+- **Token-efficient** patterns (scope guard, Graphify, doc resources, 80% default tier)
+- **Offline** drafting via Ollama
+
+Use it beside **[Ruflo](https://github.com/ruvnet/ruflo)** (272+ swarm tools) in the same Cursor workspace.
+
+---
+
+## At a glance
+
+| Capability | Scale |
+|------------|--------|
+| **MCP tools** | 1000+ (289 core catalog + 731 bulk + named tools) |
+| **AI orchestrator patterns** | 60+ (swarm, agents, workers, consensus, SPARC/TDD) |
+| **Prompts** | 85+ (team, FusionX, vendors, imported skills) |
+| **Resources** | 220+ programme docs (`thejad://doc/...`) |
+| **Imported vendor skills** | 30 (LOLC-adapted under `skills/imported/`) |
+| **Device index** | 14,248 dev files (C: user + E: projects) |
+| **Engineering personas** | 6 roles · **50+ years** collective experience (programme framing) |
+| **Version** | 4.1.0 |
+
+Verify after install:
+
+```bash
+node thejad/bin/thejad.js stats
+```
+
+---
+
+## Engineering team
+
+Each persona maps to **lanes**, **MCP tools**, and **Claude/Cursor plugins**. Consult any role with:
+
+```text
+team_consult  →  role: thejana | lahiru | geesara | sachini | security | backend
+```
+
+### Thejana — Supreme Developer & Engineering Lead
+
+| | |
+|---|---|
+| **Experience** | 50+ years (programme framing) |
+| **Lanes** | A, B, C, D (all lanes — merge authority) |
+| **Focus** | Architecture, full-stack, BFF, final merge, MCP orchestration, multi-agent speed |
+| **MCP tools** | `thejana_supreme_plan`, `engineering_team_roster`, `swarm_init`, `coordination_claim`, `coordination_release` |
+| **Plugins** | Superpowers, code-review, claude-mem, graphify, ruflo |
+| **Responsibilities** | Own delivery plan; claim/release coordination; run smokes gate before merge; diary + handoff |
+
+---
+
+### Lahiru — UI / UX Engineer (FusionX)
+
+| | |
+|---|---|
+| **Experience** | 50+ years (programme framing) |
+| **Lanes** | **A** — `apps/web`, UI components, design tokens |
+| **Focus** | FusionX / Stitch parity, `SCREEN_ROUTE_MAP`, accessibility, i18n, shell nav |
+| **MCP tools** | `lahiru_ui_review`, `figma_context`, `team_consult` role=`lahiru` |
+| **Plugins** | `frontend-design@claude-plugins-official`, Superpowers, Graphify |
+| **Responsibilities** | Route ↔ PNG ↔ story binding; middleware + `WorkflowEntryGate` alignment |
+
+---
+
+### Geesara — QA Engineer
+
+| | |
+|---|---|
+| **Experience** | 50+ years (programme framing) |
+| **Lanes** | **E** — test gates |
+| **Focus** | Smoke scripts, regression, browser E2E, `typecheck:web` |
+| **MCP tools** | `geesara_qa_plan`, `geesara_run_smokes` (full unlock), `smoke_hint` |
+| **Plugins** | code-review, Superpowers |
+| **Responsibilities** | Phase1 / accounts / payments smokes; block merge on red CI |
+
+**Smoke commands (repo root):**
+
+```bash
+npm run local:health:json
+npm run smoke:phase1
+npm run smoke:accounts
+npm run smoke:phase3:payments
+npm run typecheck:web
+```
+
+---
+
+### Sachini — Business Analyst
+
+| | |
+|---|---|
+| **Experience** | 50+ years (programme framing) |
+| **Lanes** | **E** — stories & traceability |
+| **Focus** | LOLCDL stories, acceptance criteria, route/API binding |
+| **MCP tools** | `sachini_story_draft`, `story_lookup`, `scope_guard` |
+| **Plugins** | Superpowers (`/brainstorm`, `/write-plan`) |
+| **Responsibilities** | Story before code; traceability in `data/stories-traceability.json` |
+
+---
+
+### Security — White Hat
+
+| | |
+|---|---|
+| **Experience** | 50+ years (programme framing) |
+| **Lanes** | **D** — security-sensitive paths |
+| **Focus** | JWT, BFF cookies, OWASP, dev vs prod flags, PR review |
+| **MCP tools** | `security_white_hat_scan`, `scope_guard`, `limits_check` |
+| **Plugins** | [claude-code-security-review](https://github.com/anthropics/claude-code-security-review), code-review |
+| **Responsibilities** | `/lolc-security-review`; GitHub Action `lolc-security-review.yml` |
+
+---
+
+### Backend — NestJS / Kong / Database
+
+| | |
+|---|---|
+| **Experience** | 50+ years (programme framing) |
+| **Lanes** | **C**, **D** — `services/*`, Kong, migrations |
+| **Focus** | Nest modules, OpenAPI, bank-adapter, Kafka (where enabled) |
+| **MCP tools** | `full_stack_map`, `smoke_hint` |
+| **Plugins** | code-review, Superpowers, Graphify |
+| **Responsibilities** | Service + migration; never break BFF contract without Lahiru/Thejana |
+
+---
+
+## Delivery workflow
+
+```mermaid
+flowchart LR
+  S[Sachini\nStory + AC] --> L[Lahiru\nFusionX UI]
+  L --> T[Thejana\nArch + BFF]
+  T --> B[Backend\nServices]
+  B --> SEC[Security\nWhite hat]
+  SEC --> G[Geesara\nQA smokes]
+  G --> M[Thejana\nMerge + release]
+```
+
+| Step | Who | Action |
+|------|-----|--------|
+| 1 | Sachini | Story + AC + traceability |
+| 2 | Lahiru | UI / FusionX + frontend-design |
+| 3 | Thejana | Architecture + BFF + coordination claim |
+| 4 | Backend | Nest services + Kong |
+| 5 | Security | White-hat + security-review |
+| 6 | Geesara | Smokes + regression |
+| 7 | Thejana | `coordination_release` + handoff log |
 
 ---
 
 ## Install
 
-### 1. Cursor MCP
+### Prerequisites
+
+- **Node.js 20+**
+- **Git**
+- Internet Banking monorepo (or clone [ThejaD](https://github.com/thejanaloit/ThejaD) into your project)
+
+### Step 1 — One-shot setup (recommended)
+
+From monorepo root (`e:\internetBanking`):
+
+```powershell
+powershell -ExecutionPolicy Bypass -File thejad/install/install-engineering-plugins.ps1
+```
+
+This will:
+
+1. Clone all vendor repos into `thejad/vendor/`
+2. Import **30** vendor skills → `thejad/skills/imported/`
+3. Copy team skills → `.cursor/skills/`
+4. Add `.claude/commands/lolc-security-review.md`
+5. Rebuild **full device index** (14k+ files)
+
+### Step 2 — Cursor MCP
+
+**Option A** — init helper:
+
+```bash
+node thejad/bin/thejad.js init
+```
+
+**Option B** — merge into `.cursor/mcp.json`:
 
 ```json
 {
   "mcpServers": {
     "ThejaD": {
       "command": "node",
-      "args": ["PATH/TO/thejad/bin/thejad.js", "mcp", "start"],
+      "args": ["thejad/bin/thejad.js", "mcp", "start"],
       "env": {
-        "THEJAD_REPO_ROOT": "PATH/TO/internetBanking",
+        "THEJAD_REPO_ROOT": "e:/internetBanking",
         "npm_config_update_notifier": "false"
       }
     }
@@ -40,196 +244,315 @@ Run `node bin/thejad.js stats` after install.
 }
 ```
 
-Or from your monorepo root:
+> Use **direct** `node thejad/bin/thejad.js` — do not wrap with a script that uses `stdio: inherit` (breaks MCP).
+
+### Step 3 — Restart Cursor
+
+Open **Agent** mode. Settings → MCP → **ThejaD** should list **1000+ tools**, **85+ prompts**, **220+ resources**.
+
+### Step 4 — Optional Python tools
 
 ```bash
-node thejad/bin/thejad.js init
+pip install graphifyy
+graphify install
+graphify .
 ```
 
-Restart **Cursor Agent** mode.
+Indexes the repo into `graphify-out/` for architecture queries (saves tokens vs full-tree reads).
 
-### 2. Download all integrated GitHub repos + skills
+---
 
-```powershell
-powershell -ExecutionPolicy Bypass -File thejad/install/install-engineering-plugins.ps1
-```
+## Multi-MCP setup
 
-This clones vendors into `thejad/vendor/`, syncs **30** adapted skills to `thejad/skills/imported/` and `.cursor/skills/`, and wires the LOLC security-review command.
-
-### 3. Multi-MCP (recommended)
-
-Use **ThejaD** together with **Ruflo** in the same `.cursor/mcp.json`:
+Run **ThejaD + Ruflo** together for maximum orchestration:
 
 ```json
 {
   "mcpServers": {
-    "ThejaD": { "...": "see above" },
+    "ThejaD": {
+      "command": "node",
+      "args": ["thejad/bin/thejad.js", "mcp", "start"],
+      "env": { "THEJAD_REPO_ROOT": "e:/internetBanking" }
+    },
     "ruflo": {
       "command": "node",
       "args": ["scripts/ruflo-mcp-start.cjs"],
-      "env": { "CLAUDE_FLOW_MODE": "v3", "CLAUDE_FLOW_TOOL_MODE": "develop" }
+      "env": {
+        "CLAUDE_FLOW_MODE": "v3",
+        "CLAUDE_FLOW_TOOL_MODE": "develop",
+        "CLAUDE_FLOW_MAX_AGENTS": "15"
+      }
     }
   }
 }
 ```
 
-Optional Cursor plugins: **Figma**, **Atlassian**, **Azure**, **Postman** — ThejaD tools reference their lanes (UI / BA / backend).
+| MCP server | Role |
+|------------|------|
+| **ThejaD** | LOLC team, coordination, 1000+ tools, device index, Phase 1 guard |
+| **Ruflo** | 272+ swarm / hive-mind tools |
+| **Figma** (Cursor plugin) | Lahiru design ↔ code |
+| **Atlassian** (optional) | Jira / Confluence |
+| **Azure / Postman** (optional) | Infra & API testing |
 
 ---
 
-## Integrated GitHub projects (all links you provided)
+## Integrated GitHub projects
 
-| Project | URL | Role in ThejaD |
-|---------|-----|----------------|
-| **ThejaD** (this repo) | https://github.com/thejanaloit/LOLCDevelopmentAi50ThejaD | MCP server + LOLC team orchestration |
-| **Ruflo** | https://github.com/ruvnet/ruflo | 272+ swarm tools — parallel MCP (`ruflo` server) |
-| **Claude-flow** (Ruflo skills) | https://github.com/ruvnet/claude-flow | 276 skills → `.cursor/skills/ruflo` in monorepo |
-| **Superpowers marketplace** | https://github.com/obra/superpowers-marketplace | `/plugin marketplace add obra/superpowers-marketplace` |
-| **Superpowers** | https://github.com/obra/superpowers | TDD, brainstorm, execute-plan (imported skills) |
-| **Superpowers dev for Claude** | https://github.com/obra/superpowers-developing-for-claude-code | MCP/plugin authoring |
-| **Graphify** | https://github.com/safishamsi/graphify | Knowledge graph — `graphify .` on monorepo |
-| **Claude-mem** | https://github.com/thedotmack/claude-mem | Cross-session memory (imported skills) |
-| **Claude code security review** | https://github.com/anthropics/claude-code-security-review | PR + `/lolc-security-review` |
-| **NotebookLM-py** | https://github.com/teng-lin/notebooklm-py | Research programme docs (`notebooklm_*` tools) |
-| **Frontend design** (official) | `frontend-design@claude-plugins-official` | Lahiru — FusionX UI |
-| **Code review** (official) | `code-review@claude-plugins-official` | Geesara + Security |
+All repositories you provided are wired in `data/vendor-repos.json`:
 
-Manifest: `data/vendor-repos.json`
+| Project | Repository | ThejaD usage |
+|---------|------------|--------------|
+| **ThejaD** | [thejanaloit/ThejaD](https://github.com/thejanaloit/ThejaD) | This MCP server |
+| **Ruflo** | [ruvnet/ruflo](https://github.com/ruvnet/ruflo) | Parallel MCP — swarm |
+| **Claude-flow** | [ruvnet/claude-flow](https://github.com/ruvnet/claude-flow) | 276 Ruflo skills in monorepo |
+| **Superpowers marketplace** | [obra/superpowers-marketplace](https://github.com/obra/superpowers-marketplace) | Plugin marketplace |
+| **Superpowers** | [obra/superpowers](https://github.com/obra/superpowers) | TDD, brainstorm, plans |
+| **Superpowers (dev)** | [obra/superpowers-developing-for-claude-code](https://github.com/obra/superpowers-developing-for-claude-code) | MCP authoring |
+| **Graphify** | [safishamsi/graphify](https://github.com/safishamsi/graphify) | Knowledge graph |
+| **Claude-mem** | [thedotmack/claude-mem](https://github.com/thedotmack/claude-mem) | Session memory |
+| **Security review** | [anthropics/claude-code-security-review](https://github.com/anthropics/claude-code-security-review) | PR security |
+| **NotebookLM-py** | [teng-lin/notebooklm-py](https://github.com/teng-lin/notebooklm-py) | Doc research |
+| **Frontend design** | `frontend-design@claude-plugins-official` | Lahiru UI |
+| **Code review** | `code-review@claude-plugins-official` | QA + Security |
 
----
+**Claude Code plugin install:**
 
-## 60+ AI orchestration (example)
-
-ThejaD exposes Ruflo-class and LOLC-specific orchestration:
-
-- **Swarm:** mesh, hierarchical, adaptive, Raft, Byzantine, gossip, queen elect  
-- **Agents:** spawn coder, tester, reviewer, architect, security, BA, QA, UI, backend, researcher  
-- **Workers:** audit, test gaps, consolidate, optimize  
-- **SPARC / DDD / TDD London** compatibility tools  
-- **Team consult:** `team_consult` → Thejana, Lahiru, Geesara, Sachini, Security, Backend  
-
-Example MCP calls:
-
-```
-thejana_supreme_plan
-swarm_init
-agent_spawn
-coordination_claim
-engineering_team_roster
+```text
+/plugin marketplace add obra/superpowers-marketplace
+/plugin install superpowers@superpowers-marketplace
+/plugin install frontend-design@claude-plugins-official
+/plugin install code-review@claude-plugins-official
 ```
 
 ---
 
-## Memory (no context loss)
+## 60+ AI orchestration
 
-| Layer | What |
-|-------|------|
-| **Claude-mem** | Session compression + replay ([thedotmack/claude-mem](https://github.com/thedotmack/claude-mem)) |
-| **ThejaD memory** | `memory_store` / `memory_search` → `.thejad/memory.json` |
-| **Ruflo memory** | Hybrid backend via `ruflo` MCP (`memory_store`, `memory_search`, trajectories) |
-| **Diary** | `diary_append` — daily engineering log |
-| **Device index** | **14k+** dev files — `device_search`, `device_usable_summary`, `device_reindex` (C: user + E: LOLC/FusionX/CRM projects) |
+ThejaD exposes **Ruflo-class** and **LOLC-specific** orchestration tools:
+
+| Category | Examples |
+|----------|----------|
+| **Swarm** | `thejad_swarm_init`, topology mesh/hierarchical, consensus raft/byzantine/gossip |
+| **Agents** | spawn coder, tester, reviewer, architect, security, BA, QA, UI, backend |
+| **Workers** | audit, test gaps, consolidate, optimize |
+| **Ruflo compat** | SPARC spec/arch/refine, TDD London, code review swarm, CVE hint |
+| **Team** | `team_consult`, `thejana_supreme_plan`, `engineering_team_roster` |
+
+Example session:
+
+```text
+coordination_claim   → paths: apps/web/app/settings/**
+lahiru_ui_review     → route: /settings/security
+security_white_hat_scan
+geesara_qa_plan      → storyId: LOLCDL-xxx
+coordination_release → claimId: claim-...
+```
+
+---
+
+## Memory
+
+| Layer | Tool / path | Purpose |
+|-------|-------------|---------|
+| **Claude-mem** | Vendor + imported skills | Compress sessions; inject prior context |
+| **ThejaD memory** | `memory_store`, `memory_search` | `.thejad/memory.json` |
+| **Ruflo memory** | `ruflo` MCP | Hybrid swarm memory |
+| **Diary** | `diary_append` | `thejad/diary/YYYY-MM-DD.md` |
+| **Device index** | `device_search`, `device_usable_summary` | 14k local dev files |
+| **Graphify** | `graphify_hint` | Structural memory of codebase |
 
 ---
 
 ## Multi-user development (no collisions)
 
-Built for **Cursor + Antigravity + Copilot + humans** on one repo:
+Designed for **Cursor + Antigravity + Copilot + humans** on one repo:
 
-1. `coordination_claim` — lane A/B/C/D/E + paths → `coordination/active-claims.json`  
-2. Work only in claimed paths  
-3. Append `docs/MULTI_AGENT_DEVELOPMENT_LOG.md` (handoff template via `antigravity_handoff`)  
-4. `coordination_release` when done  
+```mermaid
+sequenceDiagram
+  participant A as Agent (Cursor)
+  participant T as ThejaD MCP
+  participant L as MULTI_AGENT_DEVELOPMENT_LOG
+  A->>T: coordination_claim (lane, paths)
+  A->>A: Implement only claimed paths
+  A->>T: diary_append / antigravity_handoff
+  A->>L: Paste handoff block
+  A->>T: coordination_release
+```
 
-Prompt: `multi_agent_no_collision` · Tool: `thejad_coordination_claim`
+| Tool | Action |
+|------|--------|
+| `coordination_claim` | Reserve lane A–E + file paths |
+| `coordination_release` | Free claim when done |
+| `antigravity_handoff` | Markdown block for dev log |
+| `scope_guard` | Reject out-of-scope Phase 2–5 work |
 
----
+**Lane map**
 
-## Token usage reduction (examples)
-
-| Technique | How |
-|-----------|-----|
-| **80% default tier** | Core + standard tools only until `thejad_unlock` / `THEJAD_FULL_ACCESS=1` |
-| **Graphify** | Query architecture graph instead of loading entire tree |
-| **Scope guard** | `scope_guard` blocks P2–P5 scope creep in one call |
-| **Story lookup** | `story_lookup` — 15 rows, not full JSON dump |
-| **Resources** | `thejad://doc/...` — read one doc, not repo-wide search |
-| **Offline Ollama** | `ollama_prompt` — local draft without API tokens |
-| **Smokes as hints** | `smoke_hint` returns command only unless full unlock runs smokes |
-
----
-
-## Offline models
-
-1. Install [Ollama](https://ollama.com)  
-2. `ollama pull llama3.2` (or set `THEJAD_OLLAMA_MODEL`)  
-3. MCP tool: `ollama_prompt`  
-
-Optional: set `THEJAD_FULL_ACCESS=0` and use local model for planning; cloud for merge review.
+| Lane | Owner | Scope |
+|------|-------|--------|
+| A | Lahiru / Cursor | `apps/web` pages, `**/ui/*` |
+| B | Cursor | `apps/web/app/api/**` BFF |
+| C | Antigravity / Backend | `services/*` |
+| D | Security / Backend | Kong, helm, security-sensitive |
+| E | Sachini / Geesara | Stories, tests, docs-only |
 
 ---
 
-## Engineering team (50+ years collective)
+## Token usage reduction
 
-| Persona | Role | Plugins / tools |
-|---------|------|-----------------|
-| **Thejana** | Supreme developer & lead | Superpowers, code-review, claude-mem, graphify, ruflo |
-| **Lahiru** | UI / UX (FusionX) | frontend-design, superpowers, graphify |
-| **Geesara** | QA | code-review, superpowers, smokes |
-| **Sachini** | BA / user stories | superpowers, story_lookup, sachini_story_draft |
-| **Security** | White hat | claude-code-security-review, code-review |
-| **Backend** | Nest / Kong / DB | code-review, superpowers, graphify |
+| Technique | MCP / habit |
+|-----------|-------------|
+| **80% default tier** | Most tools without full unlock |
+| **Graphify** | Query graph vs reading every file |
+| **Scope guard** | One-call Phase 1 enforcement |
+| **Story lookup** | Max 15 rows returned |
+| **Resources** | `thejad://doc/...` single-doc read |
+| **Ollama** | `ollama_prompt` for local drafts |
+| **Smoke hints** | Commands only until `mamaThejana` unlock |
 
-MCP: `engineering_team_roster` · `team_consult` role=`lahiru` topic=`/payments`
+---
 
-Delivery order: Sachini → Lahiru → Thejana/Backend → Security → Geesara → Thejana release.
+## Offline models (Ollama)
+
+1. Install [Ollama](https://ollama.com)
+2. `ollama pull llama3.2` (or set `THEJAD_OLLAMA_MODEL`)
+3. MCP: `ollama_prompt`
+
+Detected models on your machine are listed in `device_usable_summary` → `ollamaModels`.
+
+---
+
+## Full device index
+
+Re-scan **C: user profile + E: projects** (not Windows system folders):
+
+```bash
+node thejad/scripts/build-device-index.mjs
+```
+
+Or MCP: `device_reindex`
+
+| Category | Example count |
+|----------|----------------|
+| Total files | **14,248** |
+| MCP configs | 12 |
+| Skills | 500+ (listed) |
+| FusionX / banking paths | 500+ |
+| Docker compose | 23 |
+| Postman | 40 |
+| Node `package.json` projects | 90 |
+| Ollama models | 4 |
+
+**Indexed roots include:** `internetBanking`, Antigravity copy, DesignStudio, LOIT/MINI CRM, OneDrive LOLC, `.cursor`, `.claude-flow`, and more.
+
+Extra paths: `THEJAD_DEVICE_ROOTS=D:\your\path;...`
 
 ---
 
 ## Capability modes
 
-| Mode | % | How |
-|------|---|-----|
-| Default | **80%** | Standard + core tools (most of 1000+) |
-| Maximum | **100%** | Friends phrase via `thejad_unlock`, or `THEJAD_FULL_ACCESS=1` |
+| Mode | Access | How |
+|------|--------|-----|
+| **Standard (80%)** | Core + standard tools (~1000+) | Default |
+| **Maximum (100%)** | All tools incl. notebooklm run, live smokes | `thejad_unlock` or `THEJAD_FULL_ACCESS=1` |
+
+Friends unlock phrase: use MCP tool `thejad_unlock` (not published here).
 
 ---
 
-## Key MCP tools
+## MCP tools reference
 
-| Tool | Purpose |
-|------|---------|
-| `thejad_status` | Counts tools / prompts / resources |
-| `vendors_status` | All GitHub vendors installed? |
-| `vendor_sync_skills` | Re-import vendor SKILL.md files |
-| `plugins_install_hints` | Claude Code `/plugin install …` lines |
-| `graphify_hint` | `pip install graphifyy` + index repo |
-| `coordination_claim` / `release` | Multi-user lanes |
+### Orchestration & team
+
+| Tool | Description |
+|------|-------------|
+| `thejad_status` | Version, tool/prompt/resource counts |
+| `engineering_team_roster` | Full team table |
+| `team_consult` | Role-specific guidance |
+| `thejana_supreme_plan` | End-to-end delivery plan |
+| `swarm_init` / `swarm_status` | Swarm lifecycle |
+| `agent_spawn` | Spawn typed agent |
+
+### Coordination & programme
+
+| Tool | Description |
+|------|-------------|
+| `coordination_claim` / `coordination_release` | Multi-user lanes |
 | `scope_guard` | Phase 1 only |
+| `story_lookup` / `sachini_story_draft` | BA traceability |
+| `limits_check` | Payment limits mock/data |
+| `diary_append` | Daily log |
+
+### Vendors & device
+
+| Tool | Description |
+|------|-------------|
+| `vendors_status` | GitHub vendor clone status |
+| `vendor_sync_skills` | Re-import SKILL.md files |
+| `plugins_install_hints` | Install commands |
+| `graphify_hint` | Graphify setup |
+| `device_search` | Search 14k file index |
+| `device_usable_summary` | MCP configs, skills, CRM paths |
+| `device_usable_search` | Category search |
+| `device_reindex` | Rebuild index |
+
+### UI / QA / Security
+
+| Tool | Description |
+|------|-------------|
+| `lahiru_ui_review` | FusionX UI checklist |
+| `figma_context` | Figma route context |
+| `geesara_qa_plan` / `geesara_run_smokes` | QA |
+| `security_white_hat_scan` | Security doc index |
+| `smoke_hint` | npm smoke commands |
+
+### Memory & AI
+
+| Tool | Description |
+|------|-------------|
+| `memory_store` / `memory_search` | Local ThejaD memory |
 | `ollama_prompt` | Offline LLM |
-| `notebooklm_ask` | Programme doc research |
+| `notebooklm_ask` | Programme research (full tier) |
+
+*Plus **1000+** catalog tools: `thejad_{category}_{action}` — auth, payments, swarm, graphify, bulk LOLC domains, etc.*
 
 ---
 
-## FusionX / Phase 1
+## Prompts & resources
 
-- UI guide: `data/fusionx-ui-dev-guide.md`  
-- Routes: `docs/ui-design/SCREEN_ROUTE_MAP.md` (resource URI)  
-- Programme: `docs/PROGRAMME_MASTER_REFERENCE.md`  
+- **85+ prompts** — team consult, FusionX workflows, vendor skills (`skill_*`), security, multi-agent
+- **220+ resources** — `docs/**`, `AGENTS.md`, `thejad/data/*`, programme references via `thejad://doc/...`
+
+List in Cursor: MCP panel → ThejaD → Prompts / Resources.
+
+---
+
+## FusionX & Phase 1 scope
+
+| Asset | Location |
+|-------|----------|
+| UI dev guide | `data/fusionx-ui-dev-guide.md` |
+| Screen ↔ route map | `docs/ui-design/SCREEN_ROUTE_MAP.md` |
+| Programme master | `docs/PROGRAMME_MASTER_REFERENCE.md` |
+| UI route plan | `plans/ui-ux-route-plan.md` |
+| Backend API plan | `plans/backend-api-plan.json` |
+
+**Near-term rule:** Phase 1 spine only (auth, onboarding, admin, core web). Enforced by `scope_guard`.
 
 ---
 
 ## Security
 
-- White hat: `security_white_hat_scan`  
-- PR workflow: `.github/workflows/lolc-security-review.yml` (needs `CLAUDE_API_KEY`)  
-- Custom rules: `data/lolc-security-scan-instructions.txt`  
+| Item | Location |
+|------|----------|
+| White-hat docs | `docs/security/SECURITY_WHITE_HAT.md` |
+| Remediation | `docs/security/SECURITY_FIXED.md` |
+| PR Action | `.github/workflows/lolc-security-review.yml` |
+| Custom scan rules | `data/lolc-security-scan-instructions.txt` |
+| Claude command | `.claude/commands/lolc-security-review.md` |
 
----
-
-## Pending owner input
-
-See `requested.md` (Figma URL, NotebookLM auth, extra Ollama models).
+Requires GitHub secret **`CLAUDE_API_KEY`** for automated PR comments.
 
 ---
 
@@ -237,23 +560,60 @@ See `requested.md` (Figma URL, NotebookLM auth, extra Ollama models).
 
 ```
 thejad/
-├── bin/thejad.js          # MCP entry
-├── src/                   # server, 1000+ tool catalog, team, plugins
-├── data/                  # team, vendor-repos, stories, limits
+├── bin/thejad.js                 # CLI: mcp start | init | stats
+├── src/
+│   ├── server.mjs                # MCP server (tools, prompts, resources)
+│   ├── tool-catalog.mjs          # Core 289 tools
+│   ├── tool-catalog-bulk.mjs     # Bulk 731+ tools
+│   ├── team.mjs                  # Engineering personas
+│   ├── plugins.mjs               # Vendor manifest
+│   ├── device.mjs                # 14k device search
+│   └── skills-sync.mjs           # Import vendor skills
+├── data/
+│   ├── team.json                 # Roles & workflow
+│   ├── vendor-repos.json         # All GitHub links
+│   ├── device-index.json         # Full file index
+│   ├── device-usable.json        # Categorized assets
+│   └── stories-traceability.json
 ├── skills/
-│   ├── team-*             # Thejana, Lahiru, Geesara, Sachini, Security
-│   ├── imported/          # 30 vendor skills (LOLC footer)
-│   └── ruflo/             # Ruflo subset
-├── vendor/                # cloned GitHub repos (gitignored — run install)
-└── install/               # install-engineering-plugins.ps1
+│   ├── team-thejana-supreme/
+│   ├── team-lahiru-ui/
+│   ├── team-geesara-qa/
+│   ├── team-sachini-ba/
+│   ├── team-security-whitehat/
+│   ├── plugins-engineering-bundle/
+│   ├── imported/                 # 30 vendor skills (LOLC footer)
+│   └── ruflo/                    # Ruflo subset
+├── vendor/                       # Cloned repos (gitignored — run install)
+├── install/
+│   └── install-engineering-plugins.ps1
+├── coordination/active-claims.json
+└── requested.md                  # Owner pending inputs
 ```
+
+---
+
+## CLI commands
+
+```bash
+node thejad/bin/thejad.js init          # Add to .cursor/mcp.json
+node thejad/bin/thejad.js mcp start     # Run MCP (stdio)
+node thejad/bin/thejad.js stats         # Tool / prompt / resource counts
+npm run engineering:install -w thejad-mcp   # If linked as workspace
+```
+
+---
+
+## Owner inputs
+
+See [`requested.md`](requested.md) for optional real values (Figma URL, NotebookLM auth, D: drive paths). Mocks are used until provided.
 
 ---
 
 ## License
 
-MIT — vendor projects retain their own licenses.
+MIT — ThejaD. Third-party vendors retain their own licenses.
 
 ---
 
-**Thanks to Theja**
+<p align="center"><strong>Thanks to Theja</strong></p>
