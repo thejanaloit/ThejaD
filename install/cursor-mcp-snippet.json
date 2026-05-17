@@ -1,0 +1,12 @@
+{
+  "mcpServers": {
+    "ThejaD": {
+      "command": "node",
+      "args": ["<clone>/thejad/bin/thejad.js", "mcp", "start"],
+      "env": {
+        "THEJAD_REPO_ROOT": "<your-internetBanking-repo>",
+        "npm_config_update_notifier": "false"
+      }
+    }
+  }
+}

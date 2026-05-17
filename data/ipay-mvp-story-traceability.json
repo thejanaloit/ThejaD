@@ -1,0 +1,550 @@
+{
+  "generatedAt": "2026-05-16T11:47:50.915Z",
+  "summary": {
+    "total": 77,
+    "shipped": 59,
+    "shipped_mock": 18,
+    "deferred": 0
+  },
+  "entries": [
+    {
+      "id": "LOLCDL-259",
+      "title": "LOLCDL-259 - Bill Payments Failure Handling",
+      "route": "/bill-payments, /payments",
+      "status": "shipped",
+      "path": "User stories/iPay_IB_MVP_Features/User_Stories/Bill Payments/Real Time Bill Payments/LOLCDL-259 - Bill Payments Failure Handling.doc"
+    },
+    {
+      "id": "LOLCDL-33",
+      "title": "LOLCDL-33 - Customer makes a real-time bill payment for unregistered biller",
+      "route": "/bill-payments, /payments",
+      "status": "shipped",
+      "path": "User stories/iPay_IB_MVP_Features/User_Stories/Bill Payments/Real Time Bill Payments/LOLCDL-33 - Customer makes a real-time bill payment for unregistered biller.doc"
+    },
+    {
+      "id": "LOLCDL-34",
+      "title": "LOLCDL-34 - Customer adds biller to favourites create biller templates",
+      "route": "/bill-payments, /payments",
+      "status": "shipped",
+      "path": "User stories/iPay_IB_MVP_Features/User_Stories/Bill Payments/Real Time Bill Payments/LOLCDL-34 - Customer adds biller to favourites create biller templates.doc"
+    },
+    {
+      "id": "LOLCDL-35",
+      "title": "LOLCDL-35 - Customer view a favourite biller biller template",
+      "route": "/bill-payments, /payments",
+      "status": "shipped",
+      "path": "User stories/iPay_IB_MVP_Features/User_Stories/Bill Payments/Real Time Bill Payments/LOLCDL-35 - Customer view a favourite biller biller template.doc"
+    },
+    {
+      "id": "LOLCDL-36",
+      "title": "LOLCDL-36-Customer edits biller details of a favourite biller",
+      "route": "/bill-payments, /payments",
+      "status": "shipped",
+      "path": "User stories/iPay_IB_MVP_Features/User_Stories/Bill Payments/Real Time Bill Payments/LOLCDL-36-Customer edits biller details of a favourite biller.doc"
+    },
+    {
+      "id": "LOLCDL-37",
+      "title": "LOLCDL-37 -Customer deletes a favourite biller",
+      "route": "/bill-payments, /payments",
+      "status": "shipped",
+      "path": "User stories/iPay_IB_MVP_Features/User_Stories/Bill Payments/Real Time Bill Payments/LOLCDL-37 -Customer deletes a favourite biller.doc"
+    },
+    {
+      "id": "LOLCDL-38",
+      "title": "LOLCDL-38 - Customer make a real-time bill payment for a registered biller",
+      "route": "/bill-payments, /payments",
+      "status": "shipped",
+      "path": "User stories/iPay_IB_MVP_Features/User_Stories/Bill Payments/Real Time Bill Payments/LOLCDL-38 - Customer make a real-time bill payment for a registered biller.doc"
+    },
+    {
+      "id": "LOLCDL-39",
+      "title": "LOLCDL-39 - View biller transaction history in ‘Favourites’",
+      "route": "/bill-payments, /payments",
+      "status": "shipped",
+      "path": "User stories/iPay_IB_MVP_Features/User_Stories/Bill Payments/Real Time Bill Payments/LOLCDL-39 - View biller transaction history in ‘Favourites’.doc"
+    },
+    {
+      "id": "LOLCDL-40",
+      "title": "LOLCDL-40 - View real time bill payment transactions in ‘All Transactions’ section",
+      "route": "/bill-payments, /payments",
+      "status": "shipped",
+      "path": "User stories/iPay_IB_MVP_Features/User_Stories/Bill Payments/Real Time Bill Payments/LOLCDL-40 - View real time bill payment transactions in ‘All Transactions’ section.doc"
+    },
+    {
+      "id": "LOLCDL-41",
+      "title": "LOLCDL-41 - Customer settling a LOLC Own credit card – Unregistered bill payment",
+      "route": "/bill-payments, /payments",
+      "status": "shipped",
+      "path": "User stories/iPay_IB_MVP_Features/User_Stories/Bill Payments/Real Time Bill Payments/LOLCDL-41 - Customer settling a LOLC Own credit card – Unregistered bill payment.doc"
+    },
+    {
+      "id": "LOLCDL-42",
+      "title": "LOLCDL-42 - Customer settling a LOLC Own credit card – Registered bill payment",
+      "route": "/bill-payments, /payments",
+      "status": "shipped",
+      "path": "User stories/iPay_IB_MVP_Features/User_Stories/Bill Payments/Real Time Bill Payments/LOLCDL-42 - Customer settling a LOLC Own credit card – Registered bill payment.doc"
+    },
+    {
+      "id": "LOLCDL-43",
+      "title": "LOLCDL-43 - Customer settling other LOLC credit cards – Unregistered bill payment",
+      "route": "/bill-payments, /payments",
+      "status": "shipped",
+      "path": "User stories/iPay_IB_MVP_Features/User_Stories/Bill Payments/Real Time Bill Payments/LOLCDL-43 - Customer settling other LOLC credit cards – Unregistered bill payment.doc"
+    },
+    {
+      "id": "LOLCDL-44",
+      "title": "LOLCDL-44 - Customer settling a LOLC other credit cards – Registered bill payment",
+      "route": "/bill-payments, /payments",
+      "status": "shipped",
+      "path": "User stories/iPay_IB_MVP_Features/User_Stories/Bill Payments/Real Time Bill Payments/LOLCDL-44 - Customer settling a LOLC other credit cards – Registered bill payment.doc"
+    },
+    {
+      "id": "LOLCDL-45",
+      "title": "LOLCDL-45 - Customer settling other bank credit cards – Unregistered bill payment",
+      "route": "/bill-payments, /payments",
+      "status": "shipped",
+      "path": "User stories/iPay_IB_MVP_Features/User_Stories/Bill Payments/Real Time Bill Payments/LOLCDL-45 - Customer settling other bank credit cards – Unregistered bill payment.doc"
+    },
+    {
+      "id": "LOLCDL-46",
+      "title": "LOLCDL-46 - Customer settling other bank credit cards – Registered bill payment",
+      "route": "/bill-payments, /payments",
+      "status": "shipped",
+      "path": "User stories/iPay_IB_MVP_Features/User_Stories/Bill Payments/Real Time Bill Payments/LOLCDL-46 - Customer settling other bank credit cards – Registered bill payment.doc"
+    },
+    {
+      "id": "LOLCDL-47",
+      "title": "LOLCDL-47 - View credit card payment settlement details in Transaction History",
+      "route": "/bill-payments, /payments",
+      "status": "shipped",
+      "path": "User stories/iPay_IB_MVP_Features/User_Stories/Bill Payments/Real Time Bill Payments/LOLCDL-47 - View credit card payment settlement details in Transaction History.doc"
+    },
+    {
+      "id": "LOLCDL-49",
+      "title": "LOLCDL-49 - Make a scheduled bill payment for unregistered biller",
+      "route": "/bill-payments, /payments",
+      "status": "shipped",
+      "path": "User stories/iPay_IB_MVP_Features/User_Stories/Bill Payments/Scheduled bill payment/LOLCDL-49 - Make a scheduled bill payment for unregistered biller.doc"
+    },
+    {
+      "id": "LOLCDL-50",
+      "title": "LOLCDL-50 - Make a scheduled bill payment for registered biller",
+      "route": "/bill-payments, /payments",
+      "status": "shipped",
+      "path": "User stories/iPay_IB_MVP_Features/User_Stories/Bill Payments/Scheduled bill payment/LOLCDL-50 - Make a scheduled bill payment for registered biller.doc"
+    },
+    {
+      "id": "LOLCDL-51",
+      "title": "LOLCDL-51 - Make a scheduled bill payment for LOLC Own credit cards – registered biller",
+      "route": "/bill-payments, /payments",
+      "status": "shipped",
+      "path": "User stories/iPay_IB_MVP_Features/User_Stories/Bill Payments/Scheduled bill payment/LOLCDL-51 - Make a scheduled bill payment for LOLC Own credit cards – registered biller.doc"
+    },
+    {
+      "id": "LOLCDL-52",
+      "title": "LOLCDL-52 - Make a scheduled bill payment for LOLC Own credit cards – unregistered biller",
+      "route": "/bill-payments, /payments",
+      "status": "shipped",
+      "path": "User stories/iPay_IB_MVP_Features/User_Stories/Bill Payments/Scheduled bill payment/LOLCDL-52 - Make a scheduled bill payment for LOLC Own credit cards – unregistered biller.doc"
+    },
+    {
+      "id": "LOLCDL-53",
+      "title": "LOLCDL-53 - Make a scheduled bill payment for LOLC Other credit cards – registered biller",
+      "route": "/bill-payments, /payments",
+      "status": "shipped",
+      "path": "User stories/iPay_IB_MVP_Features/User_Stories/Bill Payments/Scheduled bill payment/LOLCDL-53 - Make a scheduled bill payment for LOLC Other credit cards – registered biller.doc"
+    },
+    {
+      "id": "LOLCDL-54",
+      "title": "LOLCDL-54 - Make a scheduled bill payment for LOLC Other credit cards – unregistered biller",
+      "route": "/bill-payments, /payments",
+      "status": "shipped",
+      "path": "User stories/iPay_IB_MVP_Features/User_Stories/Bill Payments/Scheduled bill payment/LOLCDL-54 - Make a scheduled bill payment for LOLC Other credit cards – unregistered biller.doc"
+    },
+    {
+      "id": "LOLCDL-55",
+      "title": "LOLCDL-55 - Make a scheduled bill payment for other bank credit cards – registered biller",
+      "route": "/bill-payments, /payments",
+      "status": "shipped",
+      "path": "User stories/iPay_IB_MVP_Features/User_Stories/Bill Payments/Scheduled bill payment/LOLCDL-55 - Make a scheduled bill payment for other bank credit cards – registered biller.doc"
+    },
+    {
+      "id": "LOLCDL-56",
+      "title": "LOLCDL-56 - Make a scheduled bill payment for other bank credit cards – unregistered biller",
+      "route": "/bill-payments, /payments",
+      "status": "shipped",
+      "path": "User stories/iPay_IB_MVP_Features/User_Stories/Bill Payments/Scheduled bill payment/LOLCDL-56 - Make a scheduled bill payment for other bank credit cards – unregistered biller.doc"
+    },
+    {
+      "id": "LOLCDL-57",
+      "title": "LOLCDL-57 - Customer views scheduled payments list",
+      "route": "/bill-payments, /payments",
+      "status": "shipped",
+      "path": "User stories/iPay_IB_MVP_Features/User_Stories/Bill Payments/Scheduled bill payment/LOLCDL-57 - Customer views scheduled payments list.doc"
+    },
+    {
+      "id": "LOLCDL-58",
+      "title": "LOLCDL-58 - Customer viewing the details and managing scheduled payments",
+      "route": "/bill-payments, /payments",
+      "status": "shipped",
+      "path": "User stories/iPay_IB_MVP_Features/User_Stories/Bill Payments/Scheduled bill payment/LOLCDL-58 - Customer viewing the details and managing scheduled payments.doc"
+    },
+    {
+      "id": "LOLCDL-59",
+      "title": "LOLCDL-59 - Customer viewing history of the scheduled payments",
+      "route": "/bill-payments, /payments",
+      "status": "shipped",
+      "path": "User stories/iPay_IB_MVP_Features/User_Stories/Bill Payments/Scheduled bill payment/LOLCDL-59 - Customer viewing history of the scheduled payments.doc"
+    },
+    {
+      "id": "LOLCDL-60",
+      "title": "LOLCDL-60 - Customer stops selected payment instances of a recurring schedule payment",
+      "route": "/bill-payments, /payments",
+      "status": "shipped",
+      "path": "User stories/iPay_IB_MVP_Features/User_Stories/Bill Payments/Scheduled bill payment/LOLCDL-60 - Customer stops selected payment instances of a recurring schedule payment.doc"
+    },
+    {
+      "id": "LOLCDL-61",
+      "title": "LOLCDL-61 - Customer completely stopping a payment schedule",
+      "route": "/bill-payments, /payments",
+      "status": "shipped",
+      "path": "User stories/iPay_IB_MVP_Features/User_Stories/Bill Payments/Scheduled bill payment/LOLCDL-61 - Customer completely stopping a payment schedule.doc"
+    },
+    {
+      "id": "LOLCDL-62",
+      "title": "LOLCDL-62 - Scheduled Bill Payments Validations",
+      "route": "/bill-payments, /payments",
+      "status": "shipped",
+      "path": "User stories/iPay_IB_MVP_Features/User_Stories/Bill Payments/Scheduled bill payment/LOLCDL-62 - Scheduled Bill Payments Validations.doc"
+    },
+    {
+      "id": "LOLCDL-243",
+      "title": "LOLCDL-243-Customer Settings",
+      "route": "/home, /accounts",
+      "status": "shipped",
+      "path": "User stories/iPay_IB_MVP_Features/User_Stories/Customer Profile and Settings/LOLCDL-243-Customer Settings.doc"
+    },
+    {
+      "id": "LOLCDL-262",
+      "title": "LOLCDL-262- Customer Views and Manages profile details",
+      "route": "/profile",
+      "status": "shipped",
+      "path": "User stories/iPay_IB_MVP_Features/User_Stories/Customer Profile and Settings/LOLCDL-262- Customer Views and Manages profile details.doc"
+    },
+    {
+      "id": "LOLCDL-241",
+      "title": "LOLCDL-241- customer views accounts list",
+      "route": "/home, /accounts",
+      "status": "shipped",
+      "path": "User stories/iPay_IB_MVP_Features/User_Stories/Dashboard View, Account summary and Detail/LOLCDL-241- customer views accounts list.doc"
+    },
+    {
+      "id": "LOLCDL-242",
+      "title": "LOLCDL-242- customer views accounts details",
+      "route": "/home, /accounts",
+      "status": "shipped",
+      "path": "User stories/iPay_IB_MVP_Features/User_Stories/Dashboard View, Account summary and Detail/LOLCDL-242- customer views accounts details.doc"
+    },
+    {
+      "id": "LOLCDL-263",
+      "title": "LOLCDL-263- customer views application dashboard",
+      "route": "/home, /accounts",
+      "status": "shipped",
+      "path": "User stories/iPay_IB_MVP_Features/User_Stories/Dashboard View, Account summary and Detail/LOLCDL-263- customer views application dashboard.doc"
+    },
+    {
+      "id": "LOLCDL-25",
+      "title": "LOLCDL-25- Customer creates templates",
+      "route": "/payments (beneficiaries)",
+      "status": "shipped",
+      "path": "User stories/iPay_IB_MVP_Features/User_Stories/Fund Transfers/Beneficiary Management/LOLCDL-25- Customer creates templates.doc"
+    },
+    {
+      "id": "LOLCDL-26",
+      "title": "LOLCDL-26 - Customer edits templates",
+      "route": "/payments (beneficiaries)",
+      "status": "shipped",
+      "path": "User stories/iPay_IB_MVP_Features/User_Stories/Fund Transfers/Beneficiary Management/LOLCDL-26 - Customer edits templates.doc"
+    },
+    {
+      "id": "LOLCDL-27",
+      "title": "LOLCDL-27 - Customer removes templates",
+      "route": "/payments (beneficiaries)",
+      "status": "shipped",
+      "path": "User stories/iPay_IB_MVP_Features/User_Stories/Fund Transfers/Beneficiary Management/LOLCDL-27 - Customer removes templates.doc"
+    },
+    {
+      "id": "LOLCDL-28",
+      "title": "LOLCDL-28- Customer views template details",
+      "route": "/payments (beneficiaries)",
+      "status": "shipped",
+      "path": "User stories/iPay_IB_MVP_Features/User_Stories/Fund Transfers/Beneficiary Management/LOLCDL-28- Customer views template details.doc"
+    },
+    {
+      "id": "LOLCDL-30",
+      "title": "LOLCDL-30- Define personalized transfer limits by customer",
+      "route": "/payments, /fund-transfers",
+      "status": "shipped",
+      "path": "User stories/iPay_IB_MVP_Features/User_Stories/Fund Transfers/Managing Fund Transfers Related Customer settings/LOLCDL-30- Define personalized transfer limits by customer.doc"
+    },
+    {
+      "id": "LOLCDL-13",
+      "title": "LOLCDL-13 - LOLC own account fund transfers (Same currency & Cross currency)",
+      "route": "/payments, /fund-transfers",
+      "status": "shipped",
+      "path": "User stories/iPay_IB_MVP_Features/User_Stories/Fund Transfers/Real time Fund transfers/LOLCDL-13 - LOLC own account fund transfers (Same currency & Cross currency).doc"
+    },
+    {
+      "id": "LOLCDL-14",
+      "title": "LOLCDL-14 - LOLC to other LOLC account fund transfers (Same currency and cross currency)",
+      "route": "/payments, /fund-transfers",
+      "status": "shipped",
+      "path": "User stories/iPay_IB_MVP_Features/User_Stories/Fund Transfers/Real time Fund transfers/LOLCDL-14 - LOLC to other LOLC account fund transfers (Same currency and cross currency).doc"
+    },
+    {
+      "id": "LOLCDL-15",
+      "title": "LOLCDL-15 - LOLC to other bank account transfers - CEFT (Same Currency)",
+      "route": "/payments, /fund-transfers",
+      "status": "shipped",
+      "path": "User stories/iPay_IB_MVP_Features/User_Stories/Fund Transfers/Real time Fund transfers/LOLCDL-15 - LOLC to other bank account transfers - CEFT (Same Currency).doc"
+    },
+    {
+      "id": "LOLCDL-16",
+      "title": "LOLCDL-16- View Fund Transfer details in the Transaction history",
+      "route": "/payments, /fund-transfers",
+      "status": "shipped",
+      "path": "User stories/iPay_IB_MVP_Features/User_Stories/Fund Transfers/Real time Fund transfers/LOLCDL-16- View Fund Transfer details in the Transaction history.doc"
+    },
+    {
+      "id": "LOLCDL-260",
+      "title": "LOLCDL-260 - Fund Transfer Failure Handling",
+      "route": "/payments, /fund-transfers",
+      "status": "shipped",
+      "path": "User stories/iPay_IB_MVP_Features/User_Stories/Fund Transfers/Real time Fund transfers/LOLCDL-260 - Fund Transfer Failure Handling.doc"
+    },
+    {
+      "id": "LOLCDL-31",
+      "title": "LOLCDL-31 - Fund Transfer validations",
+      "route": "/payments, /fund-transfers",
+      "status": "shipped",
+      "path": "User stories/iPay_IB_MVP_Features/User_Stories/Fund Transfers/Real time Fund transfers/LOLCDL-31 - Fund Transfer validations.doc"
+    },
+    {
+      "id": "LOLCDL-17",
+      "title": "LOLCDL-17- Customer creates a scheduled fund transfer",
+      "route": "/scheduled-payments, /payments",
+      "status": "shipped",
+      "path": "User stories/iPay_IB_MVP_Features/User_Stories/Fund Transfers/Schedule Fund Transfers/LOLCDL-17- Customer creates a scheduled fund transfer.doc"
+    },
+    {
+      "id": "LOLCDL-18",
+      "title": "LOLCDL-18 - Customer views the scheduled payments list",
+      "route": "/scheduled-payments, /payments",
+      "status": "shipped",
+      "path": "User stories/iPay_IB_MVP_Features/User_Stories/Fund Transfers/Schedule Fund Transfers/LOLCDL-18 - Customer views the scheduled payments list.doc"
+    },
+    {
+      "id": "LOLCDL-19",
+      "title": "LOLCDL-19 - Customer views Schedule payments in a detail view",
+      "route": "/scheduled-payments, /payments",
+      "status": "shipped",
+      "path": "User stories/iPay_IB_MVP_Features/User_Stories/Fund Transfers/Schedule Fund Transfers/LOLCDL-19 - Customer views Schedule payments in a detail view.doc"
+    },
+    {
+      "id": "LOLCDL-20",
+      "title": "LOLCDL-20 - Customer views history of the scheduled payments",
+      "route": "/scheduled-payments, /payments",
+      "status": "shipped",
+      "path": "User stories/iPay_IB_MVP_Features/User_Stories/Fund Transfers/Schedule Fund Transfers/LOLCDL-20 - Customer views history of the scheduled payments.doc"
+    },
+    {
+      "id": "LOLCDL-21",
+      "title": "LOLCDL-21- Customer stops selected payment instances of a recurring schedule payments (Both bill payments and fund transfers)",
+      "route": "/scheduled-payments, /payments",
+      "status": "shipped",
+      "path": "User stories/iPay_IB_MVP_Features/User_Stories/Fund Transfers/Schedule Fund Transfers/LOLCDL-21- Customer stops selected payment instances of a recurring schedule payments (Both bill payments and fund transfers).doc"
+    },
+    {
+      "id": "LOLCDL-22",
+      "title": "LOLCDL-22- Customer completely stop a Fund Transfer schedule",
+      "route": "/scheduled-payments, /payments",
+      "status": "shipped",
+      "path": "User stories/iPay_IB_MVP_Features/User_Stories/Fund Transfers/Schedule Fund Transfers/LOLCDL-22- Customer completely stop a Fund Transfer schedule.doc"
+    },
+    {
+      "id": "LOLCDL-23",
+      "title": "LOLCDL-23- Customer receives Scheduled Fund Transfers related notification",
+      "route": "/notifications",
+      "status": "shipped",
+      "path": "User stories/iPay_IB_MVP_Features/User_Stories/Fund Transfers/Schedule Fund Transfers/LOLCDL-23- Customer receives Scheduled Fund Transfers related notification.doc"
+    },
+    {
+      "id": "LOLCDL-248",
+      "title": "LOLCDL-248- customer logs in first time after onboarding",
+      "route": "/auth (first-time login)",
+      "status": "shipped",
+      "path": "User stories/iPay_IB_MVP_Features/User_Stories/Login_Details/First Time Login & Biometric Authentication/LOLCDL-248- customer logs in first time after onboarding.doc"
+    },
+    {
+      "id": "LOLCDL-249",
+      "title": "LOLCDL-249-First-time Login after onboarding with Joyride",
+      "route": "/home (joyride mock tour)",
+      "status": "shipped_mock",
+      "path": "User stories/iPay_IB_MVP_Features/User_Stories/Login_Details/First Time Login & Biometric Authentication/LOLCDL-249-First-time Login after onboarding with Joyride.doc"
+    },
+    {
+      "id": "LOLCDL-250",
+      "title": "LOLCDL-250- customer views and accepts the latest terms and conditions, during the login process",
+      "route": "/auth (terms acceptance — mock)",
+      "status": "shipped_mock",
+      "path": "User stories/iPay_IB_MVP_Features/User_Stories/Login_Details/First Time Login & Biometric Authentication/LOLCDL-250- customer views and accepts the latest terms and conditions, during the login process.doc"
+    },
+    {
+      "id": "LOLCDL-251",
+      "title": "LOLCDL-251- Setup Biometric Authentication at first-time login",
+      "route": "/settings/security (mock biometric)",
+      "status": "shipped_mock",
+      "path": "User stories/iPay_IB_MVP_Features/User_Stories/Login_Details/First Time Login & Biometric Authentication/LOLCDL-251- Setup Biometric Authentication at first-time login.doc"
+    },
+    {
+      "id": "LOLCDL-252",
+      "title": "LOLCDL-252- Setup Biometric Authentication from Settings",
+      "route": "/settings/security (mock biometric)",
+      "status": "shipped_mock",
+      "path": "User stories/iPay_IB_MVP_Features/User_Stories/Login_Details/First Time Login & Biometric Authentication/LOLCDL-252- Setup Biometric Authentication from Settings.doc"
+    },
+    {
+      "id": "LOLCDL-253",
+      "title": "LOLCDL-253- Setup biometrics for different device ID",
+      "route": "/settings/security (mock biometric)",
+      "status": "shipped_mock",
+      "path": "User stories/iPay_IB_MVP_Features/User_Stories/Login_Details/First Time Login & Biometric Authentication/LOLCDL-253- Setup biometrics for different device ID.doc"
+    },
+    {
+      "id": "LOLCDL-254",
+      "title": "LOLCDL-254- Log in with Biometric Authentication",
+      "route": "/settings/security (mock biometric)",
+      "status": "shipped_mock",
+      "path": "User stories/iPay_IB_MVP_Features/User_Stories/Login_Details/First Time Login & Biometric Authentication/LOLCDL-254- Log in with Biometric Authentication.doc"
+    },
+    {
+      "id": "LOLCDL-246",
+      "title": "LOLCDL-246- customer subsequent login",
+      "route": "/auth",
+      "status": "shipped",
+      "path": "User stories/iPay_IB_MVP_Features/User_Stories/Login_Details/Login, Subsequent Login & Pre-Login Features/LOLCDL-246- customer subsequent login.doc"
+    },
+    {
+      "id": "LOLCDL-255",
+      "title": "LOLCDL-255- Logout option in the welcome back login page",
+      "route": "/auth (welcome-back logout — shell)",
+      "status": "shipped_mock",
+      "path": "User stories/iPay_IB_MVP_Features/User_Stories/Login_Details/Login, Subsequent Login & Pre-Login Features/LOLCDL-255- Logout option in the welcome back login page.doc"
+    },
+    {
+      "id": "LOLCDL-256",
+      "title": "LOLCDL-256- Forgot Username",
+      "route": "/auth/forgot-username",
+      "status": "shipped",
+      "path": "User stories/iPay_IB_MVP_Features/User_Stories/Login_Details/Login, Subsequent Login & Pre-Login Features/LOLCDL-256- Forgot Username.doc"
+    },
+    {
+      "id": "LOLCDL-257",
+      "title": "LOLCDL-257- Customer logging in from a different device",
+      "route": "/auth, /notifications?kindGroup=security",
+      "status": "shipped",
+      "path": "User stories/iPay_IB_MVP_Features/User_Stories/Login_Details/Login, Subsequent Login & Pre-Login Features/LOLCDL-257- Customer logging in from a different device.doc"
+    },
+    {
+      "id": "LOLCDL-258",
+      "title": "LOLCDL-258- password expiration",
+      "route": "/auth/forgot-password",
+      "status": "shipped",
+      "path": "User stories/iPay_IB_MVP_Features/User_Stories/Login_Details/Login, Subsequent Login & Pre-Login Features/LOLCDL-258- password expiration.doc"
+    },
+    {
+      "id": "LOLCDL-174",
+      "title": "LOLCDL-174 (3)",
+      "route": "/register",
+      "status": "shipped",
+      "path": "User stories/iPay_IB_MVP_Features/User_Stories/Onboarding/Onboarding-V1.0/LOLCDL-174 (3).doc"
+    },
+    {
+      "id": null,
+      "title": "User Story - OnboardingV1.1",
+      "route": "/register/v1.1",
+      "status": "shipped_mock",
+      "path": "User stories/iPay_IB_MVP_Features/User_Stories/Onboarding/Onboarding-V1.1/User Story - OnboardingV1.1.docx"
+    },
+    {
+      "id": "LOLCDL-143",
+      "title": "LOLCDL-143",
+      "route": "/service-requests",
+      "status": "shipped_mock",
+      "path": "User stories/iPay_IB_MVP_Features/User_Stories/Service Requests/1_Loan Applications Service Request/Customer creates a Loan Application Service Request/LOLCDL-143.doc"
+    },
+    {
+      "id": "LOLCDL-144",
+      "title": "LOLCDL-144",
+      "route": "/service-requests",
+      "status": "shipped_mock",
+      "path": "User stories/iPay_IB_MVP_Features/User_Stories/Service Requests/1_Loan Applications Service Request/Customer views and manages Previously Created Loan Application Service Requests/LOLCDL-144.doc"
+    },
+    {
+      "id": "LOLCDL-147",
+      "title": "LOLCDL-147",
+      "route": "/service-requests",
+      "status": "shipped_mock",
+      "path": "User stories/iPay_IB_MVP_Features/User_Stories/Service Requests/2_Credit Card Application Service Request/Customer creates a Credit Card Application Service Request/LOLCDL-147.doc"
+    },
+    {
+      "id": "LOLCDL-148",
+      "title": "LOLCDL-148",
+      "route": "/service-requests",
+      "status": "shipped_mock",
+      "path": "User stories/iPay_IB_MVP_Features/User_Stories/Service Requests/2_Credit Card Application Service Request/Customer views and manages Previously Created Credit Card Application Service Requests/LOLCDL-148.doc"
+    },
+    {
+      "id": "LOLCDL-151",
+      "title": "LOLCDL-151",
+      "route": "/service-requests",
+      "status": "shipped_mock",
+      "path": "User stories/iPay_IB_MVP_Features/User_Stories/Service Requests/3_Debit Card Application Service Request/Customer creates a Debit Card Application Service Request/LOLCDL-151.doc"
+    },
+    {
+      "id": "LOLCDL-152",
+      "title": "LOLCDL-152",
+      "route": "/service-requests",
+      "status": "shipped_mock",
+      "path": "User stories/iPay_IB_MVP_Features/User_Stories/Service Requests/3_Debit Card Application Service Request/Customer views and manages Previously Created Debit Card Application Service Requests/LOLCDL-152.doc"
+    },
+    {
+      "id": "LOLCDL-163",
+      "title": "LOLCDL-163",
+      "route": "/service-requests",
+      "status": "shipped_mock",
+      "path": "User stories/iPay_IB_MVP_Features/User_Stories/Service Requests/4_Liability Product Balance Letter Service Request/Customer creates a Liability Product Balance letter Service Request/LOLCDL-163.doc"
+    },
+    {
+      "id": "LOLCDL-164",
+      "title": "LOLCDL-164",
+      "route": "/service-requests",
+      "status": "shipped_mock",
+      "path": "User stories/iPay_IB_MVP_Features/User_Stories/Service Requests/4_Liability Product Balance Letter Service Request/Customer views and manages Previously Created Liability Product Balance to Customer Service Request/LOLCDL-164.doc"
+    },
+    {
+      "id": "LOLCDL-159",
+      "title": "LOLCDL-159",
+      "route": "/service-requests",
+      "status": "shipped_mock",
+      "path": "User stories/iPay_IB_MVP_Features/User_Stories/Service Requests/6_Direct Debit Service Request/Customer creates a Direct Debit Service Request/LOLCDL-159.doc"
+    },
+    {
+      "id": "LOLCDL-160",
+      "title": "LOLCDL-160",
+      "route": "/service-requests",
+      "status": "shipped_mock",
+      "path": "User stories/iPay_IB_MVP_Features/User_Stories/Service Requests/6_Direct Debit Service Request/Customer views and manages Previously Created Direct Debit Service Requests/LOLCDL-160.doc"
+    }
+  ]
+}

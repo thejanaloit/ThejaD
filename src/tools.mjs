@@ -1,0 +1,421 @@
+import fs from 'fs';
+import path from 'path';
+import { capabilityPercent, unlockWithPhrase } from './capability.mjs';
+import { PACKAGE_ROOT, readJson, resolveDataDir, resolveRepoRoot } from './paths.mjs';
+
+const ALL_TOOLS = [
+  {
+    name: 'thejad_status',
+    tier: 'core',
+    description: 'ThejaD status: capability %, unlock state, repo detection, thanks footer.',
+    inputSchema: { type: 'object', properties: {} },
+  },
+  {
+    name: 'thejad_unlock',
+    tier: 'core',
+    description: 'Unlock maximum capability with secret phrase (friends only).',
+    inputSchema: {
+      type: 'object',
+      properties: { phrase: { type: 'string' } },
+      required: ['phrase'],
+    },
+  },
+  {
+    name: 'coordination_claim',
+    tier: 'core',
+    description:
+      'Claim a path/lane so Cursor + Antigravity + Copilot do not collide. Writes coordination/active-claims.json.',
+    inputSchema: {
+      type: 'object',
+      properties: {
+        tool: { type: 'string', description: 'Cursor | Antigravity | Copilot | Human' },
+        lane: { type: 'string', description: 'A–E' },
+        paths: { type: 'string' },
+        who: { type: 'string' },
+      },
+      required: ['tool', 'paths'],
+    },
+  },
+  {
+    name: 'coordination_release',
+    tier: 'core',
+    description: 'Release an active coordination claim by id.',
+    inputSchema: {
+      type: 'object',
+      properties: { claimId: { type: 'string' } },
+      required: ['claimId'],
+    },
+  },
+  {
+    name: 'memory_store',
+    tier: 'standard',
+    description: 'Store a key/value in ThejaD local memory (.thejad/memory.json).',
+    inputSchema: {
+      type: 'object',
+      properties: { key: { type: 'string' }, value: { type: 'string' } },
+      required: ['key', 'value'],
+    },
+  },
+  {
+    name: 'memory_search',
+    tier: 'standard',
+    description: 'Search ThejaD memory keys/values (substring).',
+    inputSchema: {
+      type: 'object',
+      properties: { query: { type: 'string' } },
+      required: ['query'],
+    },
+  },
+  {
+    name: 'story_lookup',
+    tier: 'standard',
+    description: 'Lookup LOLCDL user story by id or route (from stories-traceability.json).',
+    inputSchema: {
+      type: 'object',
+      properties: {
+        storyId: { type: 'string' },
+        route: { type: 'string' },
+      },
+    },
+  },
+  {
+    name: 'limits_check',
+    tier: 'standard',
+    description: 'Return LOLC dev payment limits and programme phase weights.',
+    inputSchema: { type: 'object', properties: {} },
+  },
+  {
+    name: 'scope_guard',
+    tier: 'standard',
+    description: 'Check task text against Phase 1-only programme scope (AGENTS.md aligned).',
+    inputSchema: {
+      type: 'object',
+      properties: { task: { type: 'string' } },
+      required: ['task'],
+    },
+  },
+  {
+    name: 'smoke_hint',
+    tier: 'standard',
+    description: 'Suggest npm smoke commands for a feature area.',
+    inputSchema: {
+      type: 'object',
+      properties: { area: { type: 'string', enum: ['auth', 'accounts', 'payments', 'phase1', 'web'] } },
+    },
+  },
+  {
+    name: 'diary_append',
+    tier: 'standard',
+    description: 'Append daily development diary entry (ThejaD diary log).',
+    inputSchema: {
+      type: 'object',
+      properties: {
+        summary: { type: 'string' },
+        tool: { type: 'string' },
+      },
+      required: ['summary'],
+    },
+  },
+  {
+    name: 'swarm_plan',
+    tier: 'full',
+    description: 'Generate multi-agent task plan for UI + BFF + service lanes.',
+    inputSchema: {
+      type: 'object',
+      properties: { goal: { type: 'string' }, storyId: { type: 'string' } },
+      required: ['goal'],
+    },
+  },
+  {
+    name: 'ollama_prompt',
+    tier: 'full',
+    description: 'Send prompt to local Ollama (mock if unavailable).',
+    inputSchema: {
+      type: 'object',
+      properties: {
+        model: { type: 'string' },
+        prompt: { type: 'string' },
+      },
+      required: ['prompt'],
+    },
+  },
+  {
+    name: 'notebooklm_ask',
+    tier: 'full',
+    description:
+      'NotebookLM bridge (notebooklm-py). Mock: returns repo doc pointers until R2 in requested.md.',
+    inputSchema: {
+      type: 'object',
+      properties: { question: { type: 'string' } },
+      required: ['question'],
+    },
+  },
+  {
+    name: 'figma_context',
+    tier: 'full',
+    description: 'Figma/Stitch context — route map + UI plan paths (mock until R1).',
+    inputSchema: {
+      type: 'object',
+      properties: { route: { type: 'string' } },
+    },
+  },
+  {
+    name: 'full_stack_map',
+    tier: 'full',
+    description: 'Map route → page → BFF → microservice (backend + UI plan).',
+    inputSchema: {
+      type: 'object',
+      properties: { route: { type: 'string' } },
+    },
+  },
+  {
+    name: 'antigravity_handoff',
+    tier: 'full',
+    description: 'Format Antigravity ↔ Cursor handoff block for MULTI_AGENT_DEVELOPMENT_LOG.',
+    inputSchema: {
+      type: 'object',
+      properties: {
+        shipped: { type: 'string' },
+        files: { type: 'string' },
+        collisionRisk: { type: 'string' },
+      },
+      required: ['shipped'],
+    },
+  },
+];
+
+export function listToolsForSession() {
+  const full = isFullCapacity();
+  return ALL_TOOLS.filter((t) => {
+    if (t.tier === 'core' || t.tier === 'standard') return true;
+    return full;
+  });
+}
+
+function memoryPath() {
+  return path.join(resolveDataDir(), 'memory.json');
+}
+
+function loadMemory() {
+  const p = memoryPath();
+  if (!fs.existsSync(p)) return {};
+  return JSON.parse(fs.readFileSync(p, 'utf8'));
+}
+
+function saveMemory(m) {
+  fs.writeFileSync(memoryPath(), JSON.stringify(m, null, 2), 'utf8');
+}
+
+function claimsPath() {
+  return path.join(PACKAGE_ROOT, 'coordination', 'active-claims.json');
+}
+
+function loadClaims() {
+  const p = claimsPath();
+  if (!fs.existsSync(p)) return { claims: [] };
+  return JSON.parse(fs.readFileSync(p, 'utf8'));
+}
+
+function saveClaims(c) {
+  fs.mkdirSync(path.dirname(claimsPath()), { recursive: true });
+  fs.writeFileSync(claimsPath(), JSON.stringify(c, null, 2), 'utf8');
+}
+
+const THANKS = 'Thanks to Theja';
+
+export async function handleTool(name, args) {
+  const pct = capabilityPercent();
+  const footer = `\n\n---\n${THANKS}`;
+
+  switch (name) {
+    case 'thejad_status':
+      return {
+        capabilityPercent: pct,
+        fullCapacity: isFullCapacity(),
+        repoRoot: resolveRepoRoot(),
+        packageRoot: PACKAGE_ROOT,
+        thanks: THANKS,
+        planFile: 'THEJAD_PLAN.json',
+      };
+
+    case 'thejad_unlock': {
+      const r = unlockWithPhrase(args.phrase);
+      return { ...r, capabilityPercent: capabilityPercent() };
+    }
+
+    case 'coordination_claim': {
+      const data = loadClaims();
+      const id = `claim-${Date.now()}`;
+      data.claims.push({
+        id,
+        tool: args.tool,
+        lane: args.lane || 'A',
+        paths: args.paths,
+        who: args.who || 'ThejaD user',
+        startedAt: new Date().toISOString(),
+      });
+      saveClaims(data);
+      const repo = resolveRepoRoot();
+      const logHint = path.join(repo, 'docs', 'MULTI_AGENT_DEVELOPMENT_LOG.md');
+      return { claimId: id, mirrorTo: fs.existsSync(logHint) ? logHint : null };
+    }
+
+    case 'coordination_release': {
+      const data = loadClaims();
+      data.claims = data.claims.filter((c) => c.id !== args.claimId);
+      saveClaims(data);
+      return { released: args.claimId };
+    }
+
+    case 'memory_store': {
+      const m = loadMemory();
+      m[args.key] = { value: args.value, at: new Date().toISOString() };
+      saveMemory(m);
+      return { stored: args.key };
+    }
+
+    case 'memory_search': {
+      const m = loadMemory();
+      const q = String(args.query || '').toLowerCase();
+      const hits = Object.entries(m)
+        .filter(([k, v]) => k.toLowerCase().includes(q) || String(v.value).toLowerCase().includes(q))
+        .map(([k, v]) => ({ key: k, ...v }));
+      return { hits };
+    }
+
+    case 'story_lookup': {
+      const stories = readJson('data/stories-traceability.json');
+      let entries = stories.entries || [];
+      if (args.storyId) {
+        const id = args.storyId.toUpperCase();
+        entries = entries.filter((e) => e.id === id);
+      }
+      if (args.route) {
+        const r = args.route.toLowerCase();
+        entries = entries.filter((e) => String(e.route || '').toLowerCase().includes(r));
+      }
+      return { count: entries.length, entries: entries.slice(0, 15) };
+    }
+
+    case 'limits_check':
+      return readJson('data/lolc-limits.json');
+
+    case 'scope_guard': {
+      const task = String(args.task || '').toLowerCase();
+      const blocked = ['mobile app', 'phase 6', 'cards programme', 'international wire prod'];
+      const hit = blocked.filter((b) => task.includes(b));
+      return {
+        allowed: hit.length === 0,
+        phase1Only: true,
+        warnings: hit.length ? hit : ['OK for Phase 1 spine — log in MULTI_AGENT_DEVELOPMENT_LOG if cross-phase'],
+      };
+    }
+
+    case 'smoke_hint': {
+      const map = {
+        auth: 'npm run smoke:phase1',
+        accounts: 'npm run smoke:accounts',
+        payments: 'npm run smoke:phase3:payments',
+        phase1: 'npm run smoke:phase1',
+        web: 'npm run local:health:web',
+      };
+      const area = args.area || 'phase1';
+      return { command: map[area] || map.phase1, cwd: resolveRepoRoot() };
+    }
+
+    case 'diary_append': {
+      const dir = path.join(PACKAGE_ROOT, 'diary');
+      fs.mkdirSync(dir, { recursive: true });
+      const day = new Date().toISOString().slice(0, 10);
+      const file = path.join(dir, `${day}.md`);
+      const line = `- **${new Date().toISOString()}** [${args.tool || 'MCP'}] ${args.summary}\n`;
+      fs.appendFileSync(file, line, 'utf8');
+      return { file };
+    }
+
+    case 'swarm_plan': {
+      const story = args.storyId
+        ? (await handleTool('story_lookup', { storyId: args.storyId })).entries?.[0]
+        : null;
+      return {
+        goal: args.goal,
+        story,
+        lanes: [
+          { lane: 'A', agent: 'Cursor', scope: 'apps/web pages + ui' },
+          { lane: 'B', agent: 'Cursor', scope: 'apps/web/app/api BFF' },
+          { lane: 'C', agent: 'Antigravity', scope: 'services/*' },
+        ],
+        steps: ['coordination_claim', 'implement', 'smoke_hint', 'diary_append', 'coordination_release'],
+      };
+    }
+
+    case 'ollama_prompt': {
+      const model = args.model || process.env.THEJAD_OLLAMA_MODEL || 'llama3.2';
+      try {
+        const body = JSON.stringify({ model, prompt: args.prompt, stream: false });
+        const res = await fetch('http://127.0.0.1:11434/api/generate', {
+          method: 'POST',
+          headers: { 'content-type': 'application/json' },
+          body,
+        });
+        if (!res.ok) throw new Error(`ollama ${res.status}`);
+        const j = await res.json();
+        return { model, response: j.response || j };
+      } catch (e) {
+        return {
+          mock: true,
+          message: 'Ollama not reachable — install from https://ollama.com and run `ollama pull llama3.2`',
+          echo: args.prompt.slice(0, 200),
+          error: String(e.message || e),
+        };
+      }
+    }
+
+    case 'notebooklm_ask': {
+      return {
+        mock: true,
+        question: args.question,
+        see: 'https://github.com/teng-lin/notebooklm-py',
+        repoDocs: [
+          'docs/PROGRAMME_MASTER_REFERENCE.md',
+          'docs/AUTHENTICATION_AND_AUTHORIZATION.md',
+          'docs/ipay-mvp-story-traceability.json',
+        ],
+        requestedId: 'R2',
+      };
+    }
+
+    case 'figma_context': {
+      const route = args.route || '/home';
+      const planPath = path.join(PACKAGE_ROOT, 'plans', 'ui-ux-route-plan.md');
+      return {
+        route,
+        planFile: fs.existsSync(planPath) ? planPath : null,
+        stitch: 'mock — provide Figma URL in requested.md R1',
+      };
+    }
+
+    case 'full_stack_map': {
+      const backend = readJson('plans/backend-api-plan.json');
+      const route = args.route || '/payments';
+      const story = await handleTool('story_lookup', { route });
+      return { route, backend, stories: story.entries?.slice(0, 5) };
+    }
+
+    case 'antigravity_handoff':
+      return {
+        markdown: `### ${new Date().toISOString().slice(0, 10)} — Antigravity — handoff\n\n**Shipped:** ${args.shipped}\n**Files:** ${args.files || '—'}\n**Collision risk:** ${args.collisionRisk || 'Low'}\n`,
+        pasteInto: 'docs/MULTI_AGENT_DEVELOPMENT_LOG.md',
+      };
+
+    default:
+      return { error: `Unknown tool: ${name}` };
+  }
+
+  // append thanks to string results when returned as text - handled in server
+}
+
+export function formatToolResult(data) {
+  const text = JSON.stringify(data, null, 2) + `\n\n---\n${THANKS}`;
+  return { content: [{ type: 'text', text }] };
+}

@@ -1,0 +1,20 @@
+{
+  "source": "internet-banking dev seed (scripts/seed-dev-payments.cjs) — mock until bank confirms",
+  "paymentLimits": {
+    "dailyLimit": 500000,
+    "perTransactionLimit": 100000,
+    "scheduleLimit": 50000,
+    "currency": "LKR"
+  },
+  "devDefaults": {
+    "jwtAccessTtlSeconds": 900,
+    "jwtRefreshTtlDays": 7,
+    "failedLoginMax": 5,
+    "failedLoginWindowMinutes": 15,
+    "bffFetchTimeoutMs": 20000
+  },
+  "programmeScope": {
+    "nearTerm": "Phase 1 completion only unless log notes otherwise",
+    "phases": { "P1": 0.38, "P2": 0.22, "P3": 0.22, "P4": 0.11, "P5": 0.07 }
+  }
+}

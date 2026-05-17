@@ -1,0 +1,35 @@
+{
+  "name": "thejad-mcp",
+  "version": "1.0.0",
+  "description": "ThejaD — LOLC Internet Banking MCP (multi-agent, coordination, stories, limits). Install via GitHub URL in Cursor.",
+  "license": "MIT",
+  "type": "module",
+  "bin": {
+    "thejad": "./bin/thejad.js"
+  },
+  "scripts": {
+    "start": "node bin/thejad.js mcp start",
+    "mcp": "node bin/thejad.js mcp start",
+    "init": "node bin/thejad.js init"
+  },
+  "engines": { "node": ">=20" },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.12.1"
+  },
+  "files": [
+    "bin",
+    "src",
+    "data",
+    "skills",
+    "coordination",
+    "plans",
+    "install",
+    "requested.md",
+    "THEJAD_PLAN.json"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/thejanaloit/LOLCDevelopmentAi50ThejaD.git"
+  },
+  "keywords": ["mcp", "lolc", "internet-banking", "cursor", "antigravity", "thejad"]
+}

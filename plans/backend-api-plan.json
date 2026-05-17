@@ -1,0 +1,27 @@
+{
+  "title": "LOLC Internet Banking — backend API plan (ThejaD)",
+  "services": [
+    { "name": "auth-service", "port": 3000, "prefix": "/api/v1", "focus": "login, refresh, MFA, biometric" },
+    { "name": "tenant-service", "port": 3001, "prefix": "/api/v1", "focus": "branding config" },
+    { "name": "bank-adapter-service", "port": 3002, "prefix": "/api/v1", "focus": "mock CBS, proxy resolve" },
+    { "name": "onboarding-service", "port": 3003, "prefix": "/api/v1", "focus": "register verify/otp/complete" },
+    { "name": "admin-service", "port": 3004, "prefix": "/api/v1", "focus": "operator auth, users, audit" },
+    { "name": "account-service", "port": 3005, "prefix": "/api/v1", "focus": "accounts, tx, statements" },
+    { "name": "payment-service", "port": 3006, "prefix": "/api/v1", "focus": "transfers, bills, schedules" },
+    { "name": "notification-service", "port": 3007, "prefix": "/api/v1", "focus": "inbox, preferences" },
+    { "name": "support-service", "port": 3008, "prefix": "/api/v1", "focus": "tickets" }
+  ],
+  "bff": { "app": "apps/web", "port": 3010, "pattern": "apps/web/app/api/** → service" },
+  "localDevFlags": [
+    "ALLOW_DEV_PROXY_USER_FALLBACK=1",
+    "ALLOW_INSECURE_JWT_DECODE=1",
+    "ALLOW_DEV_HEADER_USER_ID=1",
+    "WEB_PROXY_ACCOUNTS_DEV_FALLBACK=1"
+  ],
+  "smokeScripts": [
+    "npm run smoke:phase1",
+    "npm run smoke:accounts",
+    "npm run smoke:phase3:payments",
+    "npm run local:health:web"
+  ]
+}
