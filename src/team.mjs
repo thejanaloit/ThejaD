@@ -11,6 +11,7 @@ export function consultRole(roleId, topic) {
   const role = team.roles[roleId];
   if (!role) return { error: `Unknown role. Use: ${Object.keys(team.roles).join(', ')}` };
   const repo = resolveRepoRoot();
+  const plugins = role.plugins || [];
   const guidance = {
     thejana: `Supreme plan for: ${topic}. Claim lanes ${role.lanes.join(',')}. Merge via coordination. Run smokes before handoff.`,
     lahiru: `UI review: ${topic}. Check apps/web + docs/ui-design/SCREEN_ROUTE_MAP.md. Figma stub until R1 in requested.md.`,
@@ -25,6 +26,7 @@ export function consultRole(roleId, topic) {
     experienceYears: role.experienceYears,
     focus: role.focus,
     guidance: guidance[roleId],
+    plugins,
     repoRoot: repo,
     recommendedTools: role.tools,
   };
@@ -65,16 +67,19 @@ export function qaPlan(storyId) {
 }
 
 export function supremePlan(goal) {
+  const team = loadTeam();
+  const phases =
+    team.deliveryWorkflow?.map((w) => ({
+      step: w.order,
+      who: w.who,
+      action: w.action,
+      plugins: w.plugins,
+    })) || [];
   return {
-    owner: 'Thejana — Supreme Developer',
+    owner: 'Thejana — Supreme Developer & Engineering Lead',
     goal,
-    phases: [
-      { step: 1, who: 'Sachini', action: 'story_lookup / sachini_story_draft' },
-      { step: 2, who: 'Lahiru', action: 'lahiru_ui_review + route map' },
-      { step: 3, who: 'Backend', action: 'service + BFF implementation' },
-      { step: 4, who: 'Security', action: 'security_white_hat_scan' },
-      { step: 5, who: 'Geesara', action: 'geesara_run_smokes' },
-      { step: 6, who: 'Thejana', action: 'merge + diary_append + coordination_release' },
-    ],
+    engineers: ['thejana', 'lahiru', 'geesara', 'sachini'],
+    phases,
+    pluginBundle: 'plugins_install_hints',
   };
 }

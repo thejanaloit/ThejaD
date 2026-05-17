@@ -1,48 +1,63 @@
 {
   "collectiveExperienceYears": 50,
   "thanks": "Thanks to Theja",
+  "deliveryWorkflow": [
+    { "order": 1, "who": "Sachini", "action": "story + AC + traceability", "plugins": ["superpowers"] },
+    { "order": 2, "who": "Lahiru", "action": "UI/FusionX + frontend-design", "plugins": ["frontend-design", "superpowers"] },
+    { "order": 3, "who": "Thejana", "action": "architecture + BFF + merge", "plugins": ["superpowers", "code-review", "claude-mem"] },
+    { "order": 4, "who": "Backend", "action": "Nest services + Kong", "plugins": ["code-review", "superpowers"] },
+    { "order": 5, "who": "Security", "action": "white-hat + security-review", "plugins": ["claude-code-security-review", "code-review"] },
+    { "order": 6, "who": "Geesara", "action": "smokes + regression", "plugins": ["code-review", "superpowers"] },
+    { "order": 7, "who": "Thejana", "action": "coordination_release + handoff", "plugins": ["claude-mem"] }
+  ],
   "roles": {
     "thejana": {
-      "title": "Supreme Developer",
+      "title": "Supreme Developer & Engineering Lead",
       "experienceYears": 50,
-      "focus": ["architecture", "full-stack", "final merge", "MCP orchestration"],
+      "focus": ["architecture", "full-stack", "final merge", "MCP orchestration", "multi-agent speed"],
       "lanes": ["A", "B", "C", "D"],
-      "tools": ["thejana_supreme_plan", "swarm_init", "coordination_claim"]
+      "tools": ["thejana_supreme_plan", "engineering_team_roster", "swarm_init", "coordination_claim"],
+      "plugins": ["superpowers", "code-review", "claude-mem"]
     },
     "lahiru": {
-      "title": "UI / UX Engineer",
+      "title": "UI / UX Engineer (FusionX)",
       "experienceYears": 50,
-      "focus": ["apps/web", "Figma", "SCREEN_ROUTE_MAP", "accessibility", "design tokens"],
+      "focus": ["apps/web", "Figma", "SCREEN_ROUTE_MAP", "accessibility", "design tokens", "Stitch parity"],
       "lanes": ["A"],
-      "tools": ["lahiru_ui_review", "figma_context"]
+      "tools": ["lahiru_ui_review", "figma_context"],
+      "plugins": ["frontend-design", "superpowers"]
+    },
+    "geesara": {
+      "title": "QA Engineer",
+      "experienceYears": 50,
+      "focus": ["smoke scripts", "regression", "phase gates", "browser E2E", "typecheck"],
+      "lanes": ["E"],
+      "tools": ["geesara_qa_plan", "geesara_run_smokes"],
+      "plugins": ["code-review", "superpowers"]
+    },
+    "sachini": {
+      "title": "Business Analyst",
+      "experienceYears": 50,
+      "focus": ["LOLCDL stories", "acceptance criteria", "traceability", "route binding"],
+      "lanes": ["E"],
+      "tools": ["sachini_story_draft", "story_lookup"],
+      "plugins": ["superpowers"]
     },
     "backend": {
       "title": "Backend Engineer",
       "experienceYears": 50,
       "focus": ["services/*", "migrations", "Kong", "OpenAPI", "NestJS"],
       "lanes": ["C", "D"],
-      "tools": ["full_stack_map", "smoke_hint"]
-    },
-    "geesara": {
-      "title": "QA Engineer",
-      "experienceYears": 50,
-      "focus": ["smoke scripts", "regression", "phase gates", "browser E2E"],
-      "lanes": ["E"],
-      "tools": ["geesara_qa_plan", "geesara_run_smokes"]
-    },
-    "sachini": {
-      "title": "Business Analyst",
-      "experienceYears": 50,
-      "focus": ["LOLCDL stories", "acceptance criteria", "traceability"],
-      "lanes": ["E"],
-      "tools": ["sachini_story_draft", "story_lookup"]
+      "tools": ["full_stack_map", "smoke_hint"],
+      "plugins": ["code-review", "superpowers"]
     },
     "security": {
       "title": "White Hat Security",
       "experienceYears": 50,
-      "focus": ["SECURITY_WHITE_HAT", "JWT", "OWASP", "dev vs prod flags"],
+      "focus": ["SECURITY_WHITE_HAT", "JWT", "OWASP", "PR security-review", "dev vs prod flags"],
       "lanes": ["D"],
-      "tools": ["security_white_hat_scan", "scope_guard", "limits_check"]
+      "tools": ["security_white_hat_scan", "scope_guard", "limits_check"],
+      "plugins": ["claude-code-security-review", "code-review"]
     }
   }
 }

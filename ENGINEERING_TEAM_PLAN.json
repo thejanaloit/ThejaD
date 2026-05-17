@@ -1,0 +1,12 @@
+{
+  "title": "Full engineering team + plugin bundle",
+  "updatedAt": "2026-05-17",
+  "steps": [
+    { "id": "1", "name": "Vendor clone (superpowers-marketplace, security-review, claude-mem)", "weight": 15, "done": true },
+    { "id": "2", "name": "engineering-plugins.json + plugins.mjs MCP", "weight": 15, "done": true },
+    { "id": "3", "name": "Team roster Thejana/Lahiru/Geesara/Sachini + workflow", "weight": 20, "done": true },
+    { "id": "4", "name": "Skills + Cursor sync install script", "weight": 20, "done": true },
+    { "id": "5", "name": "LOLC security-review workflow + scan instructions", "weight": 15, "done": true },
+    { "id": "6", "name": "Push ThejaD GitHub + monorepo workflow", "weight": 15, "done": false }
+  ]
+}

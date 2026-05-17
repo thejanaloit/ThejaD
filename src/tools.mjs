@@ -13,6 +13,7 @@ import {
   supremePlan,
 } from './team.mjs';
 import { catalogToolCount } from './tool-catalog.mjs';
+import { engineeringTeamRoster, getPluginsStatus, installHints } from './plugins.mjs';
 import { listPrompts } from './prompts-registry.mjs';
 import { listResources } from './resources-registry.mjs';
 import { PACKAGE_ROOT, readJson, resolveDataDir, resolveRepoRoot } from './paths.mjs';
@@ -211,6 +212,24 @@ const ALL_TOOLS = [
   { name: 'notebooklm_install', tier: 'full', description: 'notebooklm-py install commands.', inputSchema: { type: 'object', properties: {} } },
   { name: 'notebooklm_add_sources', tier: 'full', description: 'Add LOLC repo docs as NotebookLM sources.', inputSchema: { type: 'object', properties: {} } },
   { name: 'geesara_run_smokes', tier: 'full', description: 'Run smoke suite (full capacity) or hints at 80%.', inputSchema: { type: 'object', properties: {} } },
+  {
+    name: 'engineering_team_roster',
+    tier: 'core',
+    description: 'Full engineering team: Thejana, Lahiru, Geesara, Sachini + Security + Backend with lanes and plugins.',
+    inputSchema: { type: 'object', properties: {} },
+  },
+  {
+    name: 'plugins_status',
+    tier: 'core',
+    description: 'Status of superpowers, security-review, claude-mem vendors and Claude plugin install commands.',
+    inputSchema: { type: 'object', properties: {} },
+  },
+  {
+    name: 'plugins_install_hints',
+    tier: 'core',
+    description: 'Install steps for engineering plugin bundle (PowerShell + Claude Code commands).',
+    inputSchema: { type: 'object', properties: {} },
+  },
 ];
 
 export function listToolsForSession() {
@@ -504,6 +523,15 @@ export async function handleTool(name, args) {
         markdown: `### ${new Date().toISOString().slice(0, 10)} — Antigravity — handoff\n\n**Shipped:** ${args.shipped}\n**Files:** ${args.files || '—'}\n**Collision risk:** ${args.collisionRisk || 'Low'}\n`,
         pasteInto: 'docs/MULTI_AGENT_DEVELOPMENT_LOG.md',
       };
+
+    case 'engineering_team_roster':
+      return engineeringTeamRoster();
+
+    case 'plugins_status':
+      return getPluginsStatus();
+
+    case 'plugins_install_hints':
+      return installHints();
 
     default:
       return { error: `Unknown tool: ${name}` };

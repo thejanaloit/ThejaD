@@ -1,0 +1,14 @@
+LOLC Internet Banking — supplemental security scan (Phase 1)
+
+Focus on:
+- JWT validation in auth-service and BFF proxies (no ALLOW_INSECURE_JWT_DECODE in prod)
+- Session cookies: httpOnly, secure in production
+- SQL injection in TypeORM raw queries
+- IDOR on account/payment endpoints (customerId from token only)
+- Internal service secrets (X-Internal-Secret) not exposed to browser
+- Kong route exposure vs direct Nest ports
+
+De-prioritize (false positive filter):
+- Dev-only .env flags documented in SECURITY_DEV_LOGIN_SESSION.md
+- Missing rate limit on local smoke endpoints
+- Phase 2+ CBS features not in this PR

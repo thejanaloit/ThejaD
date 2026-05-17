@@ -1,0 +1,44 @@
+{
+  "thanks": "Thanks to Theja",
+  "claudeCode": {
+    "marketplace": {
+      "add": "/plugin marketplace add obra/superpowers-marketplace",
+      "install": [
+        "/plugin install superpowers@superpowers-marketplace",
+        "/plugin install superpowers-developing-for-claude-code@superpowers-marketplace"
+      ]
+    },
+    "official": [
+      "/plugin install frontend-design@claude-plugins-official",
+      "/plugin install code-review@claude-plugins-official"
+    ]
+  },
+  "repos": [
+    {
+      "id": "superpowers-marketplace",
+      "url": "https://github.com/obra/superpowers-marketplace",
+      "vendorPath": "vendor/superpowers-marketplace",
+      "lolcUse": "TDD, /write-plan, /execute-plan, collaboration skills for Thejana lane"
+    },
+    {
+      "id": "claude-code-security-review",
+      "url": "https://github.com/anthropics/claude-code-security-review",
+      "vendorPath": "vendor/claude-code-security-review",
+      "lolcUse": "PR security review + /security-review for Security role"
+    },
+    {
+      "id": "claude-mem",
+      "url": "https://github.com/thedotmack/claude-mem",
+      "vendorPath": "vendor/claude-mem",
+      "lolcUse": "Session memory across Cursor/Claude — coordination + handoffs"
+    }
+  ],
+  "teamBindings": {
+    "thejana": ["superpowers", "code-review", "claude-mem"],
+    "lahiru": ["frontend-design", "superpowers"],
+    "geesara": ["code-review", "superpowers"],
+    "sachini": ["superpowers"],
+    "security": ["claude-code-security-review", "code-review"],
+    "backend": ["code-review", "superpowers"]
+  }
+}
