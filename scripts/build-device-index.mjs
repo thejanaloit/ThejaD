@@ -55,8 +55,16 @@ function defaultRoots() {
     'e:\\grandhanthana',
     'e:\\grandhanthana_v2',
     'e:\\Keko',
+    'D:\\',
+    'D:\\projects',
+    'D:\\internetBanking',
+    'D:\\LOLC',
+    'D:\\DesignStudio',
   ];
-  const extra = (process.env.THEJAD_DEVICE_ROOTS || '').split(';').map((s) => s.trim()).filter(Boolean);
+  const extra = (process.env.THEJAD_DEVICE_ROOTS || '')
+    .split(/[;,]/)
+    .map((s) => s.trim())
+    .filter(Boolean);
   const seen = new Set();
   return [...roots, ...extra].filter((r) => {
     const n = path.resolve(r).toLowerCase();

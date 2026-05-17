@@ -30,6 +30,16 @@ async function init() {
   };
   fs.writeFileSync(mcpPath, JSON.stringify(existing, null, 2) + '\n', 'utf8');
   fs.mkdirSync(path.join(target, '.thejad'), { recursive: true });
+
+  const rulesDir = path.join(cursorDir, 'rules');
+  fs.mkdirSync(rulesDir, { recursive: true });
+  const ruleSrc = path.join(PACKAGE_ROOT, 'templates', 'thejad-orchestra.mdc');
+  const ruleDst = path.join(rulesDir, 'thejad-orchestra.mdc');
+  if (fs.existsSync(ruleSrc)) {
+    fs.copyFileSync(ruleSrc, ruleDst);
+    console.log('[ThejaD] Installed .cursor/rules/thejad-orchestra.mdc (always orchestrate)');
+  }
+
   console.log('[ThejaD] Added MCP server "ThejaD" to .cursor/mcp.json');
   console.log('[ThejaD] Restart Cursor in Agent mode.');
   console.log('[ThejaD] First run: MCP tools thejad_setup_status → user logins → thejad_setup_complete');

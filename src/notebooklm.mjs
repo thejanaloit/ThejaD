@@ -24,15 +24,30 @@ function tryExec(cmd) {
   }
 }
 
+export async function notebooklmAuthStatus() {
+  const check = tryExec('notebooklm auth check --test --json');
+  if (check.ok) {
+    try {
+      return { authenticated: true, detail: JSON.parse(check.output) };
+    } catch {
+      return { authenticated: true, detail: check.output.slice(0, 200) };
+    }
+  }
+  return { authenticated: false, hint: 'Run: notebooklm login (interactive OAuth)' };
+}
+
 export async function notebooklmAsk(question) {
   const q = String(question || '').trim();
+  const auth = await notebooklmAuthStatus();
+
   const cli = tryExec(`notebooklm ask ${JSON.stringify(q)}`);
-  if (cli.ok) return { source: 'notebooklm-cli', answer: cli.output };
+  if (cli.ok) return { source: 'notebooklm-cli', authenticated: auth.authenticated, answer: cli.output };
 
   const py = tryExec(`python -c "import notebooklm; print('ok')"`);
   if (!py.ok) {
     return {
       mock: true,
+      authenticated: false,
       question: q,
       install: notebooklmInstallHint(),
       fallbackDocs: [
@@ -46,9 +61,11 @@ export async function notebooklmAsk(question) {
 
   return {
     mock: true,
+    authenticated: auth.authenticated,
     question: q,
     pythonAvailable: true,
-    hint: 'Run: notebooklm login then notebooklm ask "..."',
+    auth,
+    hint: auth.authenticated ? 'notebooklm ask failed — check notebook' : 'Run: notebooklm login then notebooklm ask "..."',
     install: notebooklmInstallHint(),
   };
 }

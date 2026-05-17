@@ -23,6 +23,8 @@ import { syncVendorSkills } from './skills-sync.mjs';
 import { getSetupStatus, registerSetup } from './setup.mjs';
 import { runOrchestra } from './orchestra.mjs';
 import { startAllModels } from './models.mjs';
+import { getFigmaContext } from './figma.mjs';
+import { notebooklmAuthStatus } from './notebooklm.mjs';
 import { listPrompts } from './prompts-registry.mjs';
 import { listResources } from './resources-registry.mjs';
 import { PACKAGE_ROOT, readJson, resolveDataDir, resolveRepoRoot } from './paths.mjs';
@@ -314,6 +316,12 @@ const ALL_TOOLS = [
     },
   },
   {
+    name: 'notebooklm_auth_status',
+    tier: 'standard',
+    description: 'Check NotebookLM CLI authentication (notebooklm auth check).',
+    inputSchema: { type: 'object', properties: {} },
+  },
+  {
     name: 'thejad_orchestrate',
     tier: 'core',
     description:
@@ -376,7 +384,7 @@ export async function handleTool(name, args) {
   switch (name) {
     case 'thejad_status':
       return {
-        version: '4.3.0',
+        version: '4.4.0',
         capabilityPercent: pct,
         fullCapacity: isFullCapacity(),
         repoRoot: resolveRepoRoot(),
@@ -530,6 +538,9 @@ export async function handleTool(name, args) {
     case 'notebooklm_ask':
       return notebooklmAsk(args.question);
 
+    case 'notebooklm_auth_status':
+      return notebooklmAuthStatus();
+
     case 'notebooklm_install':
       return notebooklmInstallHint();
 
@@ -620,15 +631,11 @@ export async function handleTool(name, args) {
     case 'worker_hints':
       return workerHints();
 
-    case 'figma_context': {
-      const route = args.route || '/home';
-      const planPath = path.join(PACKAGE_ROOT, 'plans', 'ui-ux-route-plan.md');
-      return {
-        route,
-        planFile: fs.existsSync(planPath) ? planPath : null,
-        stitch: 'mock — provide Figma URL in requested.md R1',
-      };
-    }
+    case 'figma_context':
+      return getFigmaContext(args.route || '/home');
+
+    case 'notebooklm_auth_status':
+      return notebooklmAuthStatus();
 
     case 'full_stack_map': {
       const backend = readJson('plans/backend-api-plan.json');

@@ -48,11 +48,17 @@
     },
     {
       "id": "figma",
-      "label": "Figma token (UI sync)",
+      "label": "Figma token + file (UI sync)",
       "required": false,
-      "check": "env",
-      "envVar": "FIGMA_ACCESS_TOKEN",
-      "help": "Optional — Figma MCP or FIGMA_ACCESS_TOKEN for Lahiru UI lane."
+      "check": "figma",
+      "help": "FIGMA_ACCESS_TOKEN + FIGMA_FILE_KEY or FIGMA_FILE_URL — live Figma API in figma_context / orchestra."
+    },
+    {
+      "id": "device_roots",
+      "label": "Extra device scan paths (e.g. D: drive)",
+      "required": false,
+      "check": "device_roots",
+      "help": "THEJAD_DEVICE_ROOTS=D:\\path1;D:\\path2 then device_reindex"
     },
     {
       "id": "graphify",

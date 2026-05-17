@@ -1,0 +1,29 @@
+---
+description: ThejaD orchestra — setup gate then thejad_orchestrate on every substantive task
+globs:
+alwaysApply: true
+---
+
+# ThejaD orchestra (mandatory)
+
+Use **ThejaD MCP** (`ThejaD` in `.cursor/mcp.json`) before substantive work.
+
+## First session (once per machine)
+
+1. `thejad_setup_status` — show missing APIs/logins (Ollama, repo, optional Figma/NotebookLM/OpenAI).
+2. User sets env vars and runs `ollama pull llama3.2`, `notebooklm login` if needed.
+3. `thejad_setup_complete` with `markComplete: true`.
+
+## Every user task (required)
+
+1. Call MCP tool **`thejad_orchestrate`** with `prompt` = the user's request (verbatim).
+2. If `phase` is `setup_required`, stop and complete setup — do not implement until ready.
+3. Execute the returned **`optimizedPrompt`** using `assignment.roleId`, `assignment.agent`, and listed **skills** (load SKILL.md paths only — do not paste full vendor docs).
+4. Follow returned **`workflow`** steps; use `coordination_claim` / `coordination_release` for shared paths.
+5. Use **`ollamaDraft`** / **`onlineDraft`** from orchestrate result when present for offline/online alignment.
+
+## With Ruflo
+
+Ruflo handles swarm/memory; ThejaD handles LOLC team routing and token-efficient prompts. Call both when needed; programme scope stays in root `AGENTS.md` (Phase 1).
+
+End summaries with: **Thanks to Theja**

@@ -5,6 +5,14 @@ import { startAllModels, pickModelForAssignment } from './models.mjs';
 import { regeneratePrompt } from './prompt-optimize.mjs';
 import { recordOrchestration } from './session.mjs';
 import { consultRole } from './team.mjs';
+import { getFigmaContext } from './figma.mjs';
+import { notebooklmAsk } from './notebooklm.mjs';
+import {
+  mergeRoleVotes,
+  ollamaDraftSummary,
+  ollamaOrchestraPass,
+  openaiOrchestraPass,
+} from './ollama-infer.mjs';
 
 const ROLE_KEYWORDS = {
   lahiru: ['ui', 'ux', 'figma', 'screen', 'css', 'tailwind', 'component', 'accessibility', 'fusionx', 'stitch', 'route map'],
@@ -109,7 +117,20 @@ export async function runOrchestra(userPrompt, options = {}) {
     maxWarmOllama: options.maxWarmOllama ?? 2,
   });
 
-  const { roleId, scores } = routeRole(userPrompt);
+  const keywordRoute = routeRole(userPrompt);
+  let roleId = keywordRoute.roleId;
+
+  const skipOllama = options.skipOllama || process.env.THEJAD_ORCHESTRA_SKIP_OLLAMA === '1';
+  const [ollamaPass, openaiPass] = await Promise.all([
+    skipOllama
+      ? { source: 'ollama', skipped: true, role: keywordRoute.roleId }
+      : ollamaOrchestraPass(userPrompt, keywordRoute.roleId),
+    openaiOrchestraPass(userPrompt, keywordRoute.roleId),
+  ]);
+  const merged = mergeRoleVotes(keywordRoute.roleId, keywordRoute.scores, ollamaPass, openaiPass);
+  roleId = merged.roleId;
+  const scores = keywordRoute.scores;
+
   const team = loadTeam();
   const role = team.roles[roleId];
   const skills = pickSkills(roleId, userPrompt);
@@ -134,9 +155,36 @@ export async function runOrchestra(userPrompt, options = {}) {
   const models = pickModelForAssignment(assignment, modelsStarted);
   const promptPack = regeneratePrompt(userPrompt, assignment);
 
+  const multiModel = {
+    keywordRole: keywordRoute.roleId,
+    merged,
+    ollamaPass,
+    openaiPass,
+  };
+
+  let ollamaDraft = null;
+  if (modelsStarted.offline.count > 0 && ['sachini', 'geesara', 'lahiru'].includes(roleId)) {
+    ollamaDraft = await ollamaDraftSummary(userPrompt, roleId);
+  }
+
+  let integrationContext = null;
+  if (roleId === 'lahiru') {
+    integrationContext = { figma: await getFigmaContext(extractRoute(userPrompt)) };
+  }
+  if (roleId === 'sachini' || /doc|research|programme|spec/i.test(userPrompt)) {
+    integrationContext = {
+      ...(integrationContext || {}),
+      notebooklm: await notebooklmAsk(userPrompt.slice(0, 500)),
+    };
+  }
+
   const result = {
     phase: 'orchestrated',
-    orchestraVersion: '1.0',
+    orchestraVersion: '2.0',
+    multiModel,
+    ollamaDraft,
+    onlineDraft: openaiPass?.plan ? { plan: openaiPass.plan, source: 'openai' } : { plan: ollamaPass?.plan, source: 'ollama' },
+    integrationContext,
     modelsStarted: {
       total: modelsStarted.total,
       offline: modelsStarted.offline.count,
@@ -171,4 +219,9 @@ export async function runOrchestra(userPrompt, options = {}) {
   });
 
   return result;
+}
+
+function extractRoute(text) {
+  const m = String(text).match(/\/[a-z0-9/-]+/i);
+  return m ? m[0] : '/home';
 }

@@ -1,6 +1,20 @@
 import { execSync } from 'child_process';
+import fs from 'fs';
 import { readJson, resolveRepoRoot } from './paths.mjs';
 import { loadSession, markSetupItem, setSetupComplete } from './session.mjs';
+
+function figmaConfigured() {
+  const token = Boolean(process.env.FIGMA_ACCESS_TOKEN?.trim());
+  const key = Boolean(process.env.FIGMA_FILE_KEY?.trim());
+  const url = /figma\.com\/(?:design|file)\/[a-zA-Z0-9]+/.test(process.env.FIGMA_FILE_URL || '');
+  return { ok: token && (key || url), token, file: key || url };
+}
+
+function deviceRootsConfigured() {
+  const extra = (process.env.THEJAD_DEVICE_ROOTS || '').split(/[;,]/).map((s) => s.trim()).filter(Boolean);
+  const dExists = ['D:\\', 'D:\\projects'].some((p) => fs.existsSync(p));
+  return { ok: extra.length > 0 || dExists, extra, dDrivePresent: dExists };
+}
 
 async function checkOllama() {
   try {
@@ -46,6 +60,21 @@ export async function evaluateSetupItem(item) {
     case 'notebooklm': {
       const cli = await checkNotebooklm();
       return { ok: cli, detail: cli ? 'notebooklm CLI found' : 'Run: pip install notebooklm-py && notebooklm login' };
+    }
+    case 'figma': {
+      const f = figmaConfigured();
+      return { ok: f.ok, detail: f.ok ? 'Figma API ready' : 'Set FIGMA_ACCESS_TOKEN + FIGMA_FILE_KEY or FIGMA_FILE_URL' };
+    }
+    case 'device_roots': {
+      const d = deviceRootsConfigured();
+      return {
+        ok: d.ok,
+        detail: d.extra.length
+          ? `THEJAD_DEVICE_ROOTS: ${d.extra.join('; ')}`
+          : d.dDrivePresent
+            ? 'D: present — run device_reindex to include'
+            : 'Set THEJAD_DEVICE_ROOTS=D:\\your\\path',
+      };
     }
     default:
       return { ok: false, detail: 'unknown check' };
