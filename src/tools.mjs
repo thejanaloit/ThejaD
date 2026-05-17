@@ -28,6 +28,8 @@ import { startAllModels } from './models.mjs';
 import { getFigmaContext } from './figma.mjs';
 import { notebooklmAuthStatus } from './notebooklm.mjs';
 import { initTeamPod, addPeer, getPodStatus } from './team-pod.mjs';
+import { runPodBootstrap } from './pod-bootstrap.mjs';
+import { discoverLanPeers, autoJoinLanPeers } from './pod-lan.mjs';
 import { podMemoryStore, podMemorySearch, podMemorySync } from './pod-memory.mjs';
 import { hyperspacePodStatus, hyperspaceChat } from './hyperspace-bridge.mjs';
 import { listAllPodMeshModels } from './pod-models.mjs';
@@ -356,6 +358,29 @@ const ALL_TOOLS = [
     inputSchema: { type: 'object', properties: {} },
   },
   {
+    name: 'thejad_pod_discover_lan',
+    tier: 'core',
+    description: 'UDP LAN discovery — find other ThejaD pods (requires pod serve on peers).',
+    inputSchema: {
+      type: 'object',
+      properties: { timeoutMs: { type: 'number' }, autoJoin: { type: 'boolean' } },
+    },
+  },
+  {
+    name: 'thejad_pod_bootstrap',
+    tier: 'core',
+    description:
+      'Zero-touch bootstrap: init pod → LAN auto-join → manifest → memory sync → setup. Run on every device once.',
+    inputSchema: {
+      type: 'object',
+      properties: {
+        name: { type: 'string' },
+        force: { type: 'boolean' },
+        discover: { type: 'boolean' },
+      },
+    },
+  },
+  {
     name: 'hyperspace_pod_status',
     tier: 'standard',
     description: 'Hyperspace pods.hyper.space CLI + gateway status (full pod stack).',
@@ -494,7 +519,7 @@ export async function handleTool(name, args) {
   switch (name) {
     case 'thejad_status':
       return {
-        version: '4.7.0',
+        version: '4.9.0',
         capabilityPercent: pct,
         fullCapacity: isFullCapacity(),
         unlock: getUnlockState(),
@@ -804,6 +829,18 @@ export async function handleTool(name, args) {
 
     case 'thejad_pod_memory_sync':
       return podMemorySync();
+
+    case 'thejad_pod_discover_lan': {
+      if (args.autoJoin) return autoJoinLanPeers({ timeoutMs: args.timeoutMs });
+      return discoverLanPeers({ timeoutMs: args.timeoutMs });
+    }
+
+    case 'thejad_pod_bootstrap':
+      return runPodBootstrap({
+        name: args.name,
+        force: args.force,
+        discover: args.discover !== false,
+      });
 
     case 'hyperspace_pod_status':
       return hyperspacePodStatus();

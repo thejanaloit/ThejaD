@@ -1,5 +1,7 @@
 import { execSync } from 'child_process';
 import fs from 'fs';
+import { hyperspaceGatewayReachable } from './hyperspace-bridge.mjs';
+import { listAllPodMeshModels } from './pod-models.mjs';
 import { readJson, resolveRepoRoot } from './paths.mjs';
 import { loadSession, markSetupItem, setSetupComplete } from './session.mjs';
 
@@ -55,6 +57,29 @@ export async function evaluateSetupItem(item) {
       return { ok: checkRepo(), detail: checkRepo() ? resolveRepoRoot() : 'THEJAD_REPO_ROOT or cwd must be LOLC monorepo' };
     case 'ollama':
       return { ok: await checkOllama(), detail: 'http://127.0.0.1:11434/api/tags' };
+    case 'ollama_or_mesh': {
+      if (await checkOllama()) {
+        return { ok: true, detail: 'Ollama on 127.0.0.1:11434' };
+      }
+      try {
+        const gw = await hyperspaceGatewayReachable();
+        if (gw.ok) return { ok: true, detail: `Hyperspace gateway: ${gw.baseUrl}` };
+      } catch {
+        /* ignore */
+      }
+      try {
+        const mesh = await listAllPodMeshModels();
+        if (mesh.total > 0) {
+          return { ok: true, detail: `LAN pod mesh: ${mesh.total} model(s) from peers` };
+        }
+      } catch {
+        /* ignore */
+      }
+      return {
+        ok: false,
+        detail: 'Need Ollama, Hyperspace gateway, or LAN pod peers — run thejad_pod_bootstrap',
+      };
+    }
     case 'env':
       return { ok: envSet(item.envVar), detail: item.envVar };
     case 'notebooklm': {

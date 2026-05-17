@@ -24,8 +24,16 @@ const CATALOG_BY_NAME = () => new Map(getCatalog().map((t) => [t.name, t]));
 export async function startMcpServer() {
   bootstrapEnv();
 
+  if (process.env.THEJAD_AUTO_POD !== '0') {
+    import('./pod-bootstrap.mjs')
+      .then(({ runPodBootstrap }) =>
+        runPodBootstrap({ discover: true, discoverTimeoutMs: 2500 }).catch(() => {}),
+      )
+      .catch(() => {});
+  }
+
   const server = new Server(
-    { name: 'ThejaD', version: '4.7.0' },
+    { name: 'ThejaD', version: '4.9.0' },
     {
       capabilities: {
         tools: {},
@@ -219,6 +227,6 @@ export function getServerStats() {
     prompts: listPrompts().length,
     resources: listResources().length,
     tier,
-    version: '4.7.0',
+    version: '4.9.0',
   };
 }

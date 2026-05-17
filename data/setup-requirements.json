@@ -11,10 +11,10 @@
     },
     {
       "id": "ollama",
-      "label": "Ollama (offline models)",
+      "label": "Inference (Ollama, LAN pod mesh, or Hyperspace gateway)",
       "required": true,
-      "check": "ollama",
-      "help": "Install https://ollama.com — ollama pull llama3.2 — service on 127.0.0.1:11434"
+      "check": "ollama_or_mesh",
+      "help": "Local Ollama (11434), OR team pod with peers (thejad pod serve + thejad_pod_bootstrap), OR HYPERSPACE_GATEWAY_URL reachable."
     },
     {
       "id": "cursor_host",

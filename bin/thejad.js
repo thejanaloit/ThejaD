@@ -31,6 +31,8 @@ async function init() {
       HYPERSPACE_POD_API_KEY: '',
       THEJAD_POD_PEERS: '',
       THEJAD_POD_SYNC_PORT: '19090',
+      THEJAD_FULL_ACCESS: '1',
+      THEJAD_AUTO_POD: '1',
     },
   };
   fs.writeFileSync(mcpPath, JSON.stringify(existing, null, 2) + '\n', 'utf8');
@@ -91,6 +93,11 @@ if (cmd === 'mcp' && sub === 'start') {
 } else if (cmd === 'pod' && sub === 'serve') {
   bootstrapEnv();
   await import('../scripts/pod-sync-server.mjs');
+} else if (cmd === 'pod' && sub === 'bootstrap') {
+  bootstrapEnv();
+  const { runPodBootstrap } = await import('../src/pod-bootstrap.mjs');
+  const r = await runPodBootstrap();
+  console.log(JSON.stringify(r, null, 2));
 } else if (cmd === 'finalize') {
   bootstrapEnv();
   const { runFinalize } = await import('../src/finalize.mjs');
@@ -105,6 +112,7 @@ Usage:
   npx thejad stats         # tool/prompt/resource counts
   npx thejad finalize      # 100% readiness gate (exit 0 when programme ready)
   npx thejad pod serve     # LAN shared-memory sync server (after thejad_pod_init)
+  npx thejad pod bootstrap # zero-touch: init + LAN discover + memory sync
 
 GitHub: https://github.com/thejanaloit/ThejaD
 Thanks to Theja`);
