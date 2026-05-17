@@ -21,6 +21,10 @@ Write-Host "[ThejaD] Syncing vendor skills..."
 Set-Location $Root
 node -e "import('./thejad/src/skills-sync.mjs').then(m=>console.log(JSON.stringify(m.syncVendorSkills())))"
 
+Write-Host "[ThejaD] Full device re-index (C: + E: dev paths)..."
+$env:THEJAD_REPO_ROOT = $Root
+node thejad/scripts/build-device-index.mjs
+
 $CursorSkills = Join-Path $Root ".cursor\skills"
 New-Item -ItemType Directory -Force -Path $CursorSkills | Out-Null
 foreach ($pat in @("team-*", "plugins-*", "thejad-orchestrator", "imported")) {

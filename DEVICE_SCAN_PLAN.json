@@ -1,0 +1,10 @@
+{
+  "title": "Full device scan for ThejaD MCP",
+  "updatedAt": "2026-05-17",
+  "steps": [
+    { "id": "1", "name": "Expand roots (C: user, E: projects, OneDrive LOLC)", "weight": 25, "done": true },
+    { "id": "2", "name": "device-usable.json categories + 14k index", "weight": 30, "done": true },
+    { "id": "3", "name": "MCP tools device_usable_* + device_reindex", "weight": 25, "done": true },
+    { "id": "4", "name": "Install script + README + push", "weight": 20, "done": true }
+  ]
+}

@@ -128,7 +128,7 @@ engineering_team_roster
 | **ThejaD memory** | `memory_store` / `memory_search` → `.thejad/memory.json` |
 | **Ruflo memory** | Hybrid backend via `ruflo` MCP (`memory_store`, `memory_search`, trajectories) |
 | **Diary** | `diary_append` — daily engineering log |
-| **Device index** | Scoped dev paths (`device_search`) — not full C: scan |
+| **Device index** | **14k+** dev files — `device_search`, `device_usable_summary`, `device_reindex` (C: user + E: LOLC/FusionX/CRM projects) |
 
 ---
 

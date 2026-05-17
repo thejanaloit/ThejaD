@@ -118,6 +118,11 @@ const ACTIONS = {
     'shell_nav', 'i18n_keys', 'middleware_routes', 'bff_map', 'story_bind',
     'png_reference', 'accessibility', 'mobile_safe_area',
   ],
+  device: [
+    'reindex', 'search', 'usable_summary', 'usable_search', 'mcp_discover', 'skills_discover',
+    'ollama_models', 'fusionx_paths', 'backup_repos', 'antigravity_copy', 'postman_find',
+    'docker_find', 'plans_find', 'cursor_projects', 'e_drive_scan',
+  ],
 };
 
 function tierForCategory(cat) {

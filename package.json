@@ -23,6 +23,8 @@
     "src",
     "data",
     "skills",
+    "data/vendor-repos.json",
+    "data/imported-skills.json",
     "coordination",
     "plans",
     "install",

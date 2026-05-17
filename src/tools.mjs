@@ -2,7 +2,12 @@ import fs from 'fs';
 import path from 'path';
 import { execSync } from 'child_process';
 import { capabilityPercent, isFullCapacity, unlockWithPhrase } from './capability.mjs';
-import { deviceSearch } from './device.mjs';
+import {
+  deviceReindexHint,
+  deviceSearch,
+  deviceUsableSearch,
+  deviceUsableSummary,
+} from './device.mjs';
 import { notebooklmAddRepoSources, notebooklmAsk, notebooklmInstallHint } from './notebooklm.mjs';
 import { agentSpawn, securityScanRepo, swarmInit, swarmStatus, workerHints } from './ruflo.mjs';
 import {
@@ -205,7 +210,31 @@ const ALL_TOOLS = [
   { name: 'sachini_story_draft', tier: 'standard', description: 'Draft LOLCDL user story skeleton (Sachini).', inputSchema: { type: 'object', properties: { feature: { type: 'string' } }, required: ['feature'] } },
   { name: 'geesara_qa_plan', tier: 'standard', description: 'QA test plan for story (Geesara).', inputSchema: { type: 'object', properties: { storyId: { type: 'string' } } } },
   { name: 'security_white_hat_scan', tier: 'standard', description: 'White-hat security doc index + dev flag checklist.', inputSchema: { type: 'object', properties: {} } },
-  { name: 'device_search', tier: 'standard', description: 'Search indexed local dev files (scoped C/E user paths).', inputSchema: { type: 'object', properties: { query: { type: 'string' } }, required: ['query'] } },
+  { name: 'device_search', tier: 'standard', description: 'Search full device index (C: user + E: projects).', inputSchema: { type: 'object', properties: { query: { type: 'string' } }, required: ['query'] } },
+  {
+    name: 'device_usable_summary',
+    tier: 'standard',
+    description: 'Summarize usable device assets: MCP configs, skills, FusionX/banking paths, Ollama models.',
+    inputSchema: { type: 'object', properties: {} },
+  },
+  {
+    name: 'device_usable_search',
+    tier: 'standard',
+    description: 'Search categorized device assets (mcpConfigs, skills, fusionxOrBanking, docker, postman, …).',
+    inputSchema: {
+      type: 'object',
+      properties: {
+        category: { type: 'string' },
+        query: { type: 'string' },
+      },
+    },
+  },
+  {
+    name: 'device_reindex',
+    tier: 'standard',
+    description: 'Rebuild device-index.json + device-usable.json from entire dev device scan.',
+    inputSchema: { type: 'object', properties: {} },
+  },
   { name: 'swarm_init', tier: 'standard', description: 'Initialize ThejaD swarm (Ruflo-class).', inputSchema: { type: 'object', properties: { topology: { type: 'string' } } } },
   { name: 'swarm_status', tier: 'standard', description: 'Swarm status.', inputSchema: { type: 'object', properties: {} } },
   { name: 'agent_spawn', tier: 'standard', description: 'Spawn tracked agent in swarm.', inputSchema: { type: 'object', properties: { type: { type: 'string' }, task: { type: 'string' } }, required: ['task'] } },
@@ -507,6 +536,27 @@ export async function handleTool(name, args) {
 
     case 'device_search':
       return deviceSearch(args.query);
+
+    case 'device_usable_summary':
+      return deviceUsableSummary();
+
+    case 'device_usable_search':
+      return deviceUsableSearch(args.category, args.query);
+
+    case 'device_reindex': {
+      const script = path.join(PACKAGE_ROOT, 'scripts', 'build-device-index.mjs');
+      try {
+        const out = execSync(`node "${script}"`, {
+          encoding: 'utf8',
+          timeout: 300000,
+          cwd: path.join(PACKAGE_ROOT, '..'),
+          env: { ...process.env, THEJAD_REPO_ROOT: resolveRepoRoot() },
+        });
+        return { ok: true, tail: out.slice(-800), ...deviceUsableSummary() };
+      } catch (e) {
+        return { ok: false, error: String(e.message || e).slice(0, 400), hint: deviceReindexHint() };
+      }
+    }
 
     case 'swarm_init':
       return swarmInit(args.topology);

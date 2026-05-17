@@ -159,6 +159,27 @@ async function handleCatalogTool(cat, args) {
   if (category === 'graphify' && action === 'index_repo') {
     return formatToolResult(await handleTool('graphify_hint', args));
   }
+  if (category === 'device') {
+    const map = {
+      reindex: 'device_reindex',
+      search: 'device_search',
+      usable_summary: 'device_usable_summary',
+      usable_search: 'device_usable_search',
+      mcp_discover: 'device_usable_summary',
+      ollama_models: 'device_usable_summary',
+      fusionx_paths: 'device_usable_search',
+    };
+    const tool = map[action];
+    if (tool === 'device_usable_search') {
+      return formatToolResult(
+        await handleTool(tool, { category: args.category || 'fusionxOrBanking', query: args.input || args.query || '' }),
+      );
+    }
+    if (tool === 'device_search') {
+      return formatToolResult(await handleTool(tool, { query: args.input || args.query || 'fusionx' }));
+    }
+    if (tool) return formatToolResult(await handleTool(tool, args));
+  }
   return {
     content: [
       {

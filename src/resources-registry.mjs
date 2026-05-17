@@ -24,6 +24,8 @@ const PRIORITY_DOCS = [
   'thejad/plans/backend-api-plan.json',
   'thejad/plans/ui-ux-route-plan.md',
   'thejad/requested.md',
+  'thejad/data/device-usable.json',
+  'thejad/data/device-index.json',
 ];
 
 function collectDocs(dir, base, out, depth) {
