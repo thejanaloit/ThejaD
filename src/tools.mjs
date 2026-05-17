@@ -12,6 +12,9 @@ import {
   qaPlan,
   supremePlan,
 } from './team.mjs';
+import { catalogToolCount } from './tool-catalog.mjs';
+import { listPrompts } from './prompts-registry.mjs';
+import { listResources } from './resources-registry.mjs';
 import { PACKAGE_ROOT, readJson, resolveDataDir, resolveRepoRoot } from './paths.mjs';
 
 const ALL_TOOLS = [
@@ -256,13 +259,17 @@ export async function handleTool(name, args) {
   switch (name) {
     case 'thejad_status':
       return {
-        version: '2.0.0-supreme',
+        version: '3.0.0',
         capabilityPercent: pct,
         fullCapacity: isFullCapacity(),
         repoRoot: resolveRepoRoot(),
         packageRoot: PACKAGE_ROOT,
         team: Object.keys(loadTeam().roles),
-        toolCount: listToolsForSession().length,
+        namedTools: listToolsForSession().length,
+        catalogTools: catalogToolCount(),
+        prompts: listPrompts().length,
+        resources: listResources().length,
+        mcpTotalTools: listToolsForSession().length + catalogToolCount(),
         thanks: THANKS,
         planFiles: ['ULTIMATE_PLAN.json', 'THEJAD_PLAN.json'],
       };
@@ -295,6 +302,9 @@ export async function handleTool(name, args) {
       saveClaims(data);
       return { released: args.claimId };
     }
+
+    case 'coordination_list':
+      return loadClaims();
 
     case 'memory_store': {
       const m = loadMemory();

@@ -2,6 +2,7 @@
 import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
+import { bootstrapEnv } from '../src/env-bootstrap.mjs';
 import { startMcpServer } from '../src/server.mjs';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
@@ -34,14 +35,20 @@ async function init() {
 }
 
 if (cmd === 'mcp' && sub === 'start') {
+  bootstrapEnv();
   await startMcpServer();
 } else if (cmd === 'init') {
   await init();
+} else if (cmd === 'stats') {
+  bootstrapEnv();
+  const { getServerStats } = await import('../src/server.mjs');
+  console.log(JSON.stringify(getServerStats(), null, 2));
 } else {
   console.log(`ThejaD MCP — LOLC Internet Banking
 Usage:
   npx thejad init          # add to .cursor/mcp.json in current project
   npx thejad mcp start     # run MCP server (stdio)
+  npx thejad stats         # tool/prompt/resource counts
 
 GitHub: https://github.com/thejanaloit/LOLCDevelopmentAi50ThejaD
 Thanks to Theja`);

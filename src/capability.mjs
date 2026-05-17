@@ -38,3 +38,13 @@ export function unlockWithPhrase(phrase) {
 export function capabilityPercent() {
   return isFullCapacity() ? 100 : 80;
 }
+
+export function getCapabilityTier() {
+  return isFullCapacity() ? 'full' : 'standard';
+}
+
+export function isToolAllowed(toolTier, sessionTier) {
+  const tier = toolTier || 'standard';
+  if (tier === 'core' || tier === 'standard') return true;
+  return sessionTier === 'full';
+}
