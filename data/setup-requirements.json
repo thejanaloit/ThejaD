@@ -1,0 +1,66 @@
+{
+  "version": "1",
+  "description": "First-run setup — ThejaD never stores secret values; only checks env / reachability.",
+  "items": [
+    {
+      "id": "repo_root",
+      "label": "LOLC monorepo root",
+      "required": true,
+      "check": "repo",
+      "help": "Set THEJAD_REPO_ROOT to internetBanking root (AGENTS.md present) or run from that folder."
+    },
+    {
+      "id": "ollama",
+      "label": "Ollama (offline models)",
+      "required": true,
+      "check": "ollama",
+      "help": "Install https://ollama.com — ollama pull llama3.2 — service on 127.0.0.1:11434"
+    },
+    {
+      "id": "cursor_host",
+      "label": "Cursor / host LLM (online)",
+      "required": true,
+      "check": "always",
+      "help": "You are already in Cursor — this is the online orchestration brain."
+    },
+    {
+      "id": "openai",
+      "label": "OpenAI API (optional online)",
+      "required": false,
+      "check": "env",
+      "envVar": "OPENAI_API_KEY",
+      "help": "Optional — export OPENAI_API_KEY for extra online models."
+    },
+    {
+      "id": "anthropic",
+      "label": "Anthropic API (optional online)",
+      "required": false,
+      "check": "env",
+      "envVar": "ANTHROPIC_API_KEY",
+      "help": "Optional if not using Cursor subscription only."
+    },
+    {
+      "id": "notebooklm",
+      "label": "NotebookLM CLI login",
+      "required": false,
+      "check": "notebooklm",
+      "help": "pip install notebooklm-py — run: notebooklm login (interactive OAuth)"
+    },
+    {
+      "id": "figma",
+      "label": "Figma token (UI sync)",
+      "required": false,
+      "check": "env",
+      "envVar": "FIGMA_ACCESS_TOKEN",
+      "help": "Optional — Figma MCP or FIGMA_ACCESS_TOKEN for Lahiru UI lane."
+    },
+    {
+      "id": "graphify",
+      "label": "Graphify API (knowledge graph)",
+      "required": false,
+      "check": "env",
+      "envVar": "GRAPHIFY_API_KEY",
+      "help": "Optional — Graphify ThejaD semantic indexing."
+    }
+  ]
+}

@@ -20,6 +20,9 @@ import {
 import { catalogToolCount } from './tool-catalog.mjs';
 import { engineeringTeamRoster, getPluginsStatus, graphifyHint, installHints } from './plugins.mjs';
 import { syncVendorSkills } from './skills-sync.mjs';
+import { getSetupStatus, registerSetup } from './setup.mjs';
+import { runOrchestra } from './orchestra.mjs';
+import { startAllModels } from './models.mjs';
 import { listPrompts } from './prompts-registry.mjs';
 import { listResources } from './resources-registry.mjs';
 import { PACKAGE_ROOT, readJson, resolveDataDir, resolveRepoRoot } from './paths.mjs';
@@ -278,6 +281,53 @@ const ALL_TOOLS = [
     description: 'Graphify install + index LOLC monorepo as knowledge graph.',
     inputSchema: { type: 'object', properties: { path: { type: 'string' } } },
   },
+  {
+    name: 'thejad_setup_status',
+    tier: 'core',
+    description:
+      'First-run setup: list required APIs/logins (Ollama, repo, optional OpenAI/NotebookLM/Figma). No secrets stored.',
+    inputSchema: { type: 'object', properties: {} },
+  },
+  {
+    name: 'thejad_setup_complete',
+    tier: 'core',
+    description:
+      'Mark setup items acknowledged and flag setup complete after user provided APIs/logins (env vars only).',
+    inputSchema: {
+      type: 'object',
+      properties: {
+        acknowledge: { type: 'array', items: { type: 'string' }, description: 'Item ids e.g. notebooklm, figma' },
+        markComplete: { type: 'boolean' },
+      },
+    },
+  },
+  {
+    name: 'thejad_models_start',
+    tier: 'core',
+    description: 'Start/warm all offline (Ollama) and enumerate online models before orchestration.',
+    inputSchema: {
+      type: 'object',
+      properties: {
+        warm: { type: 'boolean', description: 'Warm up to 2 Ollama models (default true)' },
+        maxWarmOllama: { type: 'number' },
+      },
+    },
+  },
+  {
+    name: 'thejad_orchestrate',
+    tier: 'core',
+    description:
+      'Main orchestra: after setup, warm models → match role/skills/agent → token-optimized prompt → LOLC delivery workflow. Call on every user task.',
+    inputSchema: {
+      type: 'object',
+      properties: {
+        prompt: { type: 'string', description: 'User task / question' },
+        skipSetupCheck: { type: 'boolean', description: 'Dev only — bypass setup gate' },
+        warmModels: { type: 'boolean' },
+      },
+      required: ['prompt'],
+    },
+  },
 ];
 
 export function listToolsForSession() {
@@ -326,7 +376,7 @@ export async function handleTool(name, args) {
   switch (name) {
     case 'thejad_status':
       return {
-        version: '4.2.0',
+        version: '4.3.0',
         capabilityPercent: pct,
         fullCapacity: isFullCapacity(),
         repoRoot: resolveRepoRoot(),
@@ -610,6 +660,29 @@ export async function handleTool(name, args) {
 
     case 'graphify_hint':
       return graphifyHint();
+
+    case 'thejad_setup_status':
+      return getSetupStatus();
+
+    case 'thejad_setup_complete':
+      return registerSetup({
+        acknowledge: args.acknowledge,
+        markComplete: args.markComplete !== false,
+        itemId: args.itemId,
+      });
+
+    case 'thejad_models_start':
+      return startAllModels({
+        warm: args.warm !== false,
+        maxWarmOllama: args.maxWarmOllama,
+      });
+
+    case 'thejad_orchestrate':
+      return runOrchestra(args.prompt || args.task || '', {
+        skipSetupCheck: !!args.skipSetupCheck,
+        warmModels: args.warmModels !== false,
+        maxWarmOllama: args.maxWarmOllama,
+      });
 
     default:
       return { error: `Unknown tool: ${name}` };

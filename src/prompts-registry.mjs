@@ -34,6 +34,8 @@ const WORKFLOW_PROMPTS = [
   { name: 'helm_k8s_deploy', desc: 'Helm phase1-foundation deploy hints' },
   { name: 'kong_gateway_jwt', desc: 'Kong routes + JWT plugin alignment' },
   { name: 'local_full_stack', desc: 'docker + migrate + seed + local:services' },
+  { name: 'thejad_first_run_setup', desc: 'Install → APIs/logins → thejad_setup_complete' },
+  { name: 'thejad_orchestra_master', desc: 'Every user prompt → thejad_orchestrate (models + role + token prompt)' },
 ];
 
 const RUFLO_STYLE = [
@@ -96,6 +98,17 @@ export function getPromptContent(name, args) {
     graphify_query_architecture: 'Query graphify-out for route → BFF → service → DB',
     superpowers_brainstorm_feature: 'vendor/superpowers/skills/brainstorming — Phase 1 scope only',
     security_review_pr_lolc: 'thejad/data/lolc-security-scan-instructions.txt + .github/workflows/lolc-security-review.yml',
+    thejad_first_run_setup: `1) npx thejad init (or node thejad/bin/thejad.js init)
+2) MCP tool thejad_setup_status — show user missing APIs/logins
+3) User sets env vars (OPENAI_API_KEY, FIGMA_ACCESS_TOKEN, …) and Ollama; notebooklm login if needed
+4) thejad_setup_complete with acknowledge:[...] markComplete:true
+5) Reload Cursor MCP`,
+    thejad_orchestra_master: `On EVERY user task:
+1) thejad_setup_status (if not ready → stop and complete setup)
+2) thejad_orchestrate prompt="<verbatim user request>"
+3) Execute optimizedPrompt using assignment.agent + skills (load SKILL.md paths only)
+4) Follow workflow steps; use primaryModel online, secondary offline for drafts
+5) coordination_claim → work → smoke_hint → diary_append → coordination_release`,
   };
   return { name, topic, guide: guides[name] || `Execute workflow: ${name} for ${topic}` };
 }

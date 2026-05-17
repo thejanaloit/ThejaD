@@ -31,7 +31,10 @@ async function init() {
   fs.writeFileSync(mcpPath, JSON.stringify(existing, null, 2) + '\n', 'utf8');
   fs.mkdirSync(path.join(target, '.thejad'), { recursive: true });
   console.log('[ThejaD] Added MCP server "ThejaD" to .cursor/mcp.json');
-  console.log('[ThejaD] Restart Cursor in Agent mode. Thanks to Theja');
+  console.log('[ThejaD] Restart Cursor in Agent mode.');
+  console.log('[ThejaD] First run: MCP tools thejad_setup_status → user logins → thejad_setup_complete');
+  console.log('[ThejaD] Every prompt: thejad_orchestrate with prompt="<user task>"');
+  console.log('Thanks to Theja');
 }
 
 if (cmd === 'mcp' && sub === 'start') {

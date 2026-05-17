@@ -1,16 +1,24 @@
 {
   "status": "finished",
-  "version": "4.2.0",
+  "version": "4.3.0",
   "repository": "https://github.com/thejanaloit/ThejaD.git",
   "updatedAt": "2026-05-17",
   "overallPercent": 100,
   "mcp": {
-    "tools": 1041,
-    "prompts": 85,
+    "tools": 1045,
+    "prompts": 87,
     "resources": 221,
     "importedSkills": 30,
-    "deviceFilesIndexed": 14248
+    "deviceFilesIndexed": 14248,
+    "orchestra": true
   },
+  "orchestraWorkflow": [
+    "thejad init",
+    "thejad_setup_status",
+    "user APIs and logins",
+    "thejad_setup_complete",
+    "thejad_orchestrate on every prompt"
+  ],
   "plans": {
     "FULL_THEJAD_PLAN": 100,
     "ULTIMATE_PLAN": 100,

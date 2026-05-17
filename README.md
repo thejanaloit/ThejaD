@@ -65,7 +65,7 @@ Use it beside **Ruflo ThejaD** (272+ swarm tools, parallel MCP) in the same Curs
 | **Imported vendor skills** | 30 (LOLC-adapted under `skills/imported/`) |
 | **Device index** | 14,248 dev files (C: user + E: projects) |
 | **Engineering personas** | 6 roles · **50+ years** collective experience (programme framing) |
-| **Version** | 4.2.0 · **status: finished** |
+| **Version** | 4.3.0 · orchestra workflow |
 
 Verify after install:
 
@@ -192,6 +192,34 @@ flowchart LR
 | 5 | Security | White-hat + security-review |
 | 6 | Geesara | Smokes + regression |
 | 7 | Thejana | `coordination_release` + handoff log |
+
+---
+
+## Orchestra workflow (install → login → every prompt)
+
+```mermaid
+flowchart LR
+  A[thejad init] --> B[thejad_setup_status]
+  B --> C[User APIs + logins]
+  C --> D[thejad_setup_complete]
+  D --> E[User prompt]
+  E --> F[thejad_orchestrate]
+  F --> G[Models offline + online]
+  G --> H[Role + skills + agent]
+  H --> I[Token-optimized prompt]
+  I --> J[LOLC workflow steps]
+```
+
+| Step | MCP tool | What happens |
+|------|----------|----------------|
+| 1 | `thejad init` | Adds ThejaD to `.cursor/mcp.json` |
+| 2 | `thejad_setup_status` | Lists Ollama, repo, optional OpenAI / NotebookLM / Figma — **secrets stay in env only** |
+| 3 | User | `ollama pull llama3.2`, `THEJAD_REPO_ROOT`, optional keys, `notebooklm login` |
+| 4 | `thejad_setup_complete` | Marks setup done |
+| 5 | **Every task** | `thejad_orchestrate` with `prompt: "<user message>"` |
+| 6 | Host agent | Runs `optimizedPrompt`, assigned role, skills, agent, online + offline models |
+
+Use MCP prompt **`thejad_orchestra_master`** in Cursor so every chat follows this path.
 
 ---
 
