@@ -167,15 +167,16 @@ export async function runOrchestra(userPrompt, options = {}) {
     ollamaDraft = await ollamaDraftSummary(userPrompt, roleId);
   }
 
-  let integrationContext = null;
-  if (roleId === 'lahiru') {
-    integrationContext = { figma: await getFigmaContext(extractRoute(userPrompt)) };
+  const integrationContext = {};
+  if (process.env.FIGMA_ACCESS_TOKEN?.trim()) {
+    integrationContext.figma = await getFigmaContext(extractRoute(userPrompt));
+  } else if (roleId === 'lahiru') {
+    integrationContext.figma = await getFigmaContext(extractRoute(userPrompt));
   }
-  if (roleId === 'sachini' || /doc|research|programme|spec/i.test(userPrompt)) {
-    integrationContext = {
-      ...(integrationContext || {}),
-      notebooklm: await notebooklmAsk(userPrompt.slice(0, 500)),
-    };
+  const wantNotebook =
+    roleId === 'sachini' || /doc|research|programme|spec|story|requirement/i.test(userPrompt);
+  if (wantNotebook || process.env.THEJAD_NOTEBOOKLM_ALWAYS === '1') {
+    integrationContext.notebooklm = await notebooklmAsk(userPrompt.slice(0, 500));
   }
 
   const result = {
@@ -184,7 +185,7 @@ export async function runOrchestra(userPrompt, options = {}) {
     multiModel,
     ollamaDraft,
     onlineDraft: openaiPass?.plan ? { plan: openaiPass.plan, source: 'openai' } : { plan: ollamaPass?.plan, source: 'ollama' },
-    integrationContext,
+    integrationContext: Object.keys(integrationContext).length ? integrationContext : null,
     modelsStarted: {
       total: modelsStarted.total,
       offline: modelsStarted.offline.count,

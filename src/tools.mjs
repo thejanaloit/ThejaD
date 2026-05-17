@@ -1,7 +1,7 @@
 import fs from 'fs';
 import path from 'path';
 import { execSync } from 'child_process';
-import { capabilityPercent, isFullCapacity, unlockWithPhrase } from './capability.mjs';
+import { capabilityPercent, getUnlockState, isFullCapacity, unlockWithPhrase } from './capability.mjs';
 import {
   deviceReindexHint,
   deviceSearch,
@@ -39,7 +39,8 @@ const ALL_TOOLS = [
   {
     name: 'thejad_unlock',
     tier: 'core',
-    description: 'Unlock maximum capability with secret phrase (friends only).',
+    description:
+      'Unlock maximum (phrase mamaThejana) — stays until lock phrase "nothejad unlock". Same tool locks when given nothejad unlock.',
     inputSchema: {
       type: 'object',
       properties: { phrase: { type: 'string' } },
@@ -384,9 +385,10 @@ export async function handleTool(name, args) {
   switch (name) {
     case 'thejad_status':
       return {
-        version: '4.4.0',
+        version: '4.5.0',
         capabilityPercent: pct,
         fullCapacity: isFullCapacity(),
+        unlock: getUnlockState(),
         repoRoot: resolveRepoRoot(),
         packageRoot: PACKAGE_ROOT,
         team: Object.keys(loadTeam().roles),
@@ -401,7 +403,7 @@ export async function handleTool(name, args) {
 
     case 'thejad_unlock': {
       const r = unlockWithPhrase(args.phrase);
-      return { ...r, capabilityPercent: capabilityPercent() };
+      return { ...r, ...getUnlockState() };
     }
 
     case 'coordination_claim': {

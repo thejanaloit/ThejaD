@@ -1,38 +1,25 @@
 {
   "status": "finished",
-  "version": "4.4.0",
+  "version": "4.5.0",
   "repository": "https://github.com/thejanaloit/ThejaD.git",
   "updatedAt": "2026-05-17",
   "overallPercent": 100,
+  "unlock": {
+    "persistent": true,
+    "unlockPhrase": "mamaThejana",
+    "lockPhrase": "nothejad unlock"
+  },
+  "autoOrchestra": {
+    "cursorHooks": true,
+    "sessionStart": "thejad/scripts/hook-session-start.mjs",
+    "beforeSubmitPrompt": "thejad/scripts/hook-orchestrate-prompt.mjs",
+    "outputFile": ".thejad/last-orchestra.md"
+  },
   "mcp": {
     "tools": 1046,
     "prompts": 87,
     "resources": 221,
-    "importedSkills": 30,
-    "deviceFilesIndexed": 14248,
-    "orchestra": true,
     "orchestraV2": true
-  },
-  "completedRemaining": [
-    "Cursor alwaysApply rule thejad-orchestra.mdc",
-    "Ollama + optional OpenAI multi-model role vote in orchestra",
-    "Live Figma API when env set",
-    "NotebookLM auth check + orchestra enrichment",
-    "D: drive device scan via THEJAD_DEVICE_ROOTS"
-  ],
-  "orchestraWorkflow": [
-    "thejad init (+ copies orchestra rule)",
-    "thejad_setup_status",
-    "user APIs and logins",
-    "thejad_setup_complete",
-    "thejad_orchestrate on every prompt (host rule enforced)"
-  ],
-  "plans": {
-    "FULL_THEJAD_PLAN": 100,
-    "ULTIMATE_PLAN": 100,
-    "ENGINEERING_TEAM_PLAN": 100,
-    "DEVICE_SCAN_PLAN": 100,
-    "THEJAD_PLAN": 100
   },
   "thanks": "Thanks to Theja"
 }

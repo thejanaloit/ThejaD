@@ -1,0 +1,17 @@
+{
+  "version": 1,
+  "hooks": {
+    "sessionStart": [
+      {
+        "command": "node thejad/scripts/hook-session-start.mjs"
+      }
+    ],
+    "beforeSubmitPrompt": [
+      {
+        "command": "node thejad/scripts/hook-orchestrate-prompt.mjs",
+        "matcher": "UserPromptSubmit",
+        "timeout": 120
+      }
+    ]
+  }
+}

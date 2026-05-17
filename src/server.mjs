@@ -24,7 +24,7 @@ export async function startMcpServer() {
   bootstrapEnv();
 
   const server = new Server(
-    { name: 'ThejaD', version: '4.4.0' },
+    { name: 'ThejaD', version: '4.5.0' },
     {
       capabilities: {
         tools: {},
@@ -213,6 +213,6 @@ export function getServerStats() {
     prompts: listPrompts().length,
     resources: listResources().length,
     tier,
-    version: '4.4.0',
+    version: '4.5.0',
   };
 }

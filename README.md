@@ -65,7 +65,7 @@ Use it beside **Ruflo ThejaD** (272+ swarm tools, parallel MCP) in the same Curs
 | **Imported vendor skills** | 30 (LOLC-adapted under `skills/imported/`) |
 | **Device index** | 14,248 dev files (C: user + E: projects) |
 | **Engineering personas** | 6 roles · **50+ years** collective experience (programme framing) |
-| **Version** | 4.4.0 · orchestra v2 (multi-model + auto rule) |
+| **Version** | 4.5.0 · persistent unlock + Cursor auto-orchestra hooks |
 
 Verify after install:
 
