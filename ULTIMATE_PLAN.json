@@ -1,6 +1,8 @@
 {
   "title": "ThejaD MCP v3 — 272+ tools, prompts, resources",
   "updatedAt": "2026-05-17",
+  "overallPercent": 100,
+  "repository": "https://github.com/thejanaloit/ThejaD.git",
   "steps": [
     { "id": "1", "name": "Fix MCP stdio (direct node bin, no inherit wrapper)", "weight": 15, "done": true },
     { "id": "2", "name": "Catalog 272+ tools (Ruflo-scale categories)", "weight": 25, "done": true },

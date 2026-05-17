@@ -1,5 +1,6 @@
 {
   "thanks": "Thanks to Theja",
+  "repository": "https://github.com/thejanaloit/ThejaD.git",
   "repos": [
     { "id": "graphify", "displayName": "Graphify ThejaD", "url": "https://github.com/safishamsi/graphify", "branch": "v8", "vendorPath": "vendor/graphify", "lolcUse": "Knowledge graph — code + SQL + docs in one queryable graph (reduces token grep)" },
     { "id": "superpowers-marketplace", "displayName": "Superpowers marketplace ThejaD", "url": "https://github.com/obra/superpowers-marketplace", "vendorPath": "vendor/superpowers-marketplace", "lolcUse": "Curated Claude plugin marketplace — TDD, brainstorm, execute-plan" },

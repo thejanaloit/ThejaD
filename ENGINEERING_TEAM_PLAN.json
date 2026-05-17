@@ -1,6 +1,8 @@
 {
   "title": "Full engineering team + plugin bundle",
   "updatedAt": "2026-05-17",
+  "overallPercent": 100,
+  "repository": "https://github.com/thejanaloit/ThejaD.git",
   "steps": [
     { "id": "1", "name": "Vendor clone (superpowers-marketplace, security-review, claude-mem)", "weight": 15, "done": true },
     { "id": "2", "name": "engineering-plugins.json + plugins.mjs MCP", "weight": 15, "done": true },

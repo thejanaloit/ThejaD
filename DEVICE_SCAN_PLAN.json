@@ -1,6 +1,8 @@
 {
   "title": "Full device scan for ThejaD MCP",
   "updatedAt": "2026-05-17",
+  "overallPercent": 100,
+  "repository": "https://github.com/thejanaloit/ThejaD.git",
   "steps": [
     { "id": "1", "name": "Expand roots (C: user, E: projects, OneDrive LOLC)", "weight": 25, "done": true },
     { "id": "2", "name": "device-usable.json categories + 14k index", "weight": 30, "done": true },

@@ -326,7 +326,7 @@ export async function handleTool(name, args) {
   switch (name) {
     case 'thejad_status':
       return {
-        version: '4.1.0',
+        version: '4.2.0',
         capabilityPercent: pct,
         fullCapacity: isFullCapacity(),
         repoRoot: resolveRepoRoot(),

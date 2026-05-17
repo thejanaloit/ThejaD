@@ -2,7 +2,7 @@
   "thanks": "Thanks to Theja",
   "suffix": "ThejaD",
   "integrations": {
-    "thejad": { "displayName": "ThejaD", "internalId": "thejad" },
+    "thejad": { "displayName": "ThejaD", "internalId": "thejad", "repository": "https://github.com/thejanaloit/ThejaD.git" },
     "ruflo": { "displayName": "Ruflo ThejaD", "internalId": "ruflo" },
     "claude-flow": { "displayName": "Claude-flow ThejaD", "internalId": "claude-flow" },
     "superpowers-marketplace": { "displayName": "Superpowers marketplace ThejaD", "internalId": "superpowers-marketplace" },

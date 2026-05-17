@@ -1,6 +1,8 @@
 {
   "title": "ThejaD MCP — LOLC-aligned Ruflo alternative",
   "updatedAt": "2026-05-17",
+  "overallPercent": 100,
+  "repository": "https://github.com/thejanaloit/ThejaD.git",
   "steps": [
     { "id": "1", "name": "Core MCP server + capability tiers (80% / mamaThejana)", "weight": 20, "done": true },
     { "id": "2", "name": "LOLC data: stories, limits, programme scope, coordination", "weight": 15, "done": true },
