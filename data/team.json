@@ -1,0 +1,48 @@
+{
+  "collectiveExperienceYears": 50,
+  "thanks": "Thanks to Theja",
+  "roles": {
+    "thejana": {
+      "title": "Supreme Developer",
+      "experienceYears": 50,
+      "focus": ["architecture", "full-stack", "final merge", "MCP orchestration"],
+      "lanes": ["A", "B", "C", "D"],
+      "tools": ["thejana_supreme_plan", "swarm_init", "coordination_claim"]
+    },
+    "lahiru": {
+      "title": "UI / UX Engineer",
+      "experienceYears": 50,
+      "focus": ["apps/web", "Figma", "SCREEN_ROUTE_MAP", "accessibility", "design tokens"],
+      "lanes": ["A"],
+      "tools": ["lahiru_ui_review", "figma_context"]
+    },
+    "backend": {
+      "title": "Backend Engineer",
+      "experienceYears": 50,
+      "focus": ["services/*", "migrations", "Kong", "OpenAPI", "NestJS"],
+      "lanes": ["C", "D"],
+      "tools": ["full_stack_map", "smoke_hint"]
+    },
+    "geesara": {
+      "title": "QA Engineer",
+      "experienceYears": 50,
+      "focus": ["smoke scripts", "regression", "phase gates", "browser E2E"],
+      "lanes": ["E"],
+      "tools": ["geesara_qa_plan", "geesara_run_smokes"]
+    },
+    "sachini": {
+      "title": "Business Analyst",
+      "experienceYears": 50,
+      "focus": ["LOLCDL stories", "acceptance criteria", "traceability"],
+      "lanes": ["E"],
+      "tools": ["sachini_story_draft", "story_lookup"]
+    },
+    "security": {
+      "title": "White Hat Security",
+      "experienceYears": 50,
+      "focus": ["SECURITY_WHITE_HAT", "JWT", "OWASP", "dev vs prod flags"],
+      "lanes": ["D"],
+      "tools": ["security_white_hat_scan", "scope_guard", "limits_check"]
+    }
+  }
+}

@@ -9,3 +9,5 @@ Items below use **mocks** until you provide real values. Reply in chat or edit t
 | R3 | Preferred Ollama model tags (e.g. `llama3.2`, `qwen2.5`) | `llama3.2` if `ollama list` empty |
 | R4 | Official Antigravity account labels for coordination rows | `Antigravity` / `Cursor` generic |
 | R5 | Bank-approved payment limit defaults for UAT (if different from seed) | `data/lolc-limits.json` from dev seed |
+| R6 | Full C:\\/D:\\ disk scan (not done — privacy/size) | Scoped index: repo + Cursor project + Documents |
+| R7 | D: drive project paths | D: not present on build machine — add roots in `scripts/build-device-index.mjs` |

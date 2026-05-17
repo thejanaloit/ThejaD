@@ -1,6 +1,17 @@
 import fs from 'fs';
 import path from 'path';
-import { capabilityPercent, unlockWithPhrase } from './capability.mjs';
+import { execSync } from 'child_process';
+import { capabilityPercent, isFullCapacity, unlockWithPhrase } from './capability.mjs';
+import { deviceSearch } from './device.mjs';
+import { notebooklmAddRepoSources, notebooklmAsk, notebooklmInstallHint } from './notebooklm.mjs';
+import { agentSpawn, securityScanRepo, swarmInit, swarmStatus, workerHints } from './ruflo.mjs';
+import {
+  consultRole,
+  draftStory,
+  loadTeam,
+  qaPlan,
+  supremePlan,
+} from './team.mjs';
 import { PACKAGE_ROOT, readJson, resolveDataDir, resolveRepoRoot } from './paths.mjs';
 
 const ALL_TOOLS = [
@@ -182,6 +193,21 @@ const ALL_TOOLS = [
       required: ['shipped'],
     },
   },
+  { name: 'team_list', tier: 'standard', description: 'List supreme engineering team roles (50+ yrs collective).', inputSchema: { type: 'object', properties: {} } },
+  { name: 'team_consult', tier: 'standard', description: 'Consult Lahiru/Geesara/Sachini/Thejana/Security/Backend.', inputSchema: { type: 'object', properties: { role: { type: 'string' }, topic: { type: 'string' } }, required: ['role', 'topic'] } },
+  { name: 'thejana_supreme_plan', tier: 'standard', description: 'Supreme Developer end-to-end delivery plan.', inputSchema: { type: 'object', properties: { goal: { type: 'string' } }, required: ['goal'] } },
+  { name: 'lahiru_ui_review', tier: 'standard', description: 'UI/UX review for route (Lahiru).', inputSchema: { type: 'object', properties: { route: { type: 'string' } } } },
+  { name: 'sachini_story_draft', tier: 'standard', description: 'Draft LOLCDL user story skeleton (Sachini).', inputSchema: { type: 'object', properties: { feature: { type: 'string' } }, required: ['feature'] } },
+  { name: 'geesara_qa_plan', tier: 'standard', description: 'QA test plan for story (Geesara).', inputSchema: { type: 'object', properties: { storyId: { type: 'string' } } } },
+  { name: 'security_white_hat_scan', tier: 'standard', description: 'White-hat security doc index + dev flag checklist.', inputSchema: { type: 'object', properties: {} } },
+  { name: 'device_search', tier: 'standard', description: 'Search indexed local dev files (scoped C/E user paths).', inputSchema: { type: 'object', properties: { query: { type: 'string' } }, required: ['query'] } },
+  { name: 'swarm_init', tier: 'standard', description: 'Initialize ThejaD swarm (Ruflo-class).', inputSchema: { type: 'object', properties: { topology: { type: 'string' } } } },
+  { name: 'swarm_status', tier: 'standard', description: 'Swarm status.', inputSchema: { type: 'object', properties: {} } },
+  { name: 'agent_spawn', tier: 'standard', description: 'Spawn tracked agent in swarm.', inputSchema: { type: 'object', properties: { type: { type: 'string' }, task: { type: 'string' } }, required: ['task'] } },
+  { name: 'worker_hints', tier: 'standard', description: 'Background worker + Ruflo daemon hints.', inputSchema: { type: 'object', properties: {} } },
+  { name: 'notebooklm_install', tier: 'full', description: 'notebooklm-py install commands.', inputSchema: { type: 'object', properties: {} } },
+  { name: 'notebooklm_add_sources', tier: 'full', description: 'Add LOLC repo docs as NotebookLM sources.', inputSchema: { type: 'object', properties: {} } },
+  { name: 'geesara_run_smokes', tier: 'full', description: 'Run smoke suite (full capacity) or hints at 80%.', inputSchema: { type: 'object', properties: {} } },
 ];
 
 export function listToolsForSession() {
@@ -230,12 +256,15 @@ export async function handleTool(name, args) {
   switch (name) {
     case 'thejad_status':
       return {
+        version: '2.0.0-supreme',
         capabilityPercent: pct,
         fullCapacity: isFullCapacity(),
         repoRoot: resolveRepoRoot(),
         packageRoot: PACKAGE_ROOT,
+        team: Object.keys(loadTeam().roles),
+        toolCount: listToolsForSession().length,
         thanks: THANKS,
-        planFile: 'THEJAD_PLAN.json',
+        planFiles: ['ULTIMATE_PLAN.json', 'THEJAD_PLAN.json'],
       };
 
     case 'thejad_unlock': {
@@ -371,19 +400,77 @@ export async function handleTool(name, args) {
       }
     }
 
-    case 'notebooklm_ask': {
+    case 'notebooklm_ask':
+      return notebooklmAsk(args.question);
+
+    case 'notebooklm_install':
+      return notebooklmInstallHint();
+
+    case 'notebooklm_add_sources':
+      return notebooklmAddRepoSources();
+
+    case 'team_list':
+      return loadTeam();
+
+    case 'team_consult':
+      return consultRole(String(args.role || 'thejana').toLowerCase(), args.topic || 'general');
+
+    case 'thejana_supreme_plan':
+      return supremePlan(args.goal || 'feature delivery');
+
+    case 'lahiru_ui_review': {
+      const route = args.route || '/home';
+      const planPath = path.join(PACKAGE_ROOT, 'plans', 'ui-ux-route-plan.md');
+      const stories = await handleTool('story_lookup', { route });
       return {
-        mock: true,
-        question: args.question,
-        see: 'https://github.com/teng-lin/notebooklm-py',
-        repoDocs: [
-          'docs/PROGRAMME_MASTER_REFERENCE.md',
-          'docs/AUTHENTICATION_AND_AUTHORIZATION.md',
-          'docs/ipay-mvp-story-traceability.json',
-        ],
-        requestedId: 'R2',
+        engineer: 'Lahiru',
+        route,
+        planFile: fs.existsSync(planPath) ? planPath : null,
+        stories: stories.entries?.slice(0, 5),
+        checklist: ['SCREEN_ROUTE_MAP', 'accessibility', 'mobile safe-area', 'WorkflowEntryGate vs middleware'],
       };
     }
+
+    case 'sachini_story_draft':
+      return draftStory(args.feature || 'New feature');
+
+    case 'geesara_qa_plan':
+      return qaPlan(args.storyId);
+
+    case 'geesara_run_smokes': {
+      const cmds = ['npm run local:health:json', 'npm run smoke:phase1', 'npm run smoke:accounts', 'npm run typecheck:web'];
+      if (!isFullCapacity()) {
+        return { mode: 'hint-only', commands: cmds, cwd: resolveRepoRoot() };
+      }
+      const results = [];
+      for (const c of cmds) {
+        try {
+          const out = execSync(c, { cwd: resolveRepoRoot(), encoding: 'utf8', timeout: 180000 });
+          results.push({ cmd: c, ok: true, tail: out.slice(-400) });
+        } catch (e) {
+          results.push({ cmd: c, ok: false, error: String(e.message || e).slice(0, 300) });
+        }
+      }
+      return { engineer: 'Geesara', results };
+    }
+
+    case 'security_white_hat_scan':
+      return securityScanRepo();
+
+    case 'device_search':
+      return deviceSearch(args.query);
+
+    case 'swarm_init':
+      return swarmInit(args.topology);
+
+    case 'swarm_status':
+      return swarmStatus();
+
+    case 'agent_spawn':
+      return agentSpawn(args.type || 'coder', args.task || 'task');
+
+    case 'worker_hints':
+      return workerHints();
 
     case 'figma_context': {
       const route = args.route || '/home';
