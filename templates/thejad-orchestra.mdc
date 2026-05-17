@@ -29,4 +29,13 @@ Cursor hooks run on **every user message**:
 
 `FIGMA_ACCESS_TOKEN`, `FIGMA_FILE_URL`, `OPENAI_API_KEY`, `THEJAD_DEVICE_ROOTS`, `THEJAD_HOOK_FAST=1` (faster hooks, skip Ollama warm).
 
+## Team pod (LAN + Hyperspace-class)
+
+1. MCP **`thejad_pod_init`** on each device on the same network  
+2. On each device: **`node thejad/bin/thejad.js pod serve`** (port 19090)  
+3. MCP **`thejad_pod_peer_add`** with peer URLs `http://<IP>:19090`  
+4. **`thejad_pod_memory_sync`** — shared memory across all agents  
+5. **`thejad_agent_manifest_export`** / **`apply`** — same agent level for every user  
+6. Optional full stack: [pods.hyper.space](https://pods.hyper.space/) — set `HYPERSPACE_GATEWAY_URL` + `HYPERSPACE_POD_API_KEY`  
+
 Phase 1 only · **Thanks to Theja**

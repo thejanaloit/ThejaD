@@ -27,6 +27,10 @@ async function init() {
     env: {
       THEJAD_REPO_ROOT: target,
       npm_config_update_notifier: 'false',
+      HYPERSPACE_GATEWAY_URL: 'http://127.0.0.1:8080/v1',
+      HYPERSPACE_POD_API_KEY: '',
+      THEJAD_POD_PEERS: '',
+      THEJAD_POD_SYNC_PORT: '19090',
     },
   };
   fs.writeFileSync(mcpPath, JSON.stringify(existing, null, 2) + '\n', 'utf8');
@@ -71,6 +75,7 @@ async function init() {
   console.log('[ThejaD] First run: MCP tools thejad_setup_status → user logins → thejad_setup_complete');
   console.log('[ThejaD] Every prompt: auto-orchestrated via Cursor hook (or thejad_orchestrate)');
   console.log('[ThejaD] Unlock max: mamaThejana — stays until: nothejad unlock');
+  console.log('[ThejaD] Team pod: MCP thejad_pod_init → node thejad/bin/thejad.js pod serve on each LAN device');
   console.log('Thanks to Theja');
 }
 
@@ -83,6 +88,9 @@ if (cmd === 'mcp' && sub === 'start') {
   bootstrapEnv();
   const { getServerStats } = await import('../src/server.mjs');
   console.log(JSON.stringify(getServerStats(), null, 2));
+} else if (cmd === 'pod' && sub === 'serve') {
+  bootstrapEnv();
+  await import('../scripts/pod-sync-server.mjs');
 } else if (cmd === 'finalize') {
   bootstrapEnv();
   const { runFinalize } = await import('../src/finalize.mjs');
@@ -96,6 +104,7 @@ Usage:
   npx thejad mcp start     # run MCP server (stdio)
   npx thejad stats         # tool/prompt/resource counts
   npx thejad finalize      # 100% readiness gate (exit 0 when programme ready)
+  npx thejad pod serve     # LAN shared-memory sync server (after thejad_pod_init)
 
 GitHub: https://github.com/thejanaloit/ThejaD
 Thanks to Theja`);

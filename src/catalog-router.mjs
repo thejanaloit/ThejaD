@@ -40,6 +40,10 @@ const ROUTES = {
   'fusionx.screen_map': { name: 'lahiru_ui_review', map: (a) => ({ route: a.route || '/home' }) },
   'backend.service_health': { name: 'smoke_hint', map: () => ({ area: 'web' }) },
   'auth.login_smoke': { name: 'smoke_hint', map: () => ({ area: 'auth' }) },
+  'ollama.prompt': { name: 'ollama_prompt', map: (a) => ({ prompt: a.input || a.prompt }) },
+  'ollama.list_models': { name: 'thejad_pod_models' },
+  'memory.store': { name: 'thejad_pod_memory_store', map: (a) => ({ key: a.key || 'note', value: a.input || '' }) },
+  'memory.search': { name: 'thejad_pod_memory_search', map: (a) => ({ query: a.input || '' }) },
 };
 
 export function resolveCatalogRoute(category, action) {

@@ -1,6 +1,8 @@
 import { loadTeam } from './team.mjs';
 import { listImportedSkillNames } from './skills-sync.mjs';
 import { ensureSetupReady, getSetupStatus } from './setup.mjs';
+import { podMemorySync } from './pod-memory.mjs';
+import { getPodStatus } from './team-pod.mjs';
 import { startAllModels, pickModelForAssignment } from './models.mjs';
 import { regeneratePrompt } from './prompt-optimize.mjs';
 import { recordOrchestration } from './session.mjs';
@@ -110,6 +112,15 @@ export async function runOrchestra(userPrompt, options = {}) {
       setup,
       nextStep: 'Call thejad_setup_status, provide APIs/logins, then thejad_setup_complete.',
     };
+  }
+
+  const pod = getPodStatus();
+  if (pod.joined && options.syncPodMemory !== false) {
+    try {
+      await podMemorySync();
+    } catch {
+      /* peers optional */
+    }
   }
 
   const modelsStarted = await startAllModels({

@@ -27,6 +27,11 @@ import { ensureSetupReady } from './setup.mjs';
 import { startAllModels } from './models.mjs';
 import { getFigmaContext } from './figma.mjs';
 import { notebooklmAuthStatus } from './notebooklm.mjs';
+import { initTeamPod, addPeer, getPodStatus } from './team-pod.mjs';
+import { podMemoryStore, podMemorySearch, podMemorySync } from './pod-memory.mjs';
+import { hyperspacePodStatus, hyperspaceChat } from './hyperspace-bridge.mjs';
+import { listAllPodMeshModels } from './pod-models.mjs';
+import { exportAgentManifest, applyAgentManifest } from './agent-parity.mjs';
 import { listPrompts } from './prompts-registry.mjs';
 import { listResources } from './resources-registry.mjs';
 import { PACKAGE_ROOT, readJson, resolveDataDir, resolveRepoRoot } from './paths.mjs';
@@ -287,6 +292,101 @@ const ALL_TOOLS = [
     inputSchema: { type: 'object', properties: { path: { type: 'string' } } },
   },
   {
+    name: 'thejad_pod_init',
+    tier: 'core',
+    description:
+      'Create ThejaD team pod (LAN shared memory + peer Ollama). Hyperspace-class vision for same network.',
+    inputSchema: {
+      type: 'object',
+      properties: {
+        name: { type: 'string' },
+        syncPort: { type: 'number' },
+      },
+    },
+  },
+  {
+    name: 'thejad_pod_status',
+    tier: 'core',
+    description: 'Team pod status: peers, Hyperspace gateway, shared memory paths.',
+    inputSchema: { type: 'object', properties: {} },
+  },
+  {
+    name: 'thejad_pod_peer_add',
+    tier: 'core',
+    description: 'Add LAN peer sync URL (http://IP:19090) — shares memory + Ollama on that host.',
+    inputSchema: {
+      type: 'object',
+      properties: {
+        peerUrl: { type: 'string' },
+        label: { type: 'string' },
+      },
+      required: ['peerUrl'],
+    },
+  },
+  {
+    name: 'thejad_pod_models',
+    tier: 'core',
+    description: 'List all models: local Ollama + LAN peers + Hyperspace pod gateway.',
+    inputSchema: { type: 'object', properties: {} },
+  },
+  {
+    name: 'thejad_pod_memory_store',
+    tier: 'standard',
+    description: 'Store in team shared memory (synced across LAN pod members).',
+    inputSchema: {
+      type: 'object',
+      properties: { key: { type: 'string' }, value: { type: 'string' } },
+      required: ['key', 'value'],
+    },
+  },
+  {
+    name: 'thejad_pod_memory_search',
+    tier: 'standard',
+    description: 'Search team shared memory.',
+    inputSchema: {
+      type: 'object',
+      properties: { query: { type: 'string' } },
+      required: ['query'],
+    },
+  },
+  {
+    name: 'thejad_pod_memory_sync',
+    tier: 'standard',
+    description: 'Pull and merge shared memory from all pod peers (newest wins).',
+    inputSchema: { type: 'object', properties: {} },
+  },
+  {
+    name: 'hyperspace_pod_status',
+    tier: 'standard',
+    description: 'Hyperspace pods.hyper.space CLI + gateway status (full pod stack).',
+    inputSchema: { type: 'object', properties: {} },
+  },
+  {
+    name: 'hyperspace_gateway_infer',
+    tier: 'full',
+    description: 'Inference via Hyperspace pod gateway (OpenAI-compatible, distributed mesh).',
+    inputSchema: {
+      type: 'object',
+      properties: {
+        prompt: { type: 'string' },
+        model: { type: 'string' },
+      },
+      required: ['prompt'],
+    },
+  },
+  {
+    name: 'thejad_agent_manifest_export',
+    tier: 'standard',
+    description: 'Export agent parity manifest so every user runs same orchestra/rules/skills level.',
+    inputSchema: { type: 'object', properties: {} },
+  },
+  {
+    name: 'thejad_agent_manifest_apply',
+    tier: 'standard',
+    description: 'Apply team agent manifest + verify Cursor rule/skill/hooks exist.',
+    inputSchema: { type: 'object', properties: {} },
+  },
+  {
     name: 'thejad_finalize',
     tier: 'core',
     description:
@@ -394,7 +494,7 @@ export async function handleTool(name, args) {
   switch (name) {
     case 'thejad_status':
       return {
-        version: '4.6.0',
+        version: '4.7.0',
         capabilityPercent: pct,
         fullCapacity: isFullCapacity(),
         unlock: getUnlockState(),
@@ -446,7 +546,9 @@ export async function handleTool(name, args) {
       const m = loadMemory();
       m[args.key] = { value: args.value, at: new Date().toISOString() };
       saveMemory(m);
-      return { stored: args.key };
+      const pod = getPodStatus();
+      if (pod.joined) podMemoryStore(args.key, args.value);
+      return { stored: args.key, podShared: pod.joined };
     }
 
     case 'memory_search': {
@@ -678,6 +780,42 @@ export async function handleTool(name, args) {
 
     case 'graphify_hint':
       return graphifyHint();
+
+    case 'thejad_pod_init':
+      return initTeamPod(args.name || 'lolc-team', { syncPort: args.syncPort });
+
+    case 'thejad_pod_status': {
+      const pod = getPodStatus();
+      const hs = await hyperspacePodStatus();
+      return { thejadPod: pod, hyperspace: hs };
+    }
+
+    case 'thejad_pod_peer_add':
+      return addPeer(args.peerUrl, args.label);
+
+    case 'thejad_pod_models':
+      return listAllPodMeshModels();
+
+    case 'thejad_pod_memory_store':
+      return podMemoryStore(args.key, args.value);
+
+    case 'thejad_pod_memory_search':
+      return podMemorySearch(args.query);
+
+    case 'thejad_pod_memory_sync':
+      return podMemorySync();
+
+    case 'hyperspace_pod_status':
+      return hyperspacePodStatus();
+
+    case 'hyperspace_gateway_infer':
+      return hyperspaceChat(args.prompt, { model: args.model });
+
+    case 'thejad_agent_manifest_export':
+      return exportAgentManifest();
+
+    case 'thejad_agent_manifest_apply':
+      return applyAgentManifest();
 
     case 'thejad_finalize':
       return runFinalize();

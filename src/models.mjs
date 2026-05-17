@@ -1,4 +1,5 @@
 import { readJson } from './paths.mjs';
+import { listAllPodMeshModels } from './pod-models.mjs';
 
 const ONLINE_CATALOG = [
   { id: 'cursor-host', provider: 'cursor', type: 'online', note: 'Primary orchestration LLM (this session)' },
@@ -56,7 +57,8 @@ export async function startAllModels(options = {}) {
   const warm = options.warm !== false;
   const maxWarm = options.maxWarmOllama ?? 2;
 
-  const offline = await listOllamaModels();
+  const mesh = await listAllPodMeshModels();
+  const offline = mesh.models.length ? mesh.models : await listOllamaModels();
   const online = ONLINE_CATALOG.map((m) => ({
     ...m,
     available: m.env ? Boolean(process.env[m.env]?.trim()) : true,
@@ -72,10 +74,11 @@ export async function startAllModels(options = {}) {
 
   return {
     startedAt: new Date().toISOString(),
+    mesh: { local: mesh.local, peers: mesh.peers, hyperspace: mesh.hyperspace },
     offline: { count: offline.length, models: offline, warmed: warmResults },
     online: { count: online.length, models: online },
     total: offline.length + online.length,
-    hint: offline.length === 0 ? 'Install Ollama and run: ollama pull llama3.2' : null,
+    hint: offline.length === 0 ? 'Install Ollama or join ThejaD pod / Hyperspace gateway' : null,
   };
 }
 
