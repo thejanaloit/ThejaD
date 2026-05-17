@@ -3,13 +3,13 @@
 import fs from 'fs';
 import { bootstrapEnv } from '../src/env-bootstrap.mjs';
 import { getUnlockState } from '../src/capability.mjs';
-import { getSetupStatus } from '../src/setup.mjs';
+import { ensureSetupReady } from '../src/setup.mjs';
 import { resolveDataDir } from '../src/paths.mjs';
 
 async function main() {
   bootstrapEnv();
   const unlock = getUnlockState();
-  const setup = await getSetupStatus();
+  const setup = await ensureSetupReady();
   const md = `${resolveDataDir()}/last-orchestra.md`;
 
   const ctx = `# ThejaD session (auto-orchestra)

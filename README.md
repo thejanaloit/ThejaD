@@ -221,6 +221,15 @@ flowchart LR
 
 Use MCP prompt **`thejad_orchestra_master`** in Cursor so every chat follows this path.
 
+### Auto-orchestra (no host MCP call)
+
+`.cursor/hooks.json` (installed by `thejad init`) runs on **every user message**:
+
+- **`beforeSubmitPrompt`** → full orchestra → writes **`.thejad/last-orchestra.md`**
+- **`sessionStart`** → tier, setup state, mandate to read last-orchestra file
+
+The agent follows the hook output; you do not need to call `thejad_orchestrate` manually.
+
 ---
 
 ## Install
@@ -478,9 +487,11 @@ Extra paths: `THEJAD_DEVICE_ROOTS=D:\your\path;...`
 | Mode | Access | How |
 |------|--------|-----|
 | **Standard (80%)** | Core + standard tools (~1000+) | Default |
-| **Maximum (100%)** | All tools incl. notebooklm run, live smokes | `thejad_unlock` or `THEJAD_FULL_ACCESS=1` |
+| **Maximum (100%)** | All tools incl. notebooklm run, live smokes | `thejad_unlock` phrase `mamaThejana` |
 
-Friends unlock phrase: use MCP tool `thejad_unlock` (not published here).
+**Stays at maximum** until you run `thejad_unlock` with phrase **`nothejad unlock`** (no 24h expiry).
+
+Env override: `THEJAD_FULL_ACCESS=1` (session only, does not write unlock file).
 
 ---
 

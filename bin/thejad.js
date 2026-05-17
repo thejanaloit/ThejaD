@@ -83,12 +83,19 @@ if (cmd === 'mcp' && sub === 'start') {
   bootstrapEnv();
   const { getServerStats } = await import('../src/server.mjs');
   console.log(JSON.stringify(getServerStats(), null, 2));
+} else if (cmd === 'finalize') {
+  bootstrapEnv();
+  const { runFinalize } = await import('../src/finalize.mjs');
+  const r = await runFinalize();
+  console.log(JSON.stringify(r, null, 2));
+  process.exit(r.programme100 ? 0 : 1);
 } else {
   console.log(`ThejaD MCP — LOLC Internet Banking
 Usage:
   npx thejad init          # add to .cursor/mcp.json in current project
   npx thejad mcp start     # run MCP server (stdio)
   npx thejad stats         # tool/prompt/resource counts
+  npx thejad finalize      # 100% readiness gate (exit 0 when programme ready)
 
 GitHub: https://github.com/thejanaloit/ThejaD
 Thanks to Theja`);

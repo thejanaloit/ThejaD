@@ -1,9 +1,12 @@
 import fs from 'fs';
 import path from 'path';
+import { loadMcpEnv } from './mcp-env.mjs';
 import { resolveRepoRoot } from './paths.mjs';
 
 export function bootstrapEnv() {
   const repo = resolveRepoRoot();
+  process.env.THEJAD_REPO_ROOT = repo;
+  loadMcpEnv(repo);
   const envPath = path.join(repo, '.env');
   if (!fs.existsSync(envPath)) return repo;
   for (const line of fs.readFileSync(envPath, 'utf8').split(/\r?\n/)) {
@@ -18,6 +21,5 @@ export function bootstrapEnv() {
     }
     if (!process.env[k]) process.env[k] = v;
   }
-  process.env.THEJAD_REPO_ROOT = repo;
   return repo;
 }

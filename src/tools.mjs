@@ -22,6 +22,8 @@ import { engineeringTeamRoster, getPluginsStatus, graphifyHint, installHints } f
 import { syncVendorSkills } from './skills-sync.mjs';
 import { getSetupStatus, registerSetup } from './setup.mjs';
 import { runOrchestra } from './orchestra.mjs';
+import { runFinalize } from './finalize.mjs';
+import { ensureSetupReady } from './setup.mjs';
 import { startAllModels } from './models.mjs';
 import { getFigmaContext } from './figma.mjs';
 import { notebooklmAuthStatus } from './notebooklm.mjs';
@@ -285,6 +287,13 @@ const ALL_TOOLS = [
     inputSchema: { type: 'object', properties: { path: { type: 'string' } } },
   },
   {
+    name: 'thejad_finalize',
+    tier: 'core',
+    description:
+      'Run 100% readiness check: setup, hooks, Ollama, optional Figma/NotebookLM; auto-completes setup when required checks pass.',
+    inputSchema: { type: 'object', properties: {} },
+  },
+  {
     name: 'thejad_setup_status',
     tier: 'core',
     description:
@@ -385,7 +394,7 @@ export async function handleTool(name, args) {
   switch (name) {
     case 'thejad_status':
       return {
-        version: '4.5.0',
+        version: '4.6.0',
         capabilityPercent: pct,
         fullCapacity: isFullCapacity(),
         unlock: getUnlockState(),
@@ -670,8 +679,11 @@ export async function handleTool(name, args) {
     case 'graphify_hint':
       return graphifyHint();
 
+    case 'thejad_finalize':
+      return runFinalize();
+
     case 'thejad_setup_status':
-      return getSetupStatus();
+      return ensureSetupReady();
 
     case 'thejad_setup_complete':
       return registerSetup({

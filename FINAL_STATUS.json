@@ -1,25 +1,10 @@
 {
   "status": "finished",
-  "version": "4.5.0",
+  "version": "4.6.0",
   "repository": "https://github.com/thejanaloit/ThejaD.git",
   "updatedAt": "2026-05-17",
-  "overallPercent": 100,
-  "unlock": {
-    "persistent": true,
-    "unlockPhrase": "mamaThejana",
-    "lockPhrase": "nothejad unlock"
-  },
-  "autoOrchestra": {
-    "cursorHooks": true,
-    "sessionStart": "thejad/scripts/hook-session-start.mjs",
-    "beforeSubmitPrompt": "thejad/scripts/hook-orchestrate-prompt.mjs",
-    "outputFile": ".thejad/last-orchestra.md"
-  },
-  "mcp": {
-    "tools": 1046,
-    "prompts": 87,
-    "resources": 221,
-    "orchestraV2": true
-  },
+  "programmePercent": 100,
+  "note": "programme100 = required checks (setup, hooks, ollama, MCP). integrations100 = optional Figma + NotebookLM when creds set.",
+  "cli": "node thejad/bin/thejad.js finalize",
   "thanks": "Thanks to Theja"
 }

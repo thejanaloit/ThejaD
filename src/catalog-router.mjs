@@ -1,0 +1,47 @@
+/** Route catalog tool category+action to real named ThejaD tools */
+
+const ROUTES = {
+  'notebooklm.ask': { name: 'notebooklm_ask', map: (a) => ({ question: a.input || a.question }) },
+  'notebooklm.install_hint': { name: 'notebooklm_install' },
+  'notebooklm.add_source': { name: 'notebooklm_add_sources' },
+  'ollama.prompt': { name: 'ollama_prompt', map: (a) => ({ prompt: a.input || a.prompt, model: a.model }) },
+  'figma.context': { name: 'figma_context', map: (a) => ({ route: a.route || '/home' }) },
+  'figma.stitch_prompt': { name: 'figma_context', map: (a) => ({ route: a.route || '/home' }) },
+  'ba.story_lookup': { name: 'story_lookup', map: (a) => ({ storyId: a.storyId, route: a.route }) },
+  'ba.story_draft': { name: 'sachini_story_draft', map: (a) => ({ feature: a.input || a.feature }) },
+  'ui.route_map': { name: 'lahiru_ui_review', map: (a) => ({ route: a.route || '/home' }) },
+  'ui.screen_audit': { name: 'lahiru_ui_review', map: (a) => ({ route: a.route || '/home' }) },
+  'qa.smoke_phase1': { name: 'smoke_hint', map: () => ({ area: 'phase1' }) },
+  'qa.smoke_accounts': { name: 'smoke_hint', map: () => ({ area: 'accounts' }) },
+  'qa.smoke_payments': { name: 'smoke_hint', map: () => ({ area: 'payments' }) },
+  'qa.smoke_web': { name: 'smoke_hint', map: () => ({ area: 'web' }) },
+  'qa.health_all': { name: 'smoke_hint', map: () => ({ area: 'web' }) },
+  'security.white_hat_scan': { name: 'security_white_hat_scan' },
+  'security.scope_guard': { name: 'scope_guard', map: (a) => ({ task: a.input || a.task || '' }) },
+  'programme.mvp_percent': { name: 'thejad_status' },
+  'programme.scope_p1': { name: 'scope_guard', map: (a) => ({ task: a.input || 'phase 1' }) },
+  'coordination.claim': { name: 'coordination_claim', map: (a) => ({ tool: 'Cursor', paths: a.path || a.input || '.', lane: 'A' }) },
+  'coordination.release': { name: 'coordination_release', map: (a) => ({ claimId: a.claimId || a.input }) },
+  'coordination.list_claims': { name: 'coordination_list' },
+  'graphify.index_repo': { name: 'graphify_hint', map: (a) => ({ path: a.path }) },
+  'swarm.init': { name: 'swarm_init' },
+  'swarm.status': { name: 'swarm_status' },
+  'agent.spawn_coder': { name: 'agent_spawn', map: (a) => ({ type: 'coder', task: a.input || 'task' }) },
+  'agent.spawn_qa': { name: 'agent_spawn', map: (a) => ({ type: 'tester', task: a.input || 'qa' }) },
+  'agent.spawn_ui': { name: 'agent_spawn', map: (a) => ({ type: 'coder', task: a.input || 'ui' }) },
+  'agent.spawn_backend': { name: 'agent_spawn', map: (a) => ({ type: 'backend-dev', task: a.input || 'api' }) },
+  'agent.spawn_security': { name: 'agent_spawn', map: (a) => ({ type: 'security-auditor', task: a.input || 'security' }) },
+  'memory.store': { name: 'memory_store', map: (a) => ({ key: a.key || 'note', value: a.input || a.value || '' }) },
+  'memory.search': { name: 'memory_search', map: (a) => ({ query: a.input || a.query || '' }) },
+  'ruflo_compat.swarm_init': { name: 'swarm_init' },
+  'ruflo_compat.memory_store': { name: 'memory_store', map: (a) => ({ key: 'ruflo', value: a.input || '' }) },
+  'ruflo_compat.memory_search': { name: 'memory_search', map: (a) => ({ query: a.input || '' }) },
+  'fusionx.ui_wave': { name: 'lahiru_ui_review', map: (a) => ({ route: a.route || '/home' }) },
+  'fusionx.screen_map': { name: 'lahiru_ui_review', map: (a) => ({ route: a.route || '/home' }) },
+  'backend.service_health': { name: 'smoke_hint', map: () => ({ area: 'web' }) },
+  'auth.login_smoke': { name: 'smoke_hint', map: () => ({ area: 'auth' }) },
+};
+
+export function resolveCatalogRoute(category, action) {
+  return ROUTES[`${category}.${action}`] || null;
+}

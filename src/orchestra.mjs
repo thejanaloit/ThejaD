@@ -1,6 +1,6 @@
 import { loadTeam } from './team.mjs';
 import { listImportedSkillNames } from './skills-sync.mjs';
-import { getSetupStatus } from './setup.mjs';
+import { ensureSetupReady, getSetupStatus } from './setup.mjs';
 import { startAllModels, pickModelForAssignment } from './models.mjs';
 import { regeneratePrompt } from './prompt-optimize.mjs';
 import { recordOrchestration } from './session.mjs';
@@ -103,7 +103,7 @@ function outputShape(roleId) {
  * Full orchestra pipeline: setup gate → models → route → optimize prompt → workflow.
  */
 export async function runOrchestra(userPrompt, options = {}) {
-  const setup = await getSetupStatus();
+  const setup = options.skipSetupCheck ? await getSetupStatus() : await ensureSetupReady();
   if (!setup.ready && !options.skipSetupCheck) {
     return {
       phase: 'setup_required',

@@ -81,7 +81,17 @@ export async function evaluateSetupItem(item) {
   }
 }
 
-export async function getSetupStatus() {
+/** Auto-complete setup when all required checks pass (unless THEJAD_AUTO_SETUP=0). */
+export async function ensureSetupReady() {
+  if (process.env.THEJAD_AUTO_SETUP === '0') return getSetupStatus();
+  const status = await getSetupStatus({ skipAutoComplete: true });
+  if (status.requiredOk && !status.setupCompleteFlag) {
+    setSetupComplete(true);
+  }
+  return getSetupStatus({ skipAutoComplete: true });
+}
+
+export async function getSetupStatus(options = {}) {
   const spec = readJson('data/setup-requirements.json');
   const session = loadSession();
   const items = [];
@@ -102,7 +112,11 @@ export async function getSetupStatus() {
   }
 
   const requiredOk = items.filter((i) => i.required).every((i) => i.ok);
-  const ready = session.setupComplete && requiredOk;
+  if (requiredOk && !session.setupComplete && !options.skipAutoComplete && process.env.THEJAD_AUTO_SETUP !== '0') {
+    setSetupComplete(true);
+  }
+  const sessionNow = loadSession();
+  const ready = requiredOk && sessionNow.setupComplete;
 
   return {
     ready,

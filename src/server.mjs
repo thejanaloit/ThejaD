@@ -12,6 +12,7 @@ import { bootstrapEnv } from './env-bootstrap.mjs';
 import { getCapabilityTier, isToolAllowed } from './capability.mjs';
 import { listPrompts, getPromptContent } from './prompts-registry.mjs';
 import { listResources, readResource } from './resources-registry.mjs';
+import { resolveCatalogRoute } from './catalog-router.mjs';
 import { buildCatalogTools, catalogToolCount, catalogCoreCount, catalogBulkCount } from './tool-catalog.mjs';
 import { listToolsForSession, handleTool, formatToolResult } from './tools.mjs';
 
@@ -24,7 +25,7 @@ export async function startMcpServer() {
   bootstrapEnv();
 
   const server = new Server(
-    { name: 'ThejaD', version: '4.5.0' },
+    { name: 'ThejaD', version: '4.6.0' },
     {
       capabilities: {
         tools: {},
@@ -131,6 +132,11 @@ export async function startMcpServer() {
 
 async function handleCatalogTool(cat, args) {
   const { category, action } = cat;
+  const routed = resolveCatalogRoute(category, action);
+  if (routed) {
+    const mapped = routed.map ? routed.map(args) : args;
+    return formatToolResult(await handleTool(routed.name, mapped));
+  }
   if (category === 'coordination' && action === 'claim') {
     return formatToolResult(await handleTool('coordination_claim', args));
   }
@@ -213,6 +219,6 @@ export function getServerStats() {
     prompts: listPrompts().length,
     resources: listResources().length,
     tier,
-    version: '4.5.0',
+    version: '4.6.0',
   };
 }
