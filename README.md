@@ -385,14 +385,46 @@ coordination_release → claimId: claim-...
 
 ## Memory
 
+**Graphical memory** is the default way ThejaD understands this repo: **Graphify** indexes files, routes, services, and docs as a graph (`graphify-out/`). **Pod memory** holds team keys (decisions, smoke results, lane notes). Flat `memory_search` is for quick key lookup — secondary to the graph + pod merge used by `thejad_orchestrate`.
+
+### Layers
+
 | Layer | Tool / path | Purpose |
 |-------|-------------|---------|
+| **Graphify ThejaD** | `graphify_hint` → `graphify .` | Structural / graphical memory of the monorepo |
+| **ThejaD memory** | `memory_store`, `memory_search` | `.thejad/memory.json` (local) |
+| **Pod shared memory** | `thejad_pod_memory_sync` | `.thejad/pod/shared-memory.json` when LAN pod is joined |
 | **Claude-mem ThejaD** | Imported skills | Compress sessions; inject prior context |
-| **ThejaD memory** | `memory_store`, `memory_search` | `.thejad/memory.json` |
 | **Ruflo ThejaD memory** | `ruflo` MCP key | Hybrid swarm memory |
 | **Diary** | `diary_append` | `thejad/diary/YYYY-MM-DD.md` |
 | **Device index** | `device_search`, `device_usable_summary` | 14k local dev files |
-| **Graphify ThejaD** | `graphify_hint` | Structural memory of codebase |
+
+### Memory locking (how agents stay consistent)
+
+Locking is **not** one database mutex. Four repo-backed rules stack:
+
+| Mechanism | Where | Behaviour |
+|-----------|--------|-----------|
+| **Pod LWW** | `src/pod-memory.mjs` | On `thejad_pod_memory_sync`, each memory **key** keeps the entry with the newest `at` ISO timestamp (last-write-wins across LAN peers). |
+| **Coordination claim** | `coordination/active-claims.json` | `coordination_claim` / `coordination_release` record which tool (Cursor, Antigravity, …) owns which **paths** and lane — avoids edit collisions on the same repo tree. |
+| **Orchestra snapshot** | `src/orchestra.mjs` | `runOrchestra` calls `podMemorySync()` when the pod is joined (unless disabled) **before** routing, model warm-up, and prompt regeneration — so one orchestrate pass reads the same merged pod state. |
+| **Tier lock** | `src/capability.mjs`, `.thejad/unlock.json` | `thejad_unlock` with `mamaThejana` enables maximum tool tier until `nothejad unlock` or `THEJAD_FULL_ACCESS=1` — controls **which tools run**, not which memory value wins. |
+
+```text
+memory_store (local) ──► pod copy if joined
+podMemorySync (LWW)  ──► shared-memory.json
+graphify_hint        ──► graphify-out/ (point-in-time index)
+thejad_orchestrate   ──► sync pod → read graph + memory → workflow
+```
+
+**Typical LOLC session**
+
+1. `coordination_claim` — paths you will touch (see [lanes](#multi-user-development-no-collisions)).
+2. Implement; store decisions with `memory_store` (auto-shared to pod when joined).
+3. `thejad_orchestrate` — pod sync + Graphify context + team routing.
+4. `coordination_release` when the lane is free.
+
+Explainer site (optional): `npm run thejad:website` → `http://127.0.0.1:3199/#graphical-memory` — diagrams only; behaviour is defined in this repo’s `src/` and tools above.
 
 ---
 

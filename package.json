@@ -12,6 +12,8 @@
     "mcp": "node bin/thejad.js mcp start",
     "init": "node bin/thejad.js init",
     "stats": "node bin/thejad.js stats",
+    "website": "node website/serve.mjs",
+    "website:open": "node website/serve.mjs & node -e \"setTimeout(()=>require('child_process').execSync('start http://127.0.0.1:'+(process.env.THEJAD_WEB_PORT||3199),{stdio:'inherit'}),800)\"",
     "engineering:install": "powershell -ExecutionPolicy Bypass -File install/install-engineering-plugins.ps1"
   },
   "engines": { "node": ">=20" },
